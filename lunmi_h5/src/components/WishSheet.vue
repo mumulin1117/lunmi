@@ -97,9 +97,10 @@
           class="publish-button"
           role="button"
           :aria-disabled="is_publishing || is_loading"
+          :aria-busy="is_publishing"
           @click="publish_wish"
         >
-          <text>{{ $t('Publish') }}</text>
+          <text>{{ $t(is_publishing ? 'Publishing wish...' : 'Publish') }}</text>
           <image src="/static/icon/wish_tree_lantern_inner.png" mode="aspectFit" />
         </view>
       </view>
@@ -118,6 +119,7 @@
 import { computed, onBeforeUnmount, ref, watch } from 'vue'
 import { Close } from '@element-plus/icons-vue'
 import theme from '@/config/theme.json'
+import { remember_ritual } from '@/utils/ritualHandoff'
 import { selectUserBalance } from '@/api/common'
 import { uploadImageFile } from '@/api/media'
 import { addLmWish, selectLmWishBranchConfigPage } from '@/api/wish'
@@ -161,6 +163,7 @@ const form_error = ref('')
 let branch_context = {}
 let balance_context = {}
 let publish_context = {}
+let is_disposed = false
 let upload_context = {}
 let load_generation = 0
 
@@ -289,15 +292,25 @@ const publish_wish = async () => {
   is_publishing.value = true
   publish_context.cancel?.()
   publish_context = {}
-  const result = await addLmWish(build_wish_params({
-    owner_user_id: account_store.userId,
-    content: wish_text.value,
-    branch: selected_branch.value,
-    reply_enabled: reply_enabled.value,
-    published_at: new Date(),
-    img_url: photo_url.value
-  }), publish_context)
-  is_publishing.value = false
+  const context = publish_context
+  const user_id = `${account_store.userId}`
+  const branch_level = selected_level.value
+  let result
+  try {
+    result = await addLmWish(build_wish_params({
+      owner_user_id: account_store.userId,
+      content: wish_text.value,
+      branch: selected_branch.value,
+      reply_enabled: reply_enabled.value,
+      published_at: new Date(),
+      img_url: photo_url.value
+    }), context)
+  } catch (error) {
+    result = { success: false, error: error?.message || 'Unable to publish this wish.' }
+  } finally {
+    if (!is_disposed && context === publish_context) is_publishing.value = false
+  }
+  if (is_disposed || !props.visible || context !== publish_context || user_id !== `${account_store.userId}`) return
   if (!result?.success) {
     form_error.value = result?.error || 'Unable to publish this wish.'
     return
@@ -307,6 +320,7 @@ const publish_wish = async () => {
     form_error.value = 'The wish was published, but it cannot be opened.'
     return
   }
+  remember_ritual('wish', user_id, wish_id, branch_level)
   emit('update:visible', false)
   emit('published', wish_id)
 }
@@ -329,6 +343,7 @@ watch(() => props.visible, (visible) => {
   load_sheet()
 })
 onBeforeUnmount(() => {
+  is_disposed = true
   load_generation += 1
   branch_context.cancel?.()
   balance_context.cancel?.()

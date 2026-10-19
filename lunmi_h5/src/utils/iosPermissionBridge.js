@@ -9,8 +9,6 @@ import {
 import {
   IOS_CAMERA_PERMISSION_REQUEST_HANDLER_NAME,
   IOS_CAMERA_PERMISSION_RESULT_RECEIVER_NAME,
-  IOS_CONTACTS_RECEIVER_NAME,
-  IOS_CONTACTS_REQUEST_HANDLER_NAME,
   IOS_LOCATION_PERMISSION_REQUEST_HANDLER_NAME,
   IOS_LOCATION_PERMISSION_RESULT_RECEIVER_NAME,
   IOS_MESSAGE_TYPE,
@@ -58,23 +56,7 @@ const permission_message_configuration = Object.freeze({
     receiver_name: IOS_LOCATION_PERMISSION_RESULT_RECEIVER_NAME,
     label: 'Location',
     store_key: 'location',
-    reason: 'Allow this app to use your location.'
-  },
-  [IOS_PERMISSION.CONTACTS]: {
-    request_type: IOS_MESSAGE_TYPE.CONTACTS_PERMISSION_REQUEST,
-    result_type: IOS_MESSAGE_TYPE.CONTACTS_PERMISSION_RESULT,
-    handler_name: IOS_CONTACTS_REQUEST_HANDLER_NAME,
-    receiver_name: IOS_CONTACTS_RECEIVER_NAME,
-    label: 'Contacts',
-    store_key: 'contacts',
-    reason: 'Allow this app to access your contacts.'
-  },
-  [IOS_PERMISSION.FACE_ID]: {
-    request_type: IOS_MESSAGE_TYPE.FACE_ID_PERMISSION_REQUEST,
-    result_type: IOS_MESSAGE_TYPE.FACE_ID_PERMISSION_RESULT,
-    handler_name: 'requestFaceIDPermission',
-    receiver_name: 'receiveIOSFaceIDPermissionResult',
-    label: 'Face ID'
+    reason: 'Use your location to recommend lanterns from your area when you select Nearby.'
   }
 })
 
@@ -263,11 +245,7 @@ export const request_ios_camera_permission = (options) => request_ios_permission
 export const request_ios_photo_library_permission = (options) => request_ios_permission(IOS_PERMISSION.PHOTO_LIBRARY, options)
 export const request_ios_microphone_permission = (options) => request_ios_permission(IOS_PERMISSION.MICROPHONE, options)
 export const request_ios_location_permission = (options) => request_ios_permission(IOS_PERMISSION.LOCATION, options)
-export const request_ios_contacts_permission = (options) => request_ios_permission(IOS_PERMISSION.CONTACTS, options)
-export const request_ios_face_id_permission = (options) => request_ios_permission(IOS_PERMISSION.FACE_ID, options)
 export const receive_ios_camera_permission_result = (callback) => receive_ios_permission_result(IOS_PERMISSION.CAMERA, callback)
 export const receive_ios_photo_library_permission_result = (callback) => receive_ios_permission_result(IOS_PERMISSION.PHOTO_LIBRARY, callback)
 export const receive_ios_microphone_permission_result = (callback) => receive_ios_permission_result(IOS_PERMISSION.MICROPHONE, callback)
 export const receive_ios_location_permission_result = (callback) => receive_ios_permission_result(IOS_PERMISSION.LOCATION, callback)
-export const receive_ios_contacts_permission_result = (callback) => receive_ios_permission_result(IOS_PERMISSION.CONTACTS, callback)
-export const receive_ios_face_id_permission_result = (callback) => receive_ios_permission_result(IOS_PERMISSION.FACE_ID, callback)

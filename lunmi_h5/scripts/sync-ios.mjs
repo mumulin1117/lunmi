@@ -8,7 +8,6 @@ import { PACKAGE_NAME, check_package, package_web_bundle, read_package_key } fro
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const ios_root = path.resolve(root, '../LunmiBrafer/LunmiBrafer')
 const destination = path.join(ios_root, PACKAGE_NAME)
-const key_path = path.join(ios_root, 'LunimcenterArchive.swift')
 const output = path.join(root, 'dist/build/h5')
 const checking = process.argv.includes('--check')
 const force = process.argv.includes('--force')
@@ -44,7 +43,7 @@ const acquire_lock = async (lock) => {
 
 const main = async () => {
   let fingerprint = await source_fingerprint(root)
-  let key = await read_package_key(key_path)
+  let key = await read_package_key(ios_root)
   const current = await check_package({ destination, key, source_sha256: fingerprint })
   const is_current = Boolean(current)
   if (checking) {
@@ -58,7 +57,7 @@ const main = async () => {
   await acquire_lock(lock)
   try {
     fingerprint = await source_fingerprint(root)
-    key = await read_package_key(key_path)
+    key = await read_package_key(ios_root)
     if (!force && await check_package({ destination, key, source_sha256: fingerprint })) {
       console.log('LunmiBrafer encrypted H5 package is current.')
       return
@@ -66,9 +65,9 @@ const main = async () => {
     await run_build()
     const after_build = await source_fingerprint(root)
     if (after_build !== fingerprint) throw new Error('H5 source changed during the build. Run sync again to avoid packaging mixed versions.')
-    if (!(await read_package_key(key_path)).equals(key)) throw new Error('Packaging key changed during the build. Run sync again.')
+    if (!(await read_package_key(ios_root)).equals(key)) throw new Error('Packaging key changed during the build. Run sync again.')
     const result = await package_web_bundle({ source: output, destination, source_sha256: fingerprint, key })
-    if (await source_fingerprint(root) !== fingerprint || !(await read_package_key(key_path)).equals(key)) {
+    if (await source_fingerprint(root) !== fingerprint || !(await read_package_key(ios_root)).equals(key)) {
       throw new Error('H5 source or packaging key changed during synchronization. Run sync again.')
     }
     // Remove the former generated plaintext resources only after the encrypted

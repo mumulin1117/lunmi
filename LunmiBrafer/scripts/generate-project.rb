@@ -31,7 +31,7 @@ end
 sync = app.new_shell_script_build_phase('Synchronize H5 source')
 sync.shell_script = '/bin/sh "$SRCROOT/scripts/sync-h5.sh"'
 sync.always_out_of_date = '1'
-sync.input_paths = ['$(SRCROOT)/LunmiBrafer/Info.plist', '$(SRCROOT)/LunmiBrafer/NativeConfiguration.swift', '$(SRCROOT)/scripts/prepare-info.mjs']
+sync.input_paths = ['$(SRCROOT)/LunmiBrafer/Info.plist', '$(SRCROOT)/LunmiBrafer/PersistentPivotGlow.swift', '$(SRCROOT)/scripts/prepare-info.mjs']
 sync.output_paths = ['$(DERIVED_FILE_DIR)/LunmiBrafer-Info.plist']
 app.build_phases.delete(sync)
 app.build_phases.insert(0, sync)

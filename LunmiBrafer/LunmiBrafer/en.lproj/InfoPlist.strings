@@ -1,9 +1,6 @@
 "NSCameraUsageDescription" = "Use your camera to take a profile photo, share media, or join a video call.";
-"NSMicrophoneUsageDescription" = "Use your microphone when you speak in a Voice Room, record audio, or join a call.";
-"NSPhotoLibraryUsageDescription" = "Choose photos or videos to share on Lunmi or use as your profile photo.";
-"NSPhotoLibraryAddUsageDescription" = "Save a photo or video to your library when you choose to save it.";
-"NSLocationWhenInUseUsageDescription" = "Allow location access when you choose a location-related feature.";
-"NSContactsUsageDescription" = "Access contacts only when you choose to use a contacts feature.";
-"NSFaceIDUsageDescription" = "Use Face ID when you choose to verify your identity on this device.";
+"NSMicrophoneUsageDescription" = "Lunmi uses your microphone so you can speak in Voice Rooms, make spoken recordings, and take part in calls you choose to start or answer.";
+"NSPhotoLibraryUsageDescription" = "Lunmi lets you choose photos for lanterns, wishes, or your personal picture, and select videos to add to Lunmi.";
+"NSLocationWhenInUseUsageDescription" = "Lunmi uses your location while you use the app to recommend lanterns from your area when you select Nearby on the home page.";
 "CFBundleDisplayName" = "Lunmi";
 "CFBundleName" = "Lunmi";

@@ -19,11 +19,11 @@ export const PERMISSION_REQUEST_DEFINITIONS = Object.freeze({
   },
   location: {
     title: 'Allow “Lunmi” to Use Your Location?',
-    description: 'Show lanterns released near you. Only the city you choose is ever public — never your precise location.',
+    description: 'Use your location to recommend lanterns from your area when you select Nearby.',
     deny_label: 'Deny',
     can_allow: true,
     bridge_permission: IOS_PERMISSION.LOCATION,
-    reason: 'Show lanterns released near you. Only the city you choose is ever public.'
+    reason: 'Use your location to recommend lanterns from your area when you select Nearby.'
   },
   photos: {
     title: '“Lunmi” Would Like to Access Your Photos',

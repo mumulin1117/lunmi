@@ -33,12 +33,14 @@ test('release lantern types and boost cost match the sheet contract', () => {
 test('add lantern payload only uses documented fields', () => {
   const params = build_add_lantern_params({
     content: '  Almost said it  ',
+    lantern_label: 'Unsaid',
     owner_user_id: 12,
     city_name: 'Kyoto'
   })
   assert.deepEqual(params, {
     anonymousDisplay: 1,
     content: 'Almost said it',
+    lanternLabel: 'Unsaid',
     lanternStatus: 'drifting',
     ownerUserId: 12,
     releaseCityName: 'Kyoto'
@@ -54,6 +56,7 @@ test('empty city and owner are omitted from the add lantern payload', () => {
   assert.deepEqual(params, {
     anonymousDisplay: 1,
     content: 'hi',
+    lanternLabel: '',
     lanternStatus: 'drifting'
   })
 })

@@ -386,7 +386,7 @@ test('chat confirms without a second read, rejects stale reads, and ignores late
 })
 
 test('authorization records follow the host permission result', async () => {
-  const records = { microphone: false, camera: false, location: false, album: false, contacts: false }
+  const records = { microphone: false, camera: false, location: false, album: false }
   const store = { getAuthRecord: (key) => Boolean(records[key]) }
   let result = { granted: false, success: false, permission_status: 'denied', permanent: false, cancelled: false }
   const page = await load_page('src/pages/profile/permission-records/index.vue', [

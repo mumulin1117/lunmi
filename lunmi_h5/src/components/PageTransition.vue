@@ -8,7 +8,8 @@
 </template>
 
 <script setup>
-import { computed, onBeforeUnmount, onMounted, ref, useAttrs } from 'vue'
+import { computed, getCurrentInstance, onBeforeUnmount, onMounted, ref, useAttrs } from 'vue'
+import { MAIN_TAB_ITEMS } from '@/utils/mainTabNavigation'
 import { observe_native_launch_ready } from '@/utils/nativeLaunch'
 import {
   provide_route_transition,
@@ -28,6 +29,8 @@ const props = defineProps({
 })
 
 const attrs = useAttrs()
+const instance = getCurrentInstance()
+const is_main_tab = computed(() => MAIN_TAB_ITEMS.some(item => item.path === instance.proxy.$route?.path))
 const page_root = ref(null)
 let stop_launch_observer = () => {}
 onMounted(() => {
@@ -41,7 +44,7 @@ const transition_duration_style = Object.freeze({
 })
 const page_attrs = computed(() => ({
   ...attrs,
-  class: ['page', attrs.class],
+  class: ['page', { 'page--main': is_main_tab.value }, attrs.class],
   style: [attrs.style, transition_duration_style]
 }))
 

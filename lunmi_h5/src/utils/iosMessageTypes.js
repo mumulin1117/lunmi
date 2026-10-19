@@ -4,6 +4,7 @@ export const IOS_BRIDGE_EVENT_NAME = 'common-template-ios-message'
 
 export const IOS_HAPTIC_HANDLER_NAME = 'performHaptic'
 export const IOS_SHARE_ACTIVITY_HANDLER_NAME = 'shareActivity'
+// Retired capability names remain reserved for protocol compatibility only.
 export const IOS_CONTACTS_REQUEST_HANDLER_NAME = 'requestContacts'
 export const IOS_CONTACTS_RECEIVER_NAME = 'receiveIOSContacts'
 export const IOS_PHOTO_LIBRARY_PERMISSION_REQUEST_HANDLER_NAME = 'requestPhotoLibraryPermission'
@@ -25,15 +26,12 @@ export const IOS_SAFE_AREA_EVENT_NAME = 'common-template-safe-area-change'
 export const IOS_NATIVE_REQUEST_TIMEOUT_MS = 30000
 export const IOS_IAP_CALLBACK_TIMEOUT_MS = 40000
 export const IOS_IAP_PURCHASE_TIMEOUT_MS = 300000
-export const IOS_CONTACTS_MAXIMUM_COUNT = 500
 
 export const IOS_PERMISSION = Object.freeze({
   CAMERA: 'camera',
   PHOTO_LIBRARY: 'photo_library',
   MICROPHONE: 'microphone',
-  LOCATION: 'location',
-  CONTACTS: 'contacts',
-  FACE_ID: 'face_id'
+  LOCATION: 'location'
 })
 
 export const IOS_PERMISSION_STATUS = Object.freeze({

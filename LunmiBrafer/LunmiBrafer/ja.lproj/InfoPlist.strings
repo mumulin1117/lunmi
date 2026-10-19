@@ -1,9 +1,6 @@
 "NSCameraUsageDescription" = "プロフィール写真の撮影、メディアの共有、ビデオ通話にカメラを使用します。";
-"NSMicrophoneUsageDescription" = "ボイスルームでの発言、音声の録音、通話にマイクを使用します。";
-"NSPhotoLibraryUsageDescription" = "Lunmiで共有する写真や動画、プロフィール写真を選択します。";
-"NSPhotoLibraryAddUsageDescription" = "保存を選択した写真や動画をライブラリに保存します。";
-"NSLocationWhenInUseUsageDescription" = "位置情報を利用する機能を選択した場合に位置情報を使用します。";
-"NSContactsUsageDescription" = "連絡先機能を選択した場合のみ、連絡先にアクセスします。";
-"NSFaceIDUsageDescription" = "このデバイスで本人確認を選択した場合にFace IDを使用します。";
+"NSMicrophoneUsageDescription" = "ボイスルームでの発言、音声の録音、ご自身が発信または応答する通話にマイクを使用します。";
+"NSPhotoLibraryUsageDescription" = "ランタンや願いに添える写真、ご自身の表示写真、Lunmiに追加する動画をフォトライブラリから選択します。";
+"NSLocationWhenInUseUsageDescription" = "ホーム画面で「近く」を選択した際に、アプリの使用中の位置情報を利用して、お近くのランタンをすくう候補としておすすめします。";
 "CFBundleDisplayName" = "Lunmi";
 "CFBundleName" = "Lunmi";

@@ -1,6 +1,6 @@
 import { createCipheriv, createDecipheriv, createHash, randomBytes } from 'node:crypto'
 import { deflateRawSync, inflateRawSync } from 'node:zlib'
-import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises'
+import { mkdir, readFile, readdir, rename, rm, stat, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { files_under } from './ios-sync-lib.mjs'
 
@@ -14,9 +14,36 @@ const maximum_files = 20000
 const sha256 = value => createHash('sha256').update(value).digest('hex')
 const key_id = key => sha256(key)
 
+export const decode_native_string = encoded => Array.from(encoded)
+  .filter((_, index) => index % 2 === 0)
+  .join('')
+
+// Read literal data only; never execute Swift or log the recovered values.
+export const read_native_string_declarations = (source, property) => {
+  if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(property)) throw new Error('Invalid native declaration name.')
+  const literal = '"(?:[^"\\\\]|\\\\.)*"'
+  const expression = `(?:LucentWonderment\\.willowSonority\\(\\s*(${literal})\\s*\\)|(${literal}))`
+  const pattern = new RegExp(`^\\s*(?:static\\s+)?let\\s+${property}\\s*=\\s*${expression}\\s*$`, 'gm')
+  return [...source.matchAll(pattern)].map(match => {
+    const value = JSON.parse(match[1] || match[2])
+    if (!match[1]) return value
+    if (Array.from(value).length % 2 !== 0) throw new Error('Invalid interleaved native string.')
+    return decode_native_string(value)
+  })
+}
+
 export const read_package_key = async filename => {
-  const source = await readFile(filename, 'utf8')
-  const encoded = source.match(/static let base64 = "([A-Za-z0-9+/]{43}=)"/)?.[1]
+  const metadata = await stat(filename)
+  const files = metadata.isDirectory()
+    ? (await readdir(filename, { withFileTypes: true }))
+      .filter(entry => entry.isFile() && entry.name.endsWith('.swift'))
+      .map(entry => path.join(filename, entry.name))
+    : [filename]
+  const declarations = (await Promise.all(files.map(async file => {
+    const source = await readFile(file, 'utf8')
+    return read_native_string_declarations(source, 'scatteringSable')
+  }))).flat()
+  const encoded = declarations.length === 1 && /^[A-Za-z0-9+/]{43}=$/.test(declarations[0]) ? declarations[0] : ''
   const key = Buffer.from(encoded || '', 'base64')
   if (!encoded || key.length !== 32) throw new Error('A valid 256-bit lunimcenter package key is required.')
   return key

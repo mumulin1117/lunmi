@@ -5,6 +5,7 @@
       v-for="item in MAIN_TAB_ITEMS"
       :key="item.path"
       class="main-tab"
+      :class="{ 'main-tab--active': item.path === current_path }"
       role="button"
       :aria-label="$t(item.label)"
       :aria-current="item.path === current_path ? 'page' : undefined"
@@ -12,11 +13,14 @@
       @click="switch_tab(item)"
     >
       <view class="main-tab__icons">
-        <image v-show="item.path === current_path" :src="`/static/icon/tabbar_${item.icon}_active.png`" mode="aspectFit" />
-        <image v-show="item.path !== current_path" :src="`/static/icon/tabbar_${item.icon}_unactive.png`" mode="aspectFit" />
+        <image :class="{ 'main-tab__icon--hidden': item.path !== current_path }" :src="`/static/icon/tabbar_${item.icon}_active.png`" mode="aspectFit" />
+        <image :class="{ 'main-tab__icon--hidden': item.path === current_path }" :src="`/static/icon/tabbar_${item.icon}_unactive.png`" mode="aspectFit" />
       </view>
       <MessageUnreadBadge v-if="item.icon === 'message'" :count="unread_chat_count" />
-      <image class="main-tab__line" :class="{ 'main-tab__line--ghost': item.path !== current_path }" src="/static/icon/tabbar_active_line.png" mode="aspectFit" aria-hidden="true" />
+      <view class="main-tab__line" aria-hidden="true" />
+    </view>
+    <view class="main-tabbar__indicator" :style="indicator_style" aria-hidden="true">
+      <image src="/static/icon/tabbar_active_line.png" mode="aspectFit" />
     </view>
   </view>
 </template>
@@ -34,6 +38,10 @@ import { replace_route } from '@/utils/routeTransition'
 const instance = getCurrentInstance()
 const account_store = storeGlobal()
 const current_path = computed(() => instance.proxy.$route?.path || '')
+const indicator_style = computed(() => ({
+  width: `${100 / MAIN_TAB_ITEMS.length}%`,
+  transform: `translateX(${Math.max(0, MAIN_TAB_ITEMS.findIndex(item => item.path === current_path.value)) * 100}%)`
+}))
 const is_visible = computed(() => MAIN_TAB_ITEMS.some((item) => item.path === current_path.value) && account_store.isLogin)
 const unread_chat_count = ref(0)
 const is_navigating = ref(false)
@@ -161,10 +169,20 @@ onBeforeUnmount(() => {
   height: 60rpx;
 }
 
+.main-tab__icons { position: relative; transition: transform 180ms ease-out; }
+.main-tab__icons image { position: absolute; inset: 0; opacity: 1; transition: opacity 160ms ease; }
+.main-tab__icons .main-tab__icon--hidden { opacity: 0; }
+.main-tab--active .main-tab__icons { transform: translateY(-2rpx) scale(1.04); }
+.main-tabbar__indicator { position: absolute; top: 116rpx; left: 0; height: 8rpx; pointer-events: none; transition: transform 220ms cubic-bezier(.22,.8,.25,1); }
+.main-tabbar__indicator image { position: absolute; left: calc(50% - 26rpx); width: 52rpx; height: 8rpx; }
+
 .main-tab__line {
   width: 52rpx;
   height: 8rpx;
 }
 
-.main-tab__line--ghost { visibility: hidden; }
+@media (prefers-reduced-motion: reduce) {
+  .main-tab__icons, .main-tabbar__indicator { transition: none; }
+  .main-tab--active .main-tab__icons { transform: none; }
+}
 </style>

@@ -1,5 +1,5 @@
 const PERMISSION_STORAGE_KEY = 'lunmi_permission_preferences'
-const PERMISSION_KEYS = Object.freeze(['microphone', 'camera', 'location', 'album', 'contacts', 'notification'])
+const PERMISSION_KEYS = Object.freeze(['microphone', 'camera', 'location', 'album', 'notification'])
 
 const read_record = () => {
   if (typeof uni === 'undefined' || typeof uni.getStorageSync !== 'function') return {}
@@ -17,7 +17,7 @@ export const read_permission_record = () => {
 export const write_permission_record = (permission, granted) => {
   if (!PERMISSION_KEYS.includes(permission) || typeof uni === 'undefined' || typeof uni.setStorageSync !== 'function') return false
   try {
-    uni.setStorageSync(PERMISSION_STORAGE_KEY, { ...read_record(), [permission]: Boolean(granted) })
+    uni.setStorageSync(PERMISSION_STORAGE_KEY, { ...read_permission_record(), [permission]: Boolean(granted) })
     return true
   } catch { return false }
 }

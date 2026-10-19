@@ -15,7 +15,7 @@ export const PERMISSION_RECORD_ROWS = Object.freeze([
     key: 'location',
     bridge: IOS_PERMISSION.LOCATION,
     title: 'Location',
-    copy: 'Show lanterns near the city you choose. Precise location stays private.',
+    copy: 'Use your location to recommend lanterns from your area when you select Nearby.',
     icon: '/static/icon/profile_location.png'
   },
   {

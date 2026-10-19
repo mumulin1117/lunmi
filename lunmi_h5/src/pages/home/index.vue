@@ -170,6 +170,7 @@ import {
   scoop_remaining_after_purchase
 } from '@/utils/lanternHomePresentation'
 import { build_lantern_release_url } from '@/utils/releaseLanternPresentation'
+import { remember_ritual } from '@/utils/ritualHandoff'
 import {
   clear_pending_caught_lantern,
   read_pending_caught_lantern,
@@ -352,6 +353,7 @@ const open_scheduled_release_sheet = () => {
 }
 
 const on_lantern_released = ({ lantern_id, lantern_type } = {}) => {
+  remember_ritual('release', storeGlobal().userId, lantern_id)
   is_release_visible.value = false
   clearTimeout(release_leave_timer)
   release_leave_timer = setTimeout(() => {

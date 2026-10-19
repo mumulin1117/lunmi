@@ -343,6 +343,9 @@ uni-page.route-stack-page--foreground > uni-page-wrapper > uni-page-body {
   transition: none;
 }
 
+.page--main.page-route-none-enter-active { transition: opacity 160ms ease-out; }
+.page--main.page-route-none-enter-from { opacity: 0; }
+
 .page-curtain-enter-active::before,
 .page-curtain-enter-active::after {
   position: absolute;
@@ -371,5 +374,27 @@ uni-page.route-stack-page--foreground > uni-page-wrapper > uni-page-body {
 .page-curtain-enter-from::before,
 .page-curtain-enter-from::after {
   transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-slide-forward-enter-active,
+  .page-slide-forward-leave-active,
+  .page-slide-back-enter-active,
+  .page-slide-back-leave-active,
+  .page-stack-forward-enter-active,
+  .page-stack-back-leave-active,
+  .page-curtain-enter-active { transition: opacity 120ms ease !important; }
+  .page-slide-forward-enter-from,
+  .page-slide-forward-leave-to,
+  .page-slide-back-enter-from,
+  .page-slide-back-leave-to,
+  .page-stack-forward-enter-from,
+  .page-stack-back-leave-to { transform: none !important; opacity: 0; }
+  .route-stack-snapshot,
+  .route-stack-snapshot--pushed,
+  .route-stack-snapshot--revealed { transform: none !important; transition: none !important; }
+  .page-curtain-enter-active::before,
+  .page-curtain-enter-active::after { display: none; }
+  .page-curtain-enter-from { opacity: 0; }
 }
 </style>

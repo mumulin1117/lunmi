@@ -3,7 +3,7 @@ import { API_BUNDLE_ID } from '@/config/api'
 import { clear_login_session, read_login_session, write_login_session } from '@/utils/loginSession'
 import { read_permission_record, write_permission_record } from '@/utils/permissionStorage'
 
-const AUTH_RECORD_KEYS = Object.freeze(['microphone', 'camera', 'location', 'album', 'contacts'])
+const AUTH_RECORD_KEYS = Object.freeze(['microphone', 'camera', 'location', 'album'])
 
 export const storeGlobal = defineStore('storeGlobal', {
   state: () => ({

@@ -1,12 +1,49 @@
 import assert from 'node:assert/strict'
-import { mkdtemp, mkdir, writeFile, readFile, readdir, rm } from 'node:fs/promises'
+import { mkdtemp, mkdir, writeFile, readFile, readdir, rename, rm } from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import test from 'node:test'
 import { createCipheriv, createDecipheriv, createHash, randomBytes } from 'node:crypto'
 import { deflateRawSync, inflateRawSync } from 'node:zlib'
 import { directory_fingerprint, source_fingerprint, source_files } from './ios-sync-lib.mjs'
-import { check_package, package_web_bundle, unpack_package, read_package_manifest, PACKAGE_NAME } from './lunimcenter-package.mjs'
+import { check_package, package_web_bundle, unpack_package, read_package_manifest, read_package_key, decode_native_string, read_native_string_declarations, PACKAGE_NAME } from './lunimcenter-package.mjs'
+
+test('native package key lookup survives Swift file renames and rejects ambiguous declarations', async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'lunmi-native-key-'))
+  const key = randomBytes(32)
+  const first = path.join(root, 'Original.swift')
+  const renamed = path.join(root, 'ApogeeAwakenSpark.swift')
+  const declaration = `enum Example {\n    static let scatteringSable = "${key.toString('base64')}"\n}\n`
+  try {
+    await writeFile(first, declaration)
+    assert.ok((await read_package_key(first)).equals(key))
+    assert.ok((await read_package_key(root)).equals(key))
+    await rename(first, renamed)
+    assert.ok((await read_package_key(root)).equals(key))
+    const interleaved = Array.from(key.toString('base64'), value => value + 'q').join('')
+    await writeFile(renamed, `enum Example {\n    static let scatteringSable = LucentWonderment.willowSonority("${interleaved}")\n}\n`)
+    assert.ok((await read_package_key(root)).equals(key))
+    await writeFile(path.join(root, 'Duplicate.swift'), declaration)
+    await assert.rejects(read_package_key(root), /valid 256-bit/)
+    await rm(renamed)
+    await rm(path.join(root, 'Duplicate.swift'))
+    await assert.rejects(read_package_key(root), /valid 256-bit/)
+  } finally {
+    await rm(root, { recursive: true, force: true })
+  }
+})
+
+test('native string decoding preserves Unicode scalars and supports encoded build configuration', () => {
+  const encode = value => Array.from(value, scalar => scalar + 'q').join('')
+  for (const value of ['', 'abc', '\0\n"\\', '願い🌙e\u0301👨‍👩‍👧']) {
+    assert.equal(decode_native_string(encode(value)), value)
+  }
+  const api = 'https://example.invalid/api'
+  const encoded = encode(api)
+  assert.deepEqual(read_native_string_declarations(`let example = LucentWonderment.willowSonority("${encoded}")`, 'example'), [api])
+  assert.deepEqual(read_native_string_declarations(`let example = "${api}"`, 'example'), [api])
+  assert.throws(() => read_native_string_declarations('let example = LucentWonderment.willowSonority("x")', 'example'), /Invalid interleaved/)
+})
 
 const sha256 = data => createHash('sha256').update(data).digest('hex')
 const open_section = (box, key, aad) => {

@@ -4,14 +4,9 @@ import {
   IOS_MESSAGE_TYPE
 } from './iosMessageTypes.js'
 
-export { request_ios_contacts, receive_ios_contacts } from './iosContactsBridge.js'
 export {
   request_ios_camera_permission,
   receive_ios_camera_permission_result,
-  request_ios_contacts_permission,
-  receive_ios_contacts_permission_result,
-  request_ios_face_id_permission,
-  receive_ios_face_id_permission_result,
   request_ios_location_permission,
   receive_ios_location_permission_result,
   request_ios_microphone_permission,
@@ -29,11 +24,6 @@ export {
 export {
   IOS_CAMERA_PERMISSION_REQUEST_HANDLER_NAME,
   IOS_CAMERA_PERMISSION_RESULT_RECEIVER_NAME,
-  IOS_CONTACTS_MAXIMUM_COUNT,
-  IOS_CONTACTS_RECEIVER_NAME,
-  IOS_CONTACTS_REQUEST_HANDLER_NAME,
-  IOS_FACE_ID_PERMISSION_REQUEST_HANDLER_NAME,
-  IOS_FACE_ID_PERMISSION_RESULT_RECEIVER_NAME,
   IOS_HAPTIC_HANDLER_NAME,
   IOS_LOCATION_PERMISSION_REQUEST_HANDLER_NAME,
   IOS_LOCATION_PERMISSION_RESULT_RECEIVER_NAME,

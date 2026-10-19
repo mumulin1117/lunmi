@@ -4,6 +4,7 @@ import { onHide, onShow, onUnload } from '@dcloudio/uni-app'
 // Decorative CSS and canvas animations share the owning page's visibility policy.
 export const use_ambient_activity = (on_change, on_dispose) => {
   const is_active = ref(false)
+  const is_visible = ref(false)
   const is_reduced = ref(false)
   let mounted = false
   let page_visible = true
@@ -13,7 +14,8 @@ export const use_ambient_activity = (on_change, on_dispose) => {
   const update = () => {
     if (!mounted) return
     is_reduced.value = preference?.matches === true
-    is_active.value = page_visible && !document.hidden && !is_reduced.value
+    is_visible.value = page_visible && !document.hidden
+    is_active.value = is_visible.value && !is_reduced.value
     on_change?.({ active: is_active.value, reduced: is_reduced.value })
   }
 
@@ -22,6 +24,7 @@ export const use_ambient_activity = (on_change, on_dispose) => {
     disposed = true
     mounted = false
     is_active.value = false
+    is_visible.value = false
     on_change?.({ active: false, reduced: is_reduced.value })
     preference?.removeEventListener('change', update)
     document.removeEventListener('visibilitychange', update)
@@ -49,5 +52,5 @@ export const use_ambient_activity = (on_change, on_dispose) => {
   })
   onBeforeUnmount(dispose)
 
-  return { is_active, is_reduced }
+  return { is_active, is_reduced, is_visible }
 }

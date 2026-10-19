@@ -98,9 +98,10 @@
                 :class="{ 'release-button--disabled': !can_release }"
                 role="button"
                 :aria-disabled="!can_release"
+                :aria-busy="is_releasing"
                 @click="submit_lantern"
               >
-                <text>{{ $t('Release') }}</text>
+                <text>{{ $t(is_releasing ? 'Releasing...' : 'Release') }}</text>
                 <image src="/static/icon/lantern_release_flower.png" mode="aspectFit" />
               </view>
             </view>
@@ -409,6 +410,7 @@ const submit_lantern = async () => {
     is_balance_visible.value = true
     return
   }
+  const release_user_id = `${account_store.userId}`
   form_error.value = ''
   is_releasing.value = true
   release_request_context.cancel?.()
@@ -425,7 +427,7 @@ const submit_lantern = async () => {
         }),
         release_request_context
       )
-      if (!is_sheet_active.value) return
+      if (!is_sheet_active.value || `${account_store.userId}` !== release_user_id) return
       if (!asset_result.success) {
         form_error.value = asset_result.error || 'Unable to attach this photo.'
         return
@@ -445,7 +447,7 @@ const submit_lantern = async () => {
       }),
       release_request_context
     )
-    if (!is_sheet_active.value) return
+    if (!is_sheet_active.value || `${account_store.userId}` !== release_user_id) return
     if (!lantern_result.success) {
       form_error.value = lantern_result.error || 'Unable to release this lantern.'
       return
@@ -463,7 +465,7 @@ const submit_lantern = async () => {
         }),
         release_request_context
       )
-      if (!is_sheet_active.value) return
+      if (!is_sheet_active.value || `${account_store.userId}` !== release_user_id) return
       if (!media_result.success) {
         form_error.value = media_result.error || 'Unable to attach this photo.'
         return
@@ -471,7 +473,7 @@ const submit_lantern = async () => {
     }
     if (boost_enabled.value) {
       const boost_result = await settle_lantern_boost(account_store, release_request_context)
-      if (!is_sheet_active.value) return
+      if (!is_sheet_active.value || `${account_store.userId}` !== release_user_id) return
       if (!boost_result.success) {
         form_error.value = boost_result.error
           || 'Your lantern was released, but the boost payment could not be completed.'

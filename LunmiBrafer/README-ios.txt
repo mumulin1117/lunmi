@@ -19,7 +19,7 @@ LunmiBrafer iOS 工程
   pnpm build:h5 自动同步 iOS；pnpm watch:ios 在持续编辑时监听并同步。
   Xcode 每次构建也会检查、刷新并嵌入当前 H5 资源。
   生产资源归档后执行两层 raw DEFLATE 压缩，再使用 AES-256-GCM 加密，文件名为 lunimcenter.bundledata。
-  密钥由 32 个随机字节生成，Base64 编码长度 44 位，声明在 LunimcenterArchive.swift 的 LunimcenterPackageKey 中；不要输出密钥。
+  密钥由 32 个随机字节生成，Base64 编码长度 44 位，声明在 ApogeeAwakenSpark.swift 的 RamblingHelix 中；同步脚本自动定位唯一的密钥声明，不依赖 Swift 文件名，不要输出密钥。
   校验清单包含版本、源码、密文、入口和逐文件 SHA-256，单独认证加密后嵌入同一资源包；工程与 IPA 无独立 manifest.json。
   check:ios-sync 会读取包内清单，解密、解压并核对全部内容。
   构建失败时保留上次完整压缩包；密钥和压缩包必须一起保存，修改密钥后重新同步并构建。
@@ -29,7 +29,7 @@ LunmiBrafer iOS 工程
   Xcode 找不到 Node 时可设置 NODE_BINARY 为实际可执行文件路径。
 
 正式业务配置
-  H5 .env 与原生 NativeConfiguration.swift 使用用户指定的同一接口地址：
+  H5 .env 与原生 PersistentPivotGlow.swift 使用用户指定的同一接口地址：
     http://0sc8fcvanc9gf8ckb40o.shop/api
   不再有 DebugAPIBaseURL 或其他测试接口覆盖。
   接口相对路径直接拼接，例如登录实际路径为 /api/api/emailLogin。
@@ -97,3 +97,12 @@ LunmiBrafer iOS 工程
 
 资源保护边界
   加密包用于保护和校验随 App 一起分发的静态资源；运行所需密钥也在 App 中，不能保证客户端代码不可提取。
+
+页面与花灯动效
+  普通页面进入 360ms、离开 180ms；主 Tab 内容淡入 160ms，选中光条移动 220ms。
+  放灯、打捞、挂愿使用 LanternRitual 的图片图层与短 CSS 动画，主动作约 1.25 秒，可跳过。
+  放灯完成后点亮莲花、扩散水波并漂远；打捞请求等待和有效结果分开，捞到后才提篮显灯。
+  挂愿需同账号发布回调与接口记录确认，按 low/mid/high 分支呈现升起、挂住与衰减摆动。
+  发布视觉凭据仅在内存中短暂传递并单次消费，路由标记不能单独触发成功展示。
+  图片准备好后才开始计时；页面隐藏时暂停并取消完成计时，减少动态效果下使用静态反馈。
+  关闭页面、重复点击、空结果、接口失败和账号变化均不会伪造成功或重复提交业务请求。

@@ -98,6 +98,7 @@
 import { nextTick, onBeforeUnmount, ref } from 'vue'
 import { onBackPress, onLoad, onShow } from '@dcloudio/uni-app'
 import theme from '@/config/theme.json'
+import { take_ritual } from '@/utils/ritualHandoff'
 import AmbientScene from '@/components/AmbientScene.vue'
 import WishLanternArt from '@/components/WishLanternArt.vue'
 import { addUserBalanceRecord, selectUserBalance, updateUserBalance } from '@/api/common'
@@ -516,7 +517,7 @@ onLoad((query = {}) => {
 
 onShow(() => {
   if (celebrate_wish.value) {
-    is_wish_success_visible.value = true
+    is_wish_success_visible.value = Boolean(take_ritual('wish', storeGlobal().userId))
     celebrate_wish.value = false
   }
   schedule_open_found_wish()

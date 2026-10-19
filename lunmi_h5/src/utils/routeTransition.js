@@ -15,8 +15,8 @@ export const ROUTE_TRANSITION_VARIANT = Object.freeze({
 })
 
 export const ROUTE_TRANSITION_DURATION = Object.freeze({
-  ENTER: 620,
-  LEAVE: 220
+  ENTER: 360,
+  LEAVE: 180
 })
 
 const TRANSITION_NAME_BY_MOTION = Object.freeze({
@@ -470,7 +470,7 @@ export const use_route_transition = ({
   // Vue cannot detect transition duration on pseudo-elements from the page root.
   const route_transition_duration = computed(() => (
     route_motion.value === ROUTE_MOTION.CURTAIN
-      ? { enter: ROUTE_TRANSITION_DURATION.ENTER, leave: 0 }
+      ? { enter: typeof window !== 'undefined' && window.matchMedia?.('(prefers-reduced-motion: reduce)').matches ? 120 : ROUTE_TRANSITION_DURATION.ENTER, leave: 0 }
       : undefined
   ))
 

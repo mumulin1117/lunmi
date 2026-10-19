@@ -1,21 +1,8 @@
 <template>
   <PageTransition ref="page_transition" class="release-page" :style="theme_style">
-    <video
-      id="release-animation-video"
-      class="release-video"
-      :src="RELEASE_ANIMATION_VIDEO"
-      autoplay
-      playsinline
-      webkit-playsinline
-      :controls="false"
-      :show-center-play-btn="false"
-      :show-play-btn="false"
-      :enable-progress-gesture="false"
-      object-fit="cover"
-      @ended="finish_release"
-      @error="handle_video_error"
-    />
+    <AmbientScene class="release-scene" scene="home" />
     <view class="release-shade" aria-hidden="true" />
+    <LanternRitual v-if="has_release && !load_error" kind="release" state="complete" @complete="finish_release" />
     <TopSafeArea />
     <view class="release-stage">
       <view v-if="load_error" class="release-error" role="alert">
@@ -46,14 +33,17 @@
 
 <script setup>
 import { onBeforeUnmount, ref } from 'vue'
-import { onBackPress, onLoad, onReady, onShow } from '@dcloudio/uni-app'
+import { onBackPress, onLoad, onReady, onUnload } from '@dcloudio/uni-app'
 import theme from '@/config/theme.json'
 import BottomSafeArea from '@/components/BottomSafeArea.vue'
 import PageTransition from '@/components/PageTransition.vue'
 import TopSafeArea from '@/components/TopSafeArea.vue'
+import AmbientScene from '@/components/AmbientScene.vue'
+import LanternRitual from '@/components/LanternRitual.vue'
+import { storeGlobal } from '@/stores/store'
+import { take_ritual } from '@/utils/ritualHandoff'
 import {
   HOME_PAGE_PATH,
-  RELEASE_ANIMATION_VIDEO,
   build_lantern_detail_url,
   normalize_lantern_source_page,
   read_route_lantern_id,
@@ -67,7 +57,8 @@ const source_page = ref(HOME_PAGE_PATH)
 const load_error = ref('')
 const is_page_active = ref(true)
 const is_leaving = ref(false)
-let video_context = null
+const has_release = ref(false)
+let release_owner = ''
 let allow_route_back = false
 
 const theme_style = {
@@ -81,29 +72,23 @@ const theme_style = {
   '--release-retry': theme.colors.status.info
 }
 
-const play_video = () => {
-  if (!is_page_active.value || is_leaving.value || load_error.value) return
-  try {
-    video_context?.play()
-  } catch {}
-}
-
 const open_detail = () => {
   if (!is_page_active.value || is_leaving.value) return
+  if (release_owner !== `${storeGlobal().userId}`) {
+    page_transition.value?.navigate_relaunch({ url: HOME_PAGE_PATH, immediate: true })
+    return
+  }
   if (!lantern_id.value) {
     load_error.value = 'This lantern could not be found.'
     return
   }
   is_leaving.value = true
-  try {
-    video_context?.pause()
-  } catch {}
   const url = build_lantern_detail_url({
     lantern_id: lantern_id.value,
     source_page: HOME_PAGE_PATH,
     lantern_type: lantern_type.value,
     return_home: true,
-    released: true
+    released: has_release.value
   })
   const fail = () => {
     is_leaving.value = false
@@ -114,12 +99,8 @@ const open_detail = () => {
 }
 
 const finish_release = () => {
+  if (release_owner !== `${storeGlobal().userId}`) return
   open_detail()
-}
-
-const handle_video_error = () => {
-  if (!is_page_active.value || is_leaving.value) return
-  load_error.value = 'The release animation could not play.'
 }
 
 const skip_release = () => {
@@ -128,19 +109,16 @@ const skip_release = () => {
 }
 
 onLoad((options = {}) => {
+  release_owner = `${storeGlobal().userId}`
   lantern_id.value = read_route_lantern_id(options)
   lantern_type.value = read_route_lantern_type(options)
   source_page.value = normalize_lantern_source_page(options?.sourcePage)
+  has_release.value = Boolean(take_ritual('release', storeGlobal().userId, lantern_id.value))
   if (!lantern_id.value) load_error.value = 'This lantern could not be found.'
 })
 
 onReady(() => {
-  video_context = uni.createVideoContext('release-animation-video')
-  play_video()
-})
-
-onShow(() => {
-  play_video()
+  if (!has_release.value && lantern_id.value) open_detail()
 })
 
 onBackPress(() => {
@@ -149,12 +127,9 @@ onBackPress(() => {
   return true
 })
 
-onBeforeUnmount(() => {
-  is_page_active.value = false
-  try {
-    video_context?.pause()
-  } catch {}
-})
+const dispose = () => { is_page_active.value = false }
+onUnload(dispose)
+onBeforeUnmount(dispose)
 </script>
 
 <style scoped lang="scss">
@@ -163,7 +138,7 @@ onBeforeUnmount(() => {
   background: var(--page-background);
 }
 
-.release-video {
+.release-scene {
   position: absolute;
   z-index: 0;
   top: 0;

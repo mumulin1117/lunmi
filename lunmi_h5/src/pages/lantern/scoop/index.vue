@@ -1,17 +1,12 @@
 <template>
   <PageTransition ref="page_transition" class="scoop-page" :style="theme_style">
-    <image
-      class="scoop-scene"
-      :class="{ 'scoop-scene--paused': Boolean(load_error) || is_empty || is_scoop_video_visible }"
-      src="/static/icon/lantern_scoop_search_scene.png"
-      mode="aspectFill"
-      aria-hidden="true"
-    />
+    <AmbientScene class="scoop-scene" scene="home" />
+    <LanternRitual kind="scoop" :state="load_error ? 'error' : (is_empty ? 'empty' : (is_catch_ready ? 'complete' : 'waiting'))" @complete="finish_caught_scoop_flow" />
     <view class="scoop-shade" aria-hidden="true" />
     <TopSafeArea />
     <view class="scoop-stage">
       <view
-        v-if="!is_scoop_video_visible"
+        v-if="!is_catch_ready"
         class="scoop-pill"
         role="status"
         aria-live="polite"
@@ -25,13 +20,12 @@
           class="scoop-error__retry"
           role="button"
           :aria-disabled="is_scooping"
-          @click="start_scoop"
+          @click="retry_search"
         >
           {{ $t('Try again') }}
         </view>
       </view>
       <view
-        v-if="!is_scoop_video_visible"
         class="skip-button"
         role="button"
         :aria-label="$t('Skip scooping')"
@@ -59,35 +53,20 @@
         </view>
       </view>
     </view>
-    <video
-      v-if="is_scoop_video_visible"
-      id="scoop-animation-video"
-      class="scoop-video"
-      :src="SCOOP_ANIMATION_VIDEO"
-      autoplay
-      playsinline
-      webkit-playsinline
-      :controls="false"
-      :show-center-play-btn="false"
-      :show-play-btn="false"
-      :enable-progress-gesture="false"
-      object-fit="cover"
-      @ended="on_scoop_video_ended"
-      @error="on_scoop_video_error"
-      @timeupdate="on_scoop_video_timeupdate"
-    />
     <BottomSafeArea />
   </PageTransition>
 </template>
 
 <script setup>
-import { computed, nextTick, onBeforeUnmount, ref } from 'vue'
-import { onBackPress, onLoad, onReady, onShow } from '@dcloudio/uni-app'
+import { computed, onBeforeUnmount, ref } from 'vue'
+import { onBackPress, onLoad, onUnload } from '@dcloudio/uni-app'
 import theme from '@/config/theme.json'
 import { addLmLanternScoop } from '@/api/scoop'
 import BottomSafeArea from '@/components/BottomSafeArea.vue'
 import PageTransition from '@/components/PageTransition.vue'
 import TopSafeArea from '@/components/TopSafeArea.vue'
+import AmbientScene from '@/components/AmbientScene.vue'
+import LanternRitual from '@/components/LanternRitual.vue'
 import { storeGlobal } from '@/stores/store'
 import { save_pending_caught_lantern } from '@/utils/caughtLanternPendingStorage'
 import { normalize_lantern_source_page } from '@/utils/releaseLanternPresentation'
@@ -95,7 +74,6 @@ import {
   HOME_PAGE_PATH,
   NO_LANTERN_COPY,
   NO_LANTERN_TITLE,
-  SCOOP_ANIMATION_VIDEO,
   build_caught_owner_snapshot,
   map_caught_lantern_result
 } from '@/utils/scoopLanternPresentation'
@@ -109,16 +87,14 @@ const is_page_active = ref(true)
 const is_leaving = ref(false)
 const pending_lantern_id = ref('')
 const pending_scoop_id = ref('')
-const is_scoop_video_visible = ref(false)
+const is_catch_ready = ref(false)
 const pending_caught_lantern = ref(null)
 let is_opening_caught_home = false
-let scoop_video_finished = false
-let scoop_video_finish_timer = null
+let ceremony_finished = false
 const empty_title = NO_LANTERN_TITLE
 const empty_copy = NO_LANTERN_COPY
 let request_context = { cancel() {} }
 let allow_route_back = false
-let video_context = null
 const caught_result = ref(null)
 
 const begin_requests = () => {
@@ -190,20 +166,6 @@ const go_home = () => {
   page_transition.value?.navigate_relaunch({ url: source_page.value || HOME_PAGE_PATH })
 }
 
-const clear_scoop_video_finish_timer = () => {
-  if (!scoop_video_finish_timer) return
-  clearTimeout(scoop_video_finish_timer)
-  scoop_video_finish_timer = null
-}
-
-const resume_scoop_video = () => {
-  if (!is_scoop_video_visible.value || scoop_video_finished) return
-  try {
-    video_context = uni.createVideoContext('scoop-animation-video')
-    video_context?.play()
-  } catch {}
-}
-
 const save_scoop_handoff_ids = () => {
   const account_store = storeGlobal()
   const user_id = account_store.userId
@@ -225,37 +187,28 @@ const finish_caught_scoop_flow = () => {
   if (
     !is_page_active.value
     || is_leaving.value
-    || !is_scoop_video_visible.value
+    || !is_catch_ready.value
     || load_error.value
     || is_empty.value
-    || scoop_video_finished
+    || ceremony_finished
     || is_opening_caught_home
   ) return
-  scoop_video_finished = true
-  clear_scoop_video_finish_timer()
+  if (`${caught_result.value?.scoop.scooper_user_id}` !== `${storeGlobal().userId}`) {
+    is_catch_ready.value = false
+    load_error.value = 'Please sign in before opening this lantern.'
+    return
+  }
+  ceremony_finished = true
   if (is_scooping.value || !pending_lantern_id.value || !pending_scoop_id.value) return
   void open_caught_home(pending_lantern_id.value, pending_scoop_id.value)
-}
-
-const play_scoop_video = async () => {
-  if (is_leaving.value) return
-  scoop_video_finished = false
-  is_scoop_video_visible.value = true
-  await nextTick()
-  if (!is_page_active.value || is_leaving.value || !is_scoop_video_visible.value || scoop_video_finished) return
-  resume_scoop_video()
-  clear_scoop_video_finish_timer()
-  scoop_video_finish_timer = setTimeout(() => {
-    finish_caught_scoop_flow()
-  }, 12000)
 }
 
 const restore_caught_return_failure = () => {
   if (!is_page_active.value) return
   allow_route_back = false
   is_leaving.value = false
-  scoop_video_finished = false
-  is_scoop_video_visible.value = false
+  ceremony_finished = false
+  is_catch_ready.value = false
   load_error.value = 'The caught lantern could not be opened.'
 }
 
@@ -272,10 +225,6 @@ const relaunch_caught_home = () => {
 const return_to_caught_home = () => {
   if (!is_page_active.value || is_leaving.value) return
   is_leaving.value = true
-  clear_scoop_video_finish_timer()
-  try {
-    video_context?.pause()
-  } catch {}
   const pages = typeof getCurrentPages === 'function' ? getCurrentPages() : []
   const previous_page = pages[pages.length - 2]
   if (previous_page && `/${previous_page.route}` === HOME_PAGE_PATH) {
@@ -297,7 +246,7 @@ const return_to_caught_home = () => {
   relaunch_caught_home()
 }
 
-// Keep the animation's final frame until direct navigation reveals the existing home.
+// Keep the caught lantern visible until direct navigation reveals its content card.
 const open_caught_home = async (lantern_id, lantern_scoop_id) => {
   if (!is_page_active.value || is_leaving.value || is_opening_caught_home) return
   if (!lantern_id || !lantern_scoop_id) {
@@ -305,7 +254,7 @@ const open_caught_home = async (lantern_id, lantern_scoop_id) => {
     return
   }
   const account_store = storeGlobal()
-  if (!account_store.userId) {
+  if (!account_store.userId || `${caught_result.value?.scoop.scooper_user_id}` !== `${account_store.userId}`) {
     restore_caught_return_failure()
     load_error.value = 'Please sign in before opening this lantern.'
     return
@@ -339,43 +288,21 @@ const open_caught_home = async (lantern_id, lantern_scoop_id) => {
   } catch (error) {
     if (!is_page_active.value || is_leaving.value) return
     load_error.value = error?.message || 'The caught lantern could not be opened.'
-    scoop_video_finished = false
-    is_scoop_video_visible.value = false
+    ceremony_finished = false
+    is_catch_ready.value = false
   } finally {
     is_opening_caught_home = false
   }
 }
 
-const on_scoop_video_ended = () => {
-  finish_caught_scoop_flow()
-}
-
-const on_scoop_video_error = () => {
-  finish_caught_scoop_flow()
-}
-
-const on_scoop_video_timeupdate = (event) => {
-  if (scoop_video_finished) return
-  const detail = event?.detail || {}
-  const current = Number(detail.currentTime || 0)
-  const duration = Number(detail.duration || 0)
-  if (duration > 0 && current >= Math.max(0, duration - 0.35)) {
-    finish_caught_scoop_flow()
-  }
-}
-
 const skip_scoop = () => {
   if (!is_page_active.value || is_leaving.value) return
-  if (is_scoop_video_visible.value && !is_scooping.value) {
+  if (is_catch_ready.value && !is_scooping.value) {
     finish_caught_scoop_flow()
     return
   }
   is_leaving.value = true
   is_empty.value = false
-  clear_scoop_video_finish_timer()
-  try {
-    video_context?.pause()
-  } catch {}
   request_context.cancel?.()
   go_home()
 }
@@ -383,13 +310,20 @@ const skip_scoop = () => {
 const retry_search = () => {
   if (is_scooping.value) return
   is_empty.value = false
+  if (caught_result.value && pending_lantern_id.value && pending_scoop_id.value
+    && `${caught_result.value.scoop.scooper_user_id}` === `${storeGlobal().userId}`) {
+    load_error.value = ''
+    ceremony_finished = false
+    is_catch_ready.value = true
+    return
+  }
   pending_lantern_id.value = ''
   pending_scoop_id.value = ''
   pending_caught_lantern.value = null
   start_scoop()
 }
 
-// feedback_mode: control_pending — play the animation while the single scoop request runs.
+// feedback_mode: control_pending — searching stays separate from a confirmed catch.
 const start_scoop = async () => {
   if (!is_page_active.value || is_scooping.value || is_leaving.value) return
   const account_store = storeGlobal()
@@ -398,6 +332,8 @@ const start_scoop = async () => {
     return
   }
   is_scooping.value = true
+  is_catch_ready.value = false
+  ceremony_finished = false
   load_error.value = ''
   is_empty.value = false
   caught_result.value = null
@@ -407,7 +343,6 @@ const start_scoop = async () => {
   request_context.cancel?.()
   const track_request = begin_requests()
   const current_user_id = `${account_store.userId}`
-  void play_scoop_video()
   try {
     const created = await addLmLanternScoop({}, track_request())
     if (!is_page_active.value || is_leaving.value || `${account_store.userId}` !== current_user_id) return
@@ -432,6 +367,7 @@ const start_scoop = async () => {
       load_error.value = 'The caught lantern could not be opened.'
       return
     }
+    is_catch_ready.value = true
   } catch (error) {
     if (!is_page_active.value || is_leaving.value) return
     load_error.value = error?.message || 'Unable to catch a lantern.'
@@ -439,12 +375,8 @@ const start_scoop = async () => {
     if (is_page_active.value) {
       is_scooping.value = false
       if (load_error.value || is_empty.value || `${account_store.userId}` !== current_user_id) {
-        clear_scoop_video_finish_timer()
-        try {
-          video_context?.pause()
-        } catch {}
-        is_scoop_video_visible.value = false
-      } else if (scoop_video_finished && caught_result.value && !is_leaving.value) {
+        is_catch_ready.value = false
+      } else if (ceremony_finished && caught_result.value && !is_leaving.value) {
         void open_caught_home(pending_lantern_id.value, pending_scoop_id.value)
       }
     }
@@ -456,28 +388,18 @@ onLoad((options = {}) => {
   start_scoop()
 })
 
-onReady(() => {
-  resume_scoop_video()
-})
-
-onShow(() => {
-  resume_scoop_video()
-})
-
 onBackPress((event = {}) => {
   if (allow_route_back || event.from === 'navigateBack') return false
   skip_scoop()
   return true
 })
 
-onBeforeUnmount(() => {
-  clear_scoop_video_finish_timer()
+const dispose = () => {
   is_page_active.value = false
   request_context.cancel?.()
-  try {
-    video_context?.pause()
-  } catch {}
-})
+}
+onUnload(dispose)
+onBeforeUnmount(dispose)
 </script>
 
 <style scoped lang="scss">
@@ -489,23 +411,6 @@ onBeforeUnmount(() => {
 .scoop-scene {
   position: absolute;
   z-index: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  animation: scoop-drift 2800ms ease-in-out infinite alternate;
-  will-change: opacity, transform;
-}
-
-.scoop-scene--paused {
-  animation-play-state: paused;
-}
-
-.scoop-video {
-  position: absolute;
-  z-index: 3;
   top: 0;
   right: 0;
   bottom: 0;
@@ -673,13 +578,4 @@ onBeforeUnmount(() => {
   color: var(--scoop-primary-text);
 }
 
-@keyframes scoop-drift {
-  from {
-    transform: scale(1);
-  }
-
-  to {
-    transform: scale(1.04);
-  }
-}
 </style>

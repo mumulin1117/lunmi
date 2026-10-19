@@ -45,8 +45,6 @@ const permission_labels = {
   photo_library: 'Photo library',
   microphone: 'Microphone',
   location: 'Location',
-  contacts: 'Contacts',
-  face_id: 'Face ID',
   unknown: 'Unknown'
 }
 

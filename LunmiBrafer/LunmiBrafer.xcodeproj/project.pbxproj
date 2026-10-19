@@ -7,44 +7,46 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		03199F21823520F49A020BF3 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEC7E84FB25490FD640480A /* WebViewController.swift */; };
+		03199F21823520F49A020BF3 /* ScarletEquanimousWesterly.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEC7E84FB25490FD640480A /* ScarletEquanimousWesterly.swift */; };
 		12336164606D45BF9268F103 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12336164606D45BF9268F104 /* Assets.xcassets */; };
 		22991216E2D9E282A07E7A3D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F01FF99A37B5537A8F1193A4 /* InfoPlist.strings */; };
-		27547074E221A231B465F26B /* NativeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15CEA4583BB778EA96E02A6 /* NativeConfiguration.swift */; };
-		40D9406EB95376847FB306AC /* CoinCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6581F66CEAF8C2E60DDF110 /* CoinCatalog.swift */; };
+		27547074E221A231B465F26B /* PersistentPivotGlow.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15CEA4583BB778EA96E02A6 /* PersistentPivotGlow.swift */; };
+		40D9406EB95376847FB306AC /* HeliopauseBenthicHomophonyLobelia.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6581F66CEAF8C2E60DDF110 /* HeliopauseBenthicHomophonyLobelia.swift */; };
 		426DC24D3A60C9094B95BBB2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31323A9C2E9B565051F512CE /* Foundation.framework */; };
-		AF7B301333B6C63D6B6D6B86 /* BundledWebContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C135D0C4E03ABDEFCF04B21C /* BundledWebContent.swift */; };
+		AF7B301333B6C63D6B6D6B86 /* BranchAltitudeFalcateDiffraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = C135D0C4E03ABDEFCF04B21C /* BranchAltitudeFalcateDiffraction.swift */; };
 		B6E98D8BB48E0BFFDBECC2DB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9C12375AC9F024ECEBA58B3 /* Localizable.strings */; };
-		C1A8AD2E6E66A98C6AE7F9CE /* PurchaseDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DC349F49DBF258539BE630 /* PurchaseDelivery.swift */; };
+		C1A8AD2E6E66A98C6AE7F9CE /* IsotropicStarburstFugato.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DC349F49DBF258539BE630 /* IsotropicStarburstFugato.swift */; };
 		C5405BA62F0D9766429A85B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C399A48A6CE68EDDA05864F /* AppDelegate.swift */; };
-		D17F75FE02AB45FE981A7AFE /* NativeCoinBalanceDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9B6793121CA21F1E11AAA1 /* NativeCoinBalanceDelivery.swift */; };
-		DC5005592A742D0AC134C03A /* CoinPurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242050D17AD6D4F62182B320 /* CoinPurchaseManager.swift */; };
-		EAA90E990F3C9459112FCE4C /* LunimcenterArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852E1B151910934406F9AC3B /* LunimcenterArchive.swift */; };
-		F9C28201840F1D301101DD6F /* NativeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A859D46B6B7C8ABB77DAEC3 /* NativeBridge.swift */; };
+		D17F75FE02AB45FE981A7AFE /* ConvexLyric.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9B6793121CA21F1E11AAA1 /* ConvexLyric.swift */; };
+		DC5005592A742D0AC134C03A /* PetioleWishShimmering.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242050D17AD6D4F62182B320 /* PetioleWishShimmering.swift */; };
+		EAA90E990F3C9459112FCE4C /* ApogeeAwakenSpark.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852E1B151910934406F9AC3B /* ApogeeAwakenSpark.swift */; };
+		F9C28201840F1D301101DD6F /* CrescenticMerinoFern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A859D46B6B7C8ABB77DAEC3 /* CrescenticMerinoFern.swift */; };
 		FF00C8783D4C39DAE05CFF1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA3A4BBB70A90C5B0C857778 /* LaunchScreen.storyboard */; };
+		262F27F5DA1C6439A5FAF163 /* LucentWonderment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FAB8B5280A413647E33B85 /* LucentWonderment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		12336164606D45BF9268F104 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		242050D17AD6D4F62182B320 /* CoinPurchaseManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoinPurchaseManager.swift; sourceTree = "<group>"; };
+		242050D17AD6D4F62182B320 /* PetioleWishShimmering.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PetioleWishShimmering.swift; sourceTree = "<group>"; };
 		31323A9C2E9B565051F512CE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		4536F2A1B6D47F69648B17DA /* lunimcenter.bundledata */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = lunimcenter.bundledata; sourceTree = "<group>"; };
 		4728400115ED84B286E26BA3 /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4852DADC1D4750DF1F4413E7 /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4C909AA9CF076D40D9D8F679 /* ja */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		5A859D46B6B7C8ABB77DAEC3 /* NativeBridge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NativeBridge.swift; sourceTree = "<group>"; };
+		5A859D46B6B7C8ABB77DAEC3 /* CrescenticMerinoFern.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CrescenticMerinoFern.swift; sourceTree = "<group>"; };
 		773FB0D00053CFB056FD438F /* LunmiBrafer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LunmiBrafer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81705528BCDD22FB35AA7580 /* ja */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
-		852E1B151910934406F9AC3B /* LunimcenterArchive.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LunimcenterArchive.swift; sourceTree = "<group>"; };
+		852E1B151910934406F9AC3B /* ApogeeAwakenSpark.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ApogeeAwakenSpark.swift; sourceTree = "<group>"; };
 		8549CA42ABA28B8B1D36384D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		85DC349F49DBF258539BE630 /* PurchaseDelivery.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PurchaseDelivery.swift; sourceTree = "<group>"; };
-		8A9B6793121CA21F1E11AAA1 /* NativeCoinBalanceDelivery.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NativeCoinBalanceDelivery.swift; sourceTree = "<group>"; };
+		85DC349F49DBF258539BE630 /* IsotropicStarburstFugato.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = IsotropicStarburstFugato.swift; sourceTree = "<group>"; };
+		8A9B6793121CA21F1E11AAA1 /* ConvexLyric.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ConvexLyric.swift; sourceTree = "<group>"; };
 		9C399A48A6CE68EDDA05864F /* AppDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		A15CEA4583BB778EA96E02A6 /* NativeConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NativeConfiguration.swift; sourceTree = "<group>"; };
-		A6581F66CEAF8C2E60DDF110 /* CoinCatalog.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoinCatalog.swift; sourceTree = "<group>"; };
+		A15CEA4583BB778EA96E02A6 /* PersistentPivotGlow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PersistentPivotGlow.swift; sourceTree = "<group>"; };
+		A6581F66CEAF8C2E60DDF110 /* HeliopauseBenthicHomophonyLobelia.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HeliopauseBenthicHomophonyLobelia.swift; sourceTree = "<group>"; };
 		BA3A4BBB70A90C5B0C857778 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
-		C135D0C4E03ABDEFCF04B21C /* BundledWebContent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BundledWebContent.swift; sourceTree = "<group>"; };
-		EFEC7E84FB25490FD640480A /* WebViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		C135D0C4E03ABDEFCF04B21C /* BranchAltitudeFalcateDiffraction.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BranchAltitudeFalcateDiffraction.swift; sourceTree = "<group>"; };
+		EFEC7E84FB25490FD640480A /* ScarletEquanimousWesterly.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ScarletEquanimousWesterly.swift; sourceTree = "<group>"; };
+		11FAB8B5280A413647E33B85 /* LucentWonderment.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LucentWonderment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,21 +73,22 @@
 			isa = PBXGroup;
 			children = (
 				9C399A48A6CE68EDDA05864F /* AppDelegate.swift */,
-				C135D0C4E03ABDEFCF04B21C /* BundledWebContent.swift */,
-				5A859D46B6B7C8ABB77DAEC3 /* NativeBridge.swift */,
-				A15CEA4583BB778EA96E02A6 /* NativeConfiguration.swift */,
-				EFEC7E84FB25490FD640480A /* WebViewController.swift */,
+				C135D0C4E03ABDEFCF04B21C /* BranchAltitudeFalcateDiffraction.swift */,
+				5A859D46B6B7C8ABB77DAEC3 /* CrescenticMerinoFern.swift */,
+				A15CEA4583BB778EA96E02A6 /* PersistentPivotGlow.swift */,
+				EFEC7E84FB25490FD640480A /* ScarletEquanimousWesterly.swift */,
 				8549CA42ABA28B8B1D36384D /* Info.plist */,
 				BA3A4BBB70A90C5B0C857778 /* LaunchScreen.storyboard */,
 				12336164606D45BF9268F104 /* Assets.xcassets */,
 				F01FF99A37B5537A8F1193A4 /* InfoPlist.strings */,
 				C9C12375AC9F024ECEBA58B3 /* Localizable.strings */,
-				A6581F66CEAF8C2E60DDF110 /* CoinCatalog.swift */,
-				85DC349F49DBF258539BE630 /* PurchaseDelivery.swift */,
-				242050D17AD6D4F62182B320 /* CoinPurchaseManager.swift */,
-				8A9B6793121CA21F1E11AAA1 /* NativeCoinBalanceDelivery.swift */,
+				A6581F66CEAF8C2E60DDF110 /* HeliopauseBenthicHomophonyLobelia.swift */,
+				85DC349F49DBF258539BE630 /* IsotropicStarburstFugato.swift */,
+				242050D17AD6D4F62182B320 /* PetioleWishShimmering.swift */,
+				8A9B6793121CA21F1E11AAA1 /* ConvexLyric.swift */,
 				4536F2A1B6D47F69648B17DA /* lunimcenter.bundledata */,
-				852E1B151910934406F9AC3B /* LunimcenterArchive.swift */,
+				852E1B151910934406F9AC3B /* ApogeeAwakenSpark.swift */,
+				11FAB8B5280A413647E33B85 /* LucentWonderment.swift */,
 			);
 			path = LunmiBrafer;
 			sourceTree = "<group>";
@@ -218,7 +221,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/LunmiBrafer/Info.plist",
-				"$(SRCROOT)/LunmiBrafer/NativeConfiguration.swift",
+				"$(SRCROOT)/LunmiBrafer/PersistentPivotGlow.swift",
 				"$(SRCROOT)/scripts/prepare-info.mjs",
 			);
 			name = "Synchronize H5 source";
@@ -239,15 +242,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				C5405BA62F0D9766429A85B4 /* AppDelegate.swift in Sources */,
-				AF7B301333B6C63D6B6D6B86 /* BundledWebContent.swift in Sources */,
-				F9C28201840F1D301101DD6F /* NativeBridge.swift in Sources */,
-				27547074E221A231B465F26B /* NativeConfiguration.swift in Sources */,
-				03199F21823520F49A020BF3 /* WebViewController.swift in Sources */,
-				40D9406EB95376847FB306AC /* CoinCatalog.swift in Sources */,
-				C1A8AD2E6E66A98C6AE7F9CE /* PurchaseDelivery.swift in Sources */,
-				DC5005592A742D0AC134C03A /* CoinPurchaseManager.swift in Sources */,
-				D17F75FE02AB45FE981A7AFE /* NativeCoinBalanceDelivery.swift in Sources */,
-				EAA90E990F3C9459112FCE4C /* LunimcenterArchive.swift in Sources */,
+				AF7B301333B6C63D6B6D6B86 /* BranchAltitudeFalcateDiffraction.swift in Sources */,
+				F9C28201840F1D301101DD6F /* CrescenticMerinoFern.swift in Sources */,
+				27547074E221A231B465F26B /* PersistentPivotGlow.swift in Sources */,
+				03199F21823520F49A020BF3 /* ScarletEquanimousWesterly.swift in Sources */,
+				40D9406EB95376847FB306AC /* HeliopauseBenthicHomophonyLobelia.swift in Sources */,
+				C1A8AD2E6E66A98C6AE7F9CE /* IsotropicStarburstFugato.swift in Sources */,
+				DC5005592A742D0AC134C03A /* PetioleWishShimmering.swift in Sources */,
+				D17F75FE02AB45FE981A7AFE /* ConvexLyric.swift in Sources */,
+				EAA90E990F3C9459112FCE4C /* ApogeeAwakenSpark.swift in Sources */,
+				262F27F5DA1C6439A5FAF163 /* LucentWonderment.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
