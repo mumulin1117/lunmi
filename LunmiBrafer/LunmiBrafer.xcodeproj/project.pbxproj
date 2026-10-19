@@ -1,0 +1,481 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 54;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		03199F21823520F49A020BF3 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEC7E84FB25490FD640480A /* WebViewController.swift */; };
+		0E878AD14DCFC55339BAC66E /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04D4B3225D88EA61F3E3811B /* Configuration.plist */; };
+		12336164606D45BF9268F103 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12336164606D45BF9268F104 /* Assets.xcassets */; };
+		22991216E2D9E282A07E7A3D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F01FF99A37B5537A8F1193A4 /* InfoPlist.strings */; };
+		27547074E221A231B465F26B /* NativeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15CEA4583BB778EA96E02A6 /* NativeConfiguration.swift */; };
+		40D9406EB95376847FB306AC /* CoinCatalog.swift in Sources */ = {isa = PBXBuildFile; fileRef = A6581F66CEAF8C2E60DDF110 /* CoinCatalog.swift */; };
+		426DC24D3A60C9094B95BBB2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 31323A9C2E9B565051F512CE /* Foundation.framework */; };
+		AF7B301333B6C63D6B6D6B86 /* BundledWebContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = C135D0C4E03ABDEFCF04B21C /* BundledWebContent.swift */; };
+		B6E98D8BB48E0BFFDBECC2DB /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = C9C12375AC9F024ECEBA58B3 /* Localizable.strings */; };
+		C1A8AD2E6E66A98C6AE7F9CE /* PurchaseDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 85DC349F49DBF258539BE630 /* PurchaseDelivery.swift */; };
+		C5405BA62F0D9766429A85B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C399A48A6CE68EDDA05864F /* AppDelegate.swift */; };
+		D17F75FE02AB45FE981A7AFE /* NativeCoinBalanceDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9B6793121CA21F1E11AAA1 /* NativeCoinBalanceDelivery.swift */; };
+		DC5005592A742D0AC134C03A /* CoinPurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242050D17AD6D4F62182B320 /* CoinPurchaseManager.swift */; };
+		F9C28201840F1D301101DD6F /* NativeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A859D46B6B7C8ABB77DAEC3 /* NativeBridge.swift */; };
+		FF00C8783D4C39DAE05CFF1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA3A4BBB70A90C5B0C857778 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		04D4B3225D88EA61F3E3811B /* Configuration.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Configuration.plist; sourceTree = "<group>"; };
+		12336164606D45BF9268F104 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		242050D17AD6D4F62182B320 /* CoinPurchaseManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoinPurchaseManager.swift; sourceTree = "<group>"; };
+		31323A9C2E9B565051F512CE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		4728400115ED84B286E26BA3 /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		4852DADC1D4750DF1F4413E7 /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		4C909AA9CF076D40D9D8F679 /* ja */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		5A859D46B6B7C8ABB77DAEC3 /* NativeBridge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NativeBridge.swift; sourceTree = "<group>"; };
+		72D3D2A15B22F5711CD590C1 /* Web */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; path = Web; sourceTree = "<group>"; };
+		773FB0D00053CFB056FD438F /* LunmiBrafer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LunmiBrafer.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		81705528BCDD22FB35AA7580 /* ja */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		8549CA42ABA28B8B1D36384D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		85DC349F49DBF258539BE630 /* PurchaseDelivery.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PurchaseDelivery.swift; sourceTree = "<group>"; };
+		8A9B6793121CA21F1E11AAA1 /* NativeCoinBalanceDelivery.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NativeCoinBalanceDelivery.swift; sourceTree = "<group>"; };
+		9C399A48A6CE68EDDA05864F /* AppDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A15CEA4583BB778EA96E02A6 /* NativeConfiguration.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NativeConfiguration.swift; sourceTree = "<group>"; };
+		A6581F66CEAF8C2E60DDF110 /* CoinCatalog.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoinCatalog.swift; sourceTree = "<group>"; };
+		BA3A4BBB70A90C5B0C857778 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
+		C135D0C4E03ABDEFCF04B21C /* BundledWebContent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BundledWebContent.swift; sourceTree = "<group>"; };
+		EFEC7E84FB25490FD640480A /* WebViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
+		F529DB30F76D8B23B37EEC65 /* WebBundleManifest.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; path = WebBundleManifest.json; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		ACD3DEDEFE7643AB21AAAE07 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				426DC24D3A60C9094B95BBB2 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		2BCE7A965B2E06D37883D5D8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				773FB0D00053CFB056FD438F /* LunmiBrafer.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		39E504DD0EC5D1058F38D0D4 /* LunmiBrafer */ = {
+			isa = PBXGroup;
+			children = (
+				9C399A48A6CE68EDDA05864F /* AppDelegate.swift */,
+				C135D0C4E03ABDEFCF04B21C /* BundledWebContent.swift */,
+				5A859D46B6B7C8ABB77DAEC3 /* NativeBridge.swift */,
+				A15CEA4583BB778EA96E02A6 /* NativeConfiguration.swift */,
+				EFEC7E84FB25490FD640480A /* WebViewController.swift */,
+				8549CA42ABA28B8B1D36384D /* Info.plist */,
+				72D3D2A15B22F5711CD590C1 /* Web */,
+				F529DB30F76D8B23B37EEC65 /* WebBundleManifest.json */,
+				04D4B3225D88EA61F3E3811B /* Configuration.plist */,
+				BA3A4BBB70A90C5B0C857778 /* LaunchScreen.storyboard */,
+				12336164606D45BF9268F104 /* Assets.xcassets */,
+				F01FF99A37B5537A8F1193A4 /* InfoPlist.strings */,
+				C9C12375AC9F024ECEBA58B3 /* Localizable.strings */,
+				A6581F66CEAF8C2E60DDF110 /* CoinCatalog.swift */,
+				85DC349F49DBF258539BE630 /* PurchaseDelivery.swift */,
+				242050D17AD6D4F62182B320 /* CoinPurchaseManager.swift */,
+				8A9B6793121CA21F1E11AAA1 /* NativeCoinBalanceDelivery.swift */,
+			);
+			path = LunmiBrafer;
+			sourceTree = "<group>";
+		};
+		64DE9F98B2996A38BF973850 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				31323A9C2E9B565051F512CE /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		C4A5CE69CEED233DEDCA24C0 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				64DE9F98B2996A38BF973850 /* iOS */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CDE398E211CA2E39EC80DC5D = {
+			isa = PBXGroup;
+			children = (
+				2BCE7A965B2E06D37883D5D8 /* Products */,
+				C4A5CE69CEED233DEDCA24C0 /* Frameworks */,
+				39E504DD0EC5D1058F38D0D4 /* LunmiBrafer */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		4BB41B7CC3ACCB53DB29D885 /* LunmiBrafer */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1F9ED3AAA3F30555BBEB7538 /* Build configuration list for PBXNativeTarget "LunmiBrafer" */;
+			buildPhases = (
+				AE14AF3A0ACF11FBD4F453DA /* Synchronize H5 source */,
+				1650DC1282267C6B1C2BDB74 /* Sources */,
+				ACD3DEDEFE7643AB21AAAE07 /* Frameworks */,
+				C79BE562EB41735204B718F0 /* Resources */,
+				127D1DC1789D60761777D150 /* Embed current H5 bundle */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LunmiBrafer;
+			productName = LunmiBrafer;
+			productReference = 773FB0D00053CFB056FD438F /* LunmiBrafer.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		72D1C7ABBE4A73D06C872195 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1600;
+				LastUpgradeCheck = 2660;
+				TargetAttributes = {
+					4BB41B7CC3ACCB53DB29D885 = {
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
+					};
+				};
+			};
+			buildConfigurationList = A047A7DA3FA0B5B84F59E93A /* Build configuration list for PBXProject "LunmiBrafer" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				ja,
+				Base,
+			);
+			mainGroup = CDE398E211CA2E39EC80DC5D;
+			productRefGroup = 2BCE7A965B2E06D37883D5D8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				4BB41B7CC3ACCB53DB29D885 /* LunmiBrafer */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		C79BE562EB41735204B718F0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0E878AD14DCFC55339BAC66E /* Configuration.plist in Resources */,
+				FF00C8783D4C39DAE05CFF1A /* LaunchScreen.storyboard in Resources */,
+				12336164606D45BF9268F103 /* Assets.xcassets in Resources */,
+				22991216E2D9E282A07E7A3D /* InfoPlist.strings in Resources */,
+				B6E98D8BB48E0BFFDBECC2DB /* Localizable.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		127D1DC1789D60761777D150 /* Embed current H5 bundle */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = "Embed current H5 bundle";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/sh \"$SRCROOT/scripts/embed-h5.sh\"";
+		};
+		AE14AF3A0ACF11FBD4F453DA /* Synchronize H5 source */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/LunmiBrafer/Info.plist",
+				"$(SRCROOT)/LunmiBrafer/Configuration.plist",
+				"$(SRCROOT)/scripts/prepare-info.mjs",
+			);
+			name = "Synchronize H5 source";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/LunmiBrafer-Info.plist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/bin/sh \"$SRCROOT/scripts/sync-h5.sh\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1650DC1282267C6B1C2BDB74 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C5405BA62F0D9766429A85B4 /* AppDelegate.swift in Sources */,
+				AF7B301333B6C63D6B6D6B86 /* BundledWebContent.swift in Sources */,
+				F9C28201840F1D301101DD6F /* NativeBridge.swift in Sources */,
+				27547074E221A231B465F26B /* NativeConfiguration.swift in Sources */,
+				03199F21823520F49A020BF3 /* WebViewController.swift in Sources */,
+				40D9406EB95376847FB306AC /* CoinCatalog.swift in Sources */,
+				C1A8AD2E6E66A98C6AE7F9CE /* PurchaseDelivery.swift in Sources */,
+				DC5005592A742D0AC134C03A /* CoinPurchaseManager.swift in Sources */,
+				D17F75FE02AB45FE981A7AFE /* NativeCoinBalanceDelivery.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		C9C12375AC9F024ECEBA58B3 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4852DADC1D4750DF1F4413E7 /* en */,
+				81705528BCDD22FB35AA7580 /* ja */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		F01FF99A37B5537A8F1193A4 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				4728400115ED84B286E26BA3 /* en */,
+				4C909AA9CF076D40D9D8F679 /* ja */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		55AB03B36EED004232072143 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		72B58FA8518B6D602010151F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		E0C5C05D99096C52682E9F9C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "$(DERIVED_FILE_DIR)/LunmiBrafer-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lunmi.LunmiBrafer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		E4F4D29889C38ABB8693FC6B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = "$(DERIVED_FILE_DIR)/LunmiBrafer-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lunmi.LunmiBrafer;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1F9ED3AAA3F30555BBEB7538 /* Build configuration list for PBXNativeTarget "LunmiBrafer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E0C5C05D99096C52682E9F9C /* Release */,
+				E4F4D29889C38ABB8693FC6B /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A047A7DA3FA0B5B84F59E93A /* Build configuration list for PBXProject "LunmiBrafer" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55AB03B36EED004232072143 /* Debug */,
+				72B58FA8518B6D602010151F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 72D1C7ABBE4A73D06C872195 /* Project object */;
+}

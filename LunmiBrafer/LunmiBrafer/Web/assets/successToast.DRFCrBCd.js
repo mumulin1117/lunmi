@@ -1,0 +1,1 @@
+const e=2e3,t=Object.freeze({lantern:"Lantern released",wish:"Your wish is on the tree.",fulfill:"Wish came true",report:"Report sent",deleted:"Deleted",recharge:"Charged successfully"});let r="";const s=e=>{r=`${e||""}`.trim()},a=()=>{const e=r;return r="",e};export{t as S,e as a,s as q,a as t};

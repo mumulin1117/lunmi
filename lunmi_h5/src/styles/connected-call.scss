@@ -1,0 +1,115 @@
+.connected-call-view {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--connected-background);
+}
+
+.connected-remote-video,
+.connected-shade {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.connected-remote-video {
+  object-fit: cover;
+}
+
+.connected-shade {
+  z-index: 1;
+  pointer-events: none;
+  background: var(--connected-shade);
+}
+
+.self-preview {
+  position: absolute;
+  z-index: 2;
+  top: calc(env(safe-area-inset-top, 0px) + 28rpx);
+  right: 28rpx;
+  width: 184rpx;
+  height: 244rpx;
+  overflow: hidden;
+  border: 2px solid var(--connected-outline);
+  border-radius: 28rpx;
+  background: var(--connected-background);
+  box-shadow: 0 12rpx 30rpx var(--connected-shadow);
+}
+
+.self-preview__camera {
+  width: 100%;
+  height: 100%;
+}
+
+.self-preview__status {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20rpx;
+  color: var(--connected-text);
+  background: var(--connected-scrim);
+  font-size: 22rpx;
+  line-height: 30rpx;
+  text-align: center;
+}
+
+.connected-error {
+  position: absolute;
+  z-index: 2;
+  top: calc(env(safe-area-inset-top, 0px) + 300rpx);
+  left: 40rpx;
+  right: 40rpx;
+  color: var(--connected-error);
+  font-size: 26rpx;
+  line-height: 36rpx;
+  text-align: center;
+}
+
+.connected-controls {
+  position: absolute;
+  z-index: 2;
+  left: 0;
+  right: 0;
+  bottom: calc(env(safe-area-inset-bottom, 0px) + 44rpx);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 34rpx;
+}
+
+.connected-control {
+  display: flex;
+  width: 112rpx;
+  height: 112rpx;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  color: var(--connected-control-text);
+  background: var(--connected-control);
+  box-shadow: 0 10rpx 24rpx var(--connected-shadow);
+}
+
+.connected-control image {
+  width: 48rpx;
+  height: 48rpx;
+}
+
+.connected-control--off {
+  color: var(--connected-control-off-text);
+  background: var(--connected-control-off);
+}
+
+.connected-control--hangup {
+  width: 128rpx;
+  height: 128rpx;
+  background: var(--connected-danger);
+}
+
+.connected-control[aria-disabled='true'] {
+  opacity: .5;
+}

@@ -1,0 +1,14 @@
+---
+description: Keep Lunmi H5 and the LunmiBrafer iOS project synchronized
+alwaysApply: true
+---
+
+After changing `lunmi_h5/src/**`, `static/**`, environment/configuration or build scripts:
+
+1. Run `pnpm sync:ios` in `lunmi_h5`.
+2. Run `pnpm check:ios-sync` and resolve any mismatch.
+3. Run relevant tests. For native changes, also build the `LunmiBrafer` simulator scheme.
+
+Do not edit generated `LunmiBrafer/LunmiBrafer/Web/**` directly.
+H5 builds synchronize automatically. Xcode checks before compiling. Use `pnpm watch:ios` for continuous editing.
+Do not claim synchronization succeeded unless the content and source fingerprints match.

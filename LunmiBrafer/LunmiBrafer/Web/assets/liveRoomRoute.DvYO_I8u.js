@@ -1,0 +1,1 @@
+const e=1,o=2,i=(e={})=>1===Number(null==e?void 0:e.liveClassify),s=({live_id:e="",live_password:o="",live_classify:i=2}={})=>{const s=1===Number(i)?"/pages/live-room/video":"/pages/live-room/detail",l=[`live_id=${encodeURIComponent(e||"")}`];return o&&l.push(`live_password=${encodeURIComponent(o)}`),`${s}?${l.join("&")}`};export{o as L,e as a,i,s as l};

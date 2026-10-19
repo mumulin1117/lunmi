@@ -1,0 +1,1 @@
+import{_ as s,o as a,c as e,i as o}from"./index-ClaUuB7N.js";const r=s({},[["render",function(s,r){const t=o;return a(),e(t,{class:"top-safe-area"})}],["__scopeId","data-v-98ec23f0"]]);export{r as T};

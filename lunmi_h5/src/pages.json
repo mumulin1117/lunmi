@@ -1,0 +1,436 @@
+{
+  "pages": [
+    {
+      "path": "pages/welcome/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Welcome"
+      }
+    },
+    {
+      "path": "pages/login/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Login"
+      }
+    },
+    {
+      "path": "pages/signup/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Create Account"
+      }
+    },
+    {
+      "path": "pages/profile/setup/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Profile"
+      }
+    },
+    {
+      "path": "pages/permissions/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Permissions"
+      }
+    },
+    {
+      "path": "pages/wish/tree/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Wish Tree"
+      }
+    },
+    {
+      "path": "pages/lantern/release/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Release Lantern"
+      }
+    },
+    {
+      "path": "pages/lantern/scoop/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Scoop Lantern"
+      }
+    },
+    {
+      "path": "pages/wish/create/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Wishing"
+      }
+    },
+    {
+      "path": "pages/wish/finding/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Finding"
+      }
+    },
+    {
+      "path": "pages/wish/detail/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Wish details"
+      }
+    },
+    {
+      "path": "pages/wish/fulfill/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Tell them"
+      }
+    },
+    {
+      "path": "pages/wish/mine/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Wishes"
+      }
+    },
+    {
+      "path": "pages/lantern/mine/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Released"
+      }
+    },
+    {
+      "path": "pages/lantern/scooped/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Scooped"
+      }
+    },
+    {
+      "path": "pages/lantern/detail/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Lantern"
+      }
+    },
+    {
+      "path": "pages/lantern/reply/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Your one reply"
+      }
+    },
+    {
+      "path": "pages/community/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "The Wall"
+      }
+    },
+    {
+      "path": "pages/community/create/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "New post"
+      }
+    },
+    {
+      "path": "pages/community/detail/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Post"
+      }
+    },
+    {
+      "path": "pages/community/user/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Profile"
+      }
+    },
+    {
+      "path": "pages/discover/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Discover"
+      }
+    },
+    {
+      "path": "pages/home/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Home"
+      }
+    },
+    {
+      "path": "pages/discover/create",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Create Post"
+      }
+    },
+    {
+      "path": "pages/discover/detail",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Post Details"
+      }
+    },
+    {
+      "path": "pages/messages/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Messages"
+      }
+    },
+    {
+      "path": "pages/messages/notice",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Notifications"
+      }
+    },
+    {
+      "path": "pages/messages/notice-detail",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Notification"
+      }
+    },
+    {
+      "path": "pages/messages/chat",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Chat"
+      }
+    },
+    {
+      "path": "pages/calls/ringing/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Video call"
+      }
+    },
+    {
+      "path": "pages/calls/connected/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Video call"
+      }
+    },
+    {
+      "path": "pages/videos/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Videos"
+      }
+    },
+    {
+      "path": "pages/profile/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Profile"
+      }
+    },
+    {
+      "path": "pages/live-room/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Live room"
+      }
+    },
+    {
+      "path": "pages/live-room/detail",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Voice Room"
+      }
+    },
+    {
+      "path": "pages/live-room/video",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Video live"
+      }
+    },
+    {
+      "path": "pages/live-room/list",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Voice Rooms"
+      }
+    },
+    {
+      "path": "pages/live-room/create",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Start a live room"
+      }
+    },
+    {
+      "path": "pages/home/activity",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Activity"
+      }
+    },
+    {
+      "path": "pages/messages/collection",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Collection"
+      }
+    },
+    {
+      "path": "pages/videos/detail",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Post"
+      }
+    },
+    {
+      "path": "pages/videos/create",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Create Post"
+      }
+    },
+    {
+      "path": "pages/videos/success",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Published"
+      }
+    },
+    {
+      "path": "pages/publish/success",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Published"
+      }
+    },
+    {
+      "path": "pages/common/deleted-result/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Deleted"
+      }
+    },
+    {
+      "path": "pages/profile/edit",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Edit profile"
+      }
+    },
+    {
+      "path": "pages/profile/settings",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Settings"
+      }
+    },
+    {
+      "path": "pages/profile/delete-account/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Delete account"
+      }
+    },
+    {
+      "path": "pages/profile/language/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Language"
+      }
+    },
+    {
+      "path": "pages/profile/safety-support/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Safety & Support"
+      }
+    },
+    {
+      "path": "pages/profile/permission-records/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Authorization records"
+      }
+    },
+    {
+      "path": "pages/profile/about",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "About"
+      }
+    },
+    {
+      "path": "pages/profile/user-agreement",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "User Agreement"
+      }
+    },
+    {
+      "path": "pages/profile/privacy",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Privacy Policy"
+      }
+    },
+    {
+      "path": "pages/profile/blocked-list",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Blocked users"
+      }
+    },
+    {
+      "path": "pages/profile/feedback",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Help & Feedback"
+      }
+    },
+    {
+      "path": "pages/profile/user",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Profile"
+      }
+    },
+    {
+      "path": "pages/profile/video-call",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Call"
+      }
+    },
+    {
+      "path": "pages/profile/incoming-call",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Incoming call"
+      }
+    },
+    {
+      "path": "pages/coins/index",
+      "style": {
+        "navigationStyle": "custom",
+        "navigationBarTitleText": "Buy Coins"
+      }
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "common_template",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#E8F4F2",
+    "enablePullDownRefresh": false,
+    "app-plus": {
+      "animationType": "none",
+      "animationDuration": 0
+    }
+  },
+  "uniIdRouter": {}
+}
