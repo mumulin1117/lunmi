@@ -1,9 +1,7 @@
 import Foundation
 import CoreFoundation
 
-/// Uses the existing balance APIs after StoreKit's local signature verification.
-/// The local ledger prevents ordinary replay on this installation; the legacy API
-/// cannot provide atomic transaction-level deduplication across multiple devices.
+
 @MainActor final class NativeCoinBalanceDelivery: PurchaseDelivering {
     typealias Request = (String, [String: Any], PurchaseAccount) async throws -> Any
     private struct Entry: Codable {
@@ -121,7 +119,7 @@ import CoreFoundation
 }
 
 private enum BalanceAPI {
-    // Do not forward the authentication header to a redirect target.
+
     private final class RedirectPolicy: NSObject, URLSessionTaskDelegate {
         func urlSession(_ session: URLSession, task: URLSessionTask, willPerformHTTPRedirection response: HTTPURLResponse, newRequest request: URLRequest, completionHandler: @escaping (URLRequest?) -> Void) { completionHandler(nil) }
     }

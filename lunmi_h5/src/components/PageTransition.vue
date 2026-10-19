@@ -1,6 +1,6 @@
 <template>
   <transition :name="route_transition_name" :duration="route_transition_duration" appear @after-leave="complete_route_leave">
-    <view v-show="is_page_visible" v-bind="page_attrs">
+    <view ref="page_root" v-show="is_page_visible" v-bind="page_attrs">
       <slot />
       <LoginRedirectLoading v-if="is_login_redirect_loading" />
     </view>
@@ -8,7 +8,8 @@
 </template>
 
 <script setup>
-import { computed, useAttrs } from 'vue'
+import { computed, onBeforeUnmount, onMounted, ref, useAttrs } from 'vue'
+import { observe_native_launch_ready } from '@/utils/nativeLaunch'
 import {
   provide_route_transition,
   ROUTE_TRANSITION_DURATION,
@@ -27,6 +28,12 @@ const props = defineProps({
 })
 
 const attrs = useAttrs()
+const page_root = ref(null)
+let stop_launch_observer = () => {}
+onMounted(() => {
+  stop_launch_observer = observe_native_launch_ready(page_root.value?.$el || page_root.value)
+})
+onBeforeUnmount(() => stop_launch_observer())
 const transition_duration_style = Object.freeze({
   '--route-transition-enter-duration': `${ROUTE_TRANSITION_DURATION.ENTER}ms`,
   '--route-transition-leave-duration': `${ROUTE_TRANSITION_DURATION.LEAVE}ms`,

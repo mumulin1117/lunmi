@@ -85,6 +85,7 @@ import LoginActionBar from '@/components/LoginActionBar.vue'
 import LoginTopBar from '@/components/LoginTopBar.vue'
 import PageTransition from '@/components/PageTransition.vue'
 import { storeGlobal } from '@/stores/store'
+import { read_agreement_consent } from '@/utils/agreementConsent'
 import { ROUTE_MOTION } from '@/utils/routeTransition'
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -100,7 +101,7 @@ const password_error = ref('')
 const terms_error = ref('')
 const login_error = ref('')
 const is_password_visible = ref(false)
-const is_terms_agreed = ref(false)
+const is_terms_agreed = ref(read_agreement_consent())
 const is_signing_in = ref(false)
 const is_entering_app = ref(false)
 const is_page_active = ref(true)

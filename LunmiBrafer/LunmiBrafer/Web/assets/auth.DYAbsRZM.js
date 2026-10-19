@@ -1,1 +1,0 @@
-import{a9 as t}from"./index-ClaUuB7N.js";const e=(e={},s=null)=>t.post("/api/emailLogin",e,{with_auth:!1,request_context:s}),s=(e={},s=null)=>t.post("/api/updateUser",e,{request_context:s});export{e,s as u};

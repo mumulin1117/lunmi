@@ -22,7 +22,9 @@ enum BridgeOrigin {
     private var locationCompletion: ((String) -> Void)?
     private var contactsRequest: [String: Any]?
     private var biometricContext: LAContext?
-    private lazy var purchases = CoinPurchaseManager(catalog: try? CoinCatalog.load(), namespace: configuration.values["APIBundleID"] as? String ?? "", delivery: NativeCoinBalanceDelivery(bundleID: configuration.values["APIBundleID"] as? String ?? "", permittedHTTPOrigin: configuration.permittedHTTPOrigin), permittedHTTPOrigin: configuration.permittedHTTPOrigin) { [weak self] type, data in
+    private var resourceRoot: URL?
+    var onContentReady: ((String) -> Void)?
+    private lazy var purchases = CoinPurchaseManager(catalog: resourceRoot.flatMap { try? CoinCatalog.load(root: $0) }, namespace: configuration.apiBundleID, delivery: NativeCoinBalanceDelivery(bundleID: configuration.apiBundleID, permittedHTTPOrigin: configuration.permittedHTTPOrigin), permittedHTTPOrigin: configuration.permittedHTTPOrigin) { [weak self] type, data in
         self?.send(type, data: data)
     }
     private let legacyTypes = [
@@ -42,9 +44,13 @@ enum BridgeOrigin {
     }
 
     func register() {
-        _ = purchases
         guard let controller = webView?.configuration.userContentController else { return }
         for name in ["CommonTemplateBridge"] + Array(legacyTypes.keys) { controller.add(self, name: name) }
+    }
+
+    func preparePurchases(root: URL) {
+        resourceRoot = root
+        _ = purchases
     }
 
     func unregister() {
@@ -61,6 +67,9 @@ enum BridgeOrigin {
         let data = payload["data"] as? [String: Any] ?? payload
         guard let type else { return }
         switch type {
+        case "APP_CONTENT_READY":
+            guard let launchID = data["launchId"] as? String, UUID(uuidString: launchID) != nil else { return }
+            onContentReady?(launchID)
         case "APP_LANGUAGE_STATE_REQUEST": sendLanguage()
         case "APP_LANGUAGE_SET_REQUEST":
             guard let requestID = data["requestId"] as? String, !requestID.isEmpty, requestID.count <= 128 else { return }

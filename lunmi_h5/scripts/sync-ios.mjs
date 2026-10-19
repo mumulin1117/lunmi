@@ -2,12 +2,13 @@ import { spawn } from 'node:child_process'
 import { mkdir, rm } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { source_fingerprint, directory_fingerprint, read_manifest, copy_web_bundle } from './ios-sync-lib.mjs'
+import { source_fingerprint } from './ios-sync-lib.mjs'
+import { PACKAGE_NAME, check_package, package_web_bundle, read_package_key } from './lunimcenter-package.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const ios_root = path.resolve(root, '../LunmiBrafer/LunmiBrafer')
-const destination = path.join(ios_root, 'Web')
-const manifest_path = path.join(ios_root, 'WebBundleManifest.json')
+const destination = path.join(ios_root, PACKAGE_NAME)
+const key_path = path.join(ios_root, 'LunimcenterArchive.swift')
 const output = path.join(root, 'dist/build/h5')
 const checking = process.argv.includes('--check')
 const force = process.argv.includes('--force')
@@ -43,31 +44,39 @@ const acquire_lock = async (lock) => {
 
 const main = async () => {
   let fingerprint = await source_fingerprint(root)
-  const manifest = await read_manifest(manifest_path)
-  const current = manifest ? await directory_fingerprint(destination).catch(() => null) : null
-  const is_current = manifest?.sourceSHA256 === fingerprint && current?.sha256 === manifest.contentSHA256
+  let key = await read_package_key(key_path)
+  const current = await check_package({ destination, key, source_sha256: fingerprint })
+  const is_current = Boolean(current)
   if (checking) {
     if (!is_current) throw new Error('iOS resources are stale. Run pnpm sync:ios in lunmi_h5.')
-    console.log('LunmiBrafer resources match H5 source and content fingerprints (' + current.files + ' files).')
+    console.log('LunmiBrafer encrypted package matches H5 source and decrypted content fingerprints (' + current.fileCount + ' files).')
     return
   }
-  if (is_current && !force) { console.log('LunmiBrafer H5 resources are current.'); return }
+  if (is_current && !force) { console.log('LunmiBrafer encrypted H5 package is current.'); return }
   await mkdir(ios_root, { recursive: true })
   const lock = path.join(ios_root, '.web-sync-lock')
   await acquire_lock(lock)
   try {
     fingerprint = await source_fingerprint(root)
-    const latest = await read_manifest(manifest_path)
-    if (!force && latest?.sourceSHA256 === fingerprint && (await directory_fingerprint(destination).catch(() => null))?.sha256 === latest.contentSHA256) {
-      console.log('LunmiBrafer H5 resources are current.')
+    key = await read_package_key(key_path)
+    if (!force && await check_package({ destination, key, source_sha256: fingerprint })) {
+      console.log('LunmiBrafer encrypted H5 package is current.')
       return
     }
     await run_build()
     const after_build = await source_fingerprint(root)
     if (after_build !== fingerprint) throw new Error('H5 source changed during the build. Run sync again to avoid packaging mixed versions.')
-    const result = await copy_web_bundle({ source: output, destination, manifest_path, source_sha256: fingerprint })
-    if (await source_fingerprint(root) !== fingerprint) throw new Error('H5 source changed during synchronization. Run sync again.')
-    console.log('Synchronized ' + result.fileCount + ' H5 files into LunmiBrafer.')
+    if (!(await read_package_key(key_path)).equals(key)) throw new Error('Packaging key changed during the build. Run sync again.')
+    const result = await package_web_bundle({ source: output, destination, source_sha256: fingerprint, key })
+    if (await source_fingerprint(root) !== fingerprint || !(await read_package_key(key_path)).equals(key)) {
+      throw new Error('H5 source or packaging key changed during synchronization. Run sync again.')
+    }
+    // Remove the former generated plaintext resources only after the encrypted
+    // replacement has passed its compression/decryption/content round trip.
+    await rm(path.join(ios_root, 'Web'), { recursive: true, force: true })
+    await rm(path.join(ios_root, 'WebBundleManifest.json'), { force: true })
+    await rm(path.join(ios_root, 'lunimcenter'), { recursive: true, force: true })
+    console.log('Synchronized ' + result.fileCount + ' H5 files into ' + result.archiveName + ' (embedded encrypted manifest, two compression layers, AES-256-GCM).')
   } finally { await rm(lock, { recursive: true, force: true }) }
 }
 

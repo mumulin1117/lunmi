@@ -21,6 +21,7 @@ const load_login = ({ result = { success: true, data: ready_user }, pending_resu
     '@/config/theme.json': { default: theme },
     '@/api/auth': { emailLogin: async () => pending_result || result },
     '@/stores/store': { storeGlobal: () => ({ login: () => events.push('store-session') }) },
+    '@/utils/agreementConsent': { read_agreement_consent: () => false },
     '@/utils/routeTransition': { ROUTE_MOTION: { CURTAIN: 'curtain' } }
   }
   const bindings = imports.flatMap(entry => entry.specifiers.map(specifier => {

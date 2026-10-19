@@ -81,11 +81,10 @@ enum BundledResourceLoader {
 
 // WebKit calls this handler for packaged resources; no socket or HTTP listener is created.
 final class BundledWebContentHandler: NSObject, WKURLSchemeHandler {
-    private let root: URL
-
-    init(root: URL) { self.root = root }
+    var root: URL?
 
     func webView(_ webView: WKWebView, start urlSchemeTask: WKURLSchemeTask) {
+        guard let root else { urlSchemeTask.didFailWithError(URLError(.resourceUnavailable)); return }
         let resource = BundledResourceLoader.response(for: urlSchemeTask.request, root: root)
         guard let url = urlSchemeTask.request.url,
               let response = HTTPURLResponse(url: url, statusCode: resource.status, httpVersion: nil, headerFields: resource.headers) else {

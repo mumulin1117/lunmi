@@ -8,7 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		03199F21823520F49A020BF3 /* WebViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFEC7E84FB25490FD640480A /* WebViewController.swift */; };
-		0E878AD14DCFC55339BAC66E /* Configuration.plist in Resources */ = {isa = PBXBuildFile; fileRef = 04D4B3225D88EA61F3E3811B /* Configuration.plist */; };
 		12336164606D45BF9268F103 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 12336164606D45BF9268F104 /* Assets.xcassets */; };
 		22991216E2D9E282A07E7A3D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = F01FF99A37B5537A8F1193A4 /* InfoPlist.strings */; };
 		27547074E221A231B465F26B /* NativeConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = A15CEA4583BB778EA96E02A6 /* NativeConfiguration.swift */; };
@@ -20,22 +19,23 @@
 		C5405BA62F0D9766429A85B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C399A48A6CE68EDDA05864F /* AppDelegate.swift */; };
 		D17F75FE02AB45FE981A7AFE /* NativeCoinBalanceDelivery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8A9B6793121CA21F1E11AAA1 /* NativeCoinBalanceDelivery.swift */; };
 		DC5005592A742D0AC134C03A /* CoinPurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 242050D17AD6D4F62182B320 /* CoinPurchaseManager.swift */; };
+		EAA90E990F3C9459112FCE4C /* LunimcenterArchive.swift in Sources */ = {isa = PBXBuildFile; fileRef = 852E1B151910934406F9AC3B /* LunimcenterArchive.swift */; };
 		F9C28201840F1D301101DD6F /* NativeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A859D46B6B7C8ABB77DAEC3 /* NativeBridge.swift */; };
 		FF00C8783D4C39DAE05CFF1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA3A4BBB70A90C5B0C857778 /* LaunchScreen.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		04D4B3225D88EA61F3E3811B /* Configuration.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Configuration.plist; sourceTree = "<group>"; };
 		12336164606D45BF9268F104 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		242050D17AD6D4F62182B320 /* CoinPurchaseManager.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = CoinPurchaseManager.swift; sourceTree = "<group>"; };
 		31323A9C2E9B565051F512CE /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS26.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
+		4536F2A1B6D47F69648B17DA /* lunimcenter.bundledata */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file; path = lunimcenter.bundledata; sourceTree = "<group>"; };
 		4728400115ED84B286E26BA3 /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		4852DADC1D4750DF1F4413E7 /* en */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		4C909AA9CF076D40D9D8F679 /* ja */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		5A859D46B6B7C8ABB77DAEC3 /* NativeBridge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NativeBridge.swift; sourceTree = "<group>"; };
-		72D3D2A15B22F5711CD590C1 /* Web */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder; path = Web; sourceTree = "<group>"; };
 		773FB0D00053CFB056FD438F /* LunmiBrafer.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LunmiBrafer.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		81705528BCDD22FB35AA7580 /* ja */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.strings; name = ja; path = ja.lproj/Localizable.strings; sourceTree = "<group>"; };
+		852E1B151910934406F9AC3B /* LunimcenterArchive.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = LunimcenterArchive.swift; sourceTree = "<group>"; };
 		8549CA42ABA28B8B1D36384D /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85DC349F49DBF258539BE630 /* PurchaseDelivery.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PurchaseDelivery.swift; sourceTree = "<group>"; };
 		8A9B6793121CA21F1E11AAA1 /* NativeCoinBalanceDelivery.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = NativeCoinBalanceDelivery.swift; sourceTree = "<group>"; };
@@ -45,7 +45,6 @@
 		BA3A4BBB70A90C5B0C857778 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C135D0C4E03ABDEFCF04B21C /* BundledWebContent.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = BundledWebContent.swift; sourceTree = "<group>"; };
 		EFEC7E84FB25490FD640480A /* WebViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = WebViewController.swift; sourceTree = "<group>"; };
-		F529DB30F76D8B23B37EEC65 /* WebBundleManifest.json */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.json; path = WebBundleManifest.json; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,9 +76,6 @@
 				A15CEA4583BB778EA96E02A6 /* NativeConfiguration.swift */,
 				EFEC7E84FB25490FD640480A /* WebViewController.swift */,
 				8549CA42ABA28B8B1D36384D /* Info.plist */,
-				72D3D2A15B22F5711CD590C1 /* Web */,
-				F529DB30F76D8B23B37EEC65 /* WebBundleManifest.json */,
-				04D4B3225D88EA61F3E3811B /* Configuration.plist */,
 				BA3A4BBB70A90C5B0C857778 /* LaunchScreen.storyboard */,
 				12336164606D45BF9268F104 /* Assets.xcassets */,
 				F01FF99A37B5537A8F1193A4 /* InfoPlist.strings */,
@@ -88,6 +84,8 @@
 				85DC349F49DBF258539BE630 /* PurchaseDelivery.swift */,
 				242050D17AD6D4F62182B320 /* CoinPurchaseManager.swift */,
 				8A9B6793121CA21F1E11AAA1 /* NativeCoinBalanceDelivery.swift */,
+				4536F2A1B6D47F69648B17DA /* lunimcenter.bundledata */,
+				852E1B151910934406F9AC3B /* LunimcenterArchive.swift */,
 			);
 			path = LunmiBrafer;
 			sourceTree = "<group>";
@@ -181,7 +179,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0E878AD14DCFC55339BAC66E /* Configuration.plist in Resources */,
 				FF00C8783D4C39DAE05CFF1A /* LaunchScreen.storyboard in Resources */,
 				12336164606D45BF9268F103 /* Assets.xcassets in Resources */,
 				22991216E2D9E282A07E7A3D /* InfoPlist.strings in Resources */,
@@ -221,7 +218,7 @@
 			);
 			inputPaths = (
 				"$(SRCROOT)/LunmiBrafer/Info.plist",
-				"$(SRCROOT)/LunmiBrafer/Configuration.plist",
+				"$(SRCROOT)/LunmiBrafer/NativeConfiguration.swift",
 				"$(SRCROOT)/scripts/prepare-info.mjs",
 			);
 			name = "Synchronize H5 source";
@@ -250,6 +247,7 @@
 				C1A8AD2E6E66A98C6AE7F9CE /* PurchaseDelivery.swift in Sources */,
 				DC5005592A742D0AC134C03A /* CoinPurchaseManager.swift in Sources */,
 				D17F75FE02AB45FE981A7AFE /* NativeCoinBalanceDelivery.swift in Sources */,
+				EAA90E990F3C9459112FCE4C /* LunimcenterArchive.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

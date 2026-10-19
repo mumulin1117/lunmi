@@ -14,9 +14,8 @@ struct CoinCatalog: Decodable {
     let packages: [CoinPackage]
     enum CodingKeys: String, CodingKey { case packages = "coin_packages" }
 
-    static func load(bundle: Bundle = .main) throws -> CoinCatalog {
-        guard let web = bundle.url(forResource: "Web", withExtension: nil) else { throw PurchaseFailure.invalidProduct }
-        let catalog = try JSONDecoder().decode(CoinCatalog.self, from: Data(contentsOf: web.appendingPathComponent("static/config/coin-packages.json")))
+    static func load(root: URL) throws -> CoinCatalog {
+        let catalog = try JSONDecoder().decode(CoinCatalog.self, from: Data(contentsOf: root.appendingPathComponent("static/config/coin-packages.json")))
         guard !catalog.packages.isEmpty,
               Set(catalog.packages.map(\.productID)).count == catalog.packages.count,
               Set(catalog.packages.map(\.packageID)).count == catalog.packages.count,

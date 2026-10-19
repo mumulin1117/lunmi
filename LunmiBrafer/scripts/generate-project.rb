@@ -11,11 +11,11 @@ project.root_object.known_regions = ['en', 'ja', 'Base']
 app = project.new_target(:application, 'LunmiBrafer', :ios, '15.6')
 source = project.main_group.new_group('LunmiBrafer', 'LunmiBrafer')
 Dir.glob(File.join(root, 'LunmiBrafer', '*.swift')).sort.each { |filename| app.source_build_phase.add_file_reference(source.new_file(File.basename(filename))) }
-['Info.plist', 'Web', 'WebBundleManifest.json'].each do |filename|
+['Info.plist', 'lunimcenter.bundledata'].each do |filename|
   ref = source.new_file(filename)
-  ref.last_known_file_type = 'folder' if filename == 'Web'
+  ref.last_known_file_type = 'file' if filename == 'lunimcenter.bundledata'
 end
-['Configuration.plist', 'LaunchScreen.storyboard', 'Assets.xcassets'].each do |filename|
+['LaunchScreen.storyboard', 'Assets.xcassets'].each do |filename|
   ref = source.new_file(filename)
   ref.last_known_file_type = 'folder.assetcatalog' if filename == 'Assets.xcassets'
   app.resources_build_phase.add_file_reference(ref)
@@ -31,6 +31,7 @@ end
 sync = app.new_shell_script_build_phase('Synchronize H5 source')
 sync.shell_script = '/bin/sh "$SRCROOT/scripts/sync-h5.sh"'
 sync.always_out_of_date = '1'
+sync.input_paths = ['$(SRCROOT)/LunmiBrafer/Info.plist', '$(SRCROOT)/LunmiBrafer/NativeConfiguration.swift', '$(SRCROOT)/scripts/prepare-info.mjs']
 sync.output_paths = ['$(DERIVED_FILE_DIR)/LunmiBrafer-Info.plist']
 app.build_phases.delete(sync)
 app.build_phases.insert(0, sync)

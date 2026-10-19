@@ -3,5 +3,4 @@ DerivedData/
 xcuserdata/
 *.xcuserstate
 .web-sync-lock/
-Web.staging-*/
-Web.previous-*/
+lunimcenter.bundledata.staging-*

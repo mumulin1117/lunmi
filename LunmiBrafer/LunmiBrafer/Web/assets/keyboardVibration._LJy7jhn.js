@@ -1,1 +1,0 @@
-import{aK as a,b0 as s,aL as e}from"./index-ClaUuB7N.js";import"./iosPermissionBridge.Db-fleoe.js";const o=()=>((o="heavy")=>a(e.HAPTIC_REQUEST,{style:o},{fallback_handler_name:s,fallback_payload:o}))("selection");export{o as v};

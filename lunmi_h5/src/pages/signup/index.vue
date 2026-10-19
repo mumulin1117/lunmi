@@ -117,6 +117,7 @@ import LoginTopBar from '@/components/LoginTopBar.vue'
 import PageTransition from '@/components/PageTransition.vue'
 import SignupActionBar from '@/components/SignupActionBar.vue'
 import { storeGlobal } from '@/stores/store'
+import { read_agreement_consent } from '@/utils/agreementConsent'
 
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 const SETUP_PAGE_PATH = '/pages/profile/setup/index'
@@ -134,7 +135,7 @@ const confirm_error = ref('')
 const terms_error = ref('')
 const is_password_visible = ref(false)
 const is_confirm_visible = ref(false)
-const is_terms_agreed = ref(false)
+const is_terms_agreed = ref(read_agreement_consent())
 const is_creating = ref(false)
 const is_page_active = ref(true)
 const create_request_context = {}

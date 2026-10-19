@@ -1,21 +1,11 @@
 import Foundation
 
 struct NativeConfiguration {
-    let values: [String: Any]
-
-    init(bundle: Bundle = .main) {
-        if let url = bundle.url(forResource: "Configuration", withExtension: "plist"),
-           let data = try? Data(contentsOf: url),
-           let dictionary = try? PropertyListSerialization.propertyList(from: data, format: nil) as? [String: Any] {
-            values = dictionary
-        } else {
-            values = [:]
-        }
-    }
-
-    var apiBaseURL: String {
-        return values["APIBaseURL"] as? String ?? ""
-    }
+    // Keep these production settings in code. The build script also reads this
+    // URL literal to generate the matching, domain-scoped HTTP exception.
+    let apiBaseURL = "http://0sc8fcvanc9gf8ckb40o.shop/api"
+    let liveWebSocketURL = ""
+    let apiBundleID = "6101415"
 
     var permittedHTTPOrigin: URL? {
         guard let url = URL(string: apiBaseURL), url.scheme == "http", url.host != nil,
@@ -31,16 +21,12 @@ struct NativeConfiguration {
     }
 
     var javascriptValues: [String: String] {
-        let keys = [
-            "APIBaseURL": "VITE_API_BASE_URL",
-            "LiveWebSocketURL": "VITE_LIVE_WS_URL",
-            "APIBundleID": "VITE_BUNDLE_ID"
+        var result = [
+            "VITE_API_BASE_URL": apiBaseURL,
+            "VITE_BUNDLE_ID": apiBundleID
         ]
-        var result = keys.reduce(into: [String: String]()) { result, pair in
-            let configured = pair.key == "APIBaseURL" ? apiBaseURL : values[pair.key] as? String
-            if let value = configured, !value.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
-                result[pair.value] = value
-            }
+        if !liveWebSocketURL.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+            result["VITE_LIVE_WS_URL"] = liveWebSocketURL
         }
         result["APP_DEVICE_LANGUAGE"] = NativeAppLanguage.deviceLanguage()
         result["APP_LANGUAGE_PREFERENCE"] = NativeAppLanguage.savedLanguage() ?? ""

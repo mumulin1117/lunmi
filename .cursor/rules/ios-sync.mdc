@@ -9,6 +9,6 @@ After changing `lunmi_h5/src/**`, `static/**`, environment/configuration or buil
 2. Run `pnpm check:ios-sync` and resolve any mismatch.
 3. Run relevant tests. For native changes, also build the `LunmiBrafer` simulator scheme.
 
-Do not edit generated `LunmiBrafer/LunmiBrafer/Web/**` directly.
+Do not edit generated `LunmiBrafer/LunmiBrafer/lunimcenter.bundledata` directly. This single file contains the encrypted manifest and double-compressed, AES-256-GCM encrypted resources; `--check` verifies its decrypted content as well as the source fingerprint. Do not restore a separate `manifest.json`, `lunimcenter/` resource directory or plaintext `Web/` resources. Keep the native package key paired with the package and do not print it.
 H5 builds synchronize automatically. Xcode checks before compiling. Use `pnpm watch:ios` for continuous editing.
 Do not claim synchronization succeeded unless the content and source fingerprints match.

@@ -2,7 +2,7 @@
 
 - The H5 source is `lunmi_h5/`. The iOS project is `LunmiBrafer/LunmiBrafer.xcodeproj`, scheme `LunmiBrafer`.
 - The user requires all subsequent project changes to remain synchronized with the iOS project. After changing H5 source, assets, locales, configuration or build scripts, run `pnpm sync:ios` in `lunmi_h5/`, then `pnpm check:ios-sync`. Do not finish a task with stale bundled resources.
-- `LunmiBrafer/LunmiBrafer/Web/` and `WebBundleManifest.json` are generated. Edit H5 source rather than generated copies. `build:h5` automatically synchronizes them; the Xcode build phase also checks and refreshes them.
+- `LunmiBrafer/LunmiBrafer/lunimcenter.bundledata` is the single generated H5 resource file (two compression layers, AES-256-GCM). Its manifest is encrypted inside the file; do not restore a separate `manifest.json`, `lunimcenter/` resource directory or plaintext `Web/` bundle. Edit H5 source rather than the generated package. `build:h5` automatically repackages it; the Xcode build phase also checks and refreshes it. The `LunimcenterPackageKey` declaration is embedded in `LunimcenterArchive.swift`; keep it paired with the package and never print its key value.
 - Use `pnpm watch:ios` during continuous H5 editing. This is a local file watcher, not a scheduled Codex automation.
 - After native changes, build the `LunmiBrafer` scheme for an available iOS simulator. Do not introduce a second app name or recreate the project under another name.
 - Keep existing English/Japanese switching, 18+ legal copy and `lunmi_user@gmail.com` consistent.

@@ -6,6 +6,7 @@ import { createPinia, setActivePinia } from 'pinia'
 import { babelParse, parse } from '@vue/compiler-sfc'
 import { envelope, import_source, load_api } from './api-test-helpers.mjs'
 import * as legacy_presentation from '../src/utils/legacyPagePresentation.js'
+import * as agreement_consent from '../src/utils/agreementConsent.js'
 
 const root = new URL('../', import.meta.url)
 const theme = JSON.parse(await readFile(new URL('src/config/theme.json', root), 'utf8'))
@@ -36,6 +37,7 @@ const load_page = async (path, names, modules) => {
   const unmount = []
   const dependencies = {
     '@/utils/legacyPagePresentation': legacy_presentation,
+    '@/utils/agreementConsent': agreement_consent,
     '@/utils/i18n': { t: (source) => source },
     vue: { ...vue, onMounted: () => {}, onBeforeUnmount: (callback) => unmount.push(callback), watch: () => {} },
     '@dcloudio/uni-app': { onShow: () => {}, onHide: () => {}, onLoad: () => {}, onBackPress: () => {} },

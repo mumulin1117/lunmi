@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { readdir, readFile, mkdir, rm, cp, rename, writeFile } from 'node:fs/promises'
+import { readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 
 export const source_directories = ['src', 'static', 'scripts']
@@ -10,6 +10,7 @@ export const files_under = async (directory) => {
   const files = await Promise.all(entries.sort((a, b) => a.name.localeCompare(b.name)).map(async (entry) => {
     if (entry.name === '.DS_Store') return []
     const filename = path.join(directory, entry.name)
+    if (entry.isSymbolicLink()) throw new Error('Resource symlinks are not supported: ' + filename)
     return entry.isDirectory() ? files_under(filename) : entry.isFile() ? [filename] : []
   }))
   return files.flat()
@@ -45,39 +46,4 @@ export const source_fingerprint = async (root) => {
   return hash.digest('hex')
 }
 
-export const read_manifest = async (filename) => {
-  try { return JSON.parse(await readFile(filename, 'utf8')) } catch { return null }
-}
 
-export const copy_web_bundle = async ({ source, destination, manifest_path, source_sha256 }) => {
-  const entry = await readFile(path.join(source, 'index.html'))
-  if (!entry.length) throw new Error('The H5 entry file is empty.')
-  await mkdir(path.dirname(destination), { recursive: true })
-  const staging = destination + '.staging-' + process.pid
-  const previous = destination + '.previous-' + process.pid
-  await rm(staging, { recursive: true, force: true })
-  await cp(source, staging, { recursive: true, dereference: false })
-  const content = await directory_fingerprint(staging)
-  const original = await directory_fingerprint(source)
-  if (content.sha256 !== original.sha256) throw new Error('H5 bundle copy verification failed.')
-  let has_previous = false
-  try { await rename(destination, previous); has_previous = true } catch (error) { if (error.code !== 'ENOENT') throw error }
-  try {
-    await rename(staging, destination)
-    const manifest = {
-      version: 1, project: 'LunmiBrafer', sourceSHA256: source_sha256,
-      contentSHA256: content.sha256, fileCount: content.files,
-      entrySHA256: createHash('sha256').update(entry).digest('hex'),
-      generatedAt: new Date().toISOString()
-    }
-    const temporary_manifest = manifest_path + '.tmp'
-    await writeFile(temporary_manifest, JSON.stringify(manifest, null, 2) + '\n')
-    await rename(temporary_manifest, manifest_path)
-    if (has_previous) await rm(previous, { recursive: true, force: true })
-    return manifest
-  } catch (error) {
-    await rm(destination, { recursive: true, force: true })
-    if (has_previous) await rename(previous, destination)
-    throw error
-  } finally { await rm(staging, { recursive: true, force: true }) }
-}
