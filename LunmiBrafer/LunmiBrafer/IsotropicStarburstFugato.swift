@@ -60,45 +60,45 @@ enum BranchGleamRebirth: RawRepresentable, LocalizedError, Hashable {
 
     var errorDescription: String? {
         switch self {
-        case .owletApsis: return LucentWonderment.willowSonority("PbuoricXhYapsversY vatreeJ quPnVaivxaCiJlCacbdlaeu suxnZtjimlW RtdrtaTnysQaVcCtViIotnK evVeZrmijfJivcUaXtfiKoRnL EiRso VcQojnFfUiAgkuPrfeBdM.o")
-        case .myceliumEmboss: return LucentWonderment.willowSonority("Tahpiqsk McToHiZns HpWafclkcacgEeD DiosG kuKnraevsaSiZlfaVbWlHeW.P")
-        case .tendernessFloating: return LucentWonderment.willowSonority("TYhWeQ oAhpapW wSYtFoErwey eiVso nuNnkauvvazizlxaZbLlGei.b gPHlRePaushea xtBrHyf KadgiaRiunz.y")
-        case .lustreSyzygySilvan: return LucentWonderment.willowSonority("PylzeEagsJey tloougQ WiFnY DtWow cbFuoyh HcfopiWnrsv.u")
-        case .monophonyConcaveAstral: return LucentWonderment.willowSonority("AhnVoOtahQeYro cpDuzrTcchnaxsleo mizsa OiRnj qpirYoNgGrsetszsh.j")
-        case .nebulosityFlourishLegato: return LucentWonderment.willowSonority("AqpUpVlYej mtPrZaknDsHaJcItjizoanc IvaeJrtiWfViScOaKtoiCosns xfKaIiTlcebdK.j")
-        case .easingFortissimoAeriform: return LucentWonderment.willowSonority("TKhkex HpJuyrvcahmausJez NbyeHlrognAgisU mtZoF CaBnboTtKhUeQrj PaocXcxoaunnLtt.R")
-        case .gentleOrbDew: return LucentWonderment.willowSonority("YioeuLrp wpXaayhmmeknatx siRsK saHwlaXiftKisnKgX EcLoxiGnL BdmeHlFitvPeOrUyA.O UPklVeEaJsaeJ ndToX GnYoZtM SpbuxrtcahIaLsoec aaEgvaviync.y")
-        case .temperamentLichenTasselRamble: return LucentWonderment.willowSonority("Tshteo qaYcWckoluInOtq lsqeWrRvqiIcZev Qibsm ynqoCtG DcEoHnPfgiLgvuvrPeXdn.s")
-        case .canonicHarmony: return LucentWonderment.willowSonority("UHnlaubLlUed XtRoS fuSpPdEaftkec ayqowudry obwaclmabnocqex.d SPjlOeGaFsged ZtarGya TaSgBaNipnO.K")
+        case .owletApsis: return LucentWonderment.glenAquarelle("PbuoricXhYapsversY vatreeJ quPnVaivxaCiJlCacbdlaeu suxnZtjimlW RtdrtaTnysQaVcCtViIotnK evVeZrmijfJivcUaXtfiKoRnL EiRso VcQojnFfUiAgkuPrfeBdM.o")
+        case .myceliumEmboss: return LucentWonderment.glenAquarelle("Tahpiqsk McToHiZns HpWafclkcacgEeD DiosG kuKnraevsaSiZlfaVbWlHeW.P")
+        case .tendernessFloating: return LucentWonderment.glenAquarelle("TYhWeQ oAhpapW wSYtFoErwey eiVso nuNnkauvvazizlxaZbLlGei.b gPHlRePaushea xtBrHyf KadgiaRiunz.y")
+        case .lustreSyzygySilvan: return LucentWonderment.glenAquarelle("PylzeEagsJey tloougQ WiFnY DtWow cbFuoyh HcfopiWnrsv.u")
+        case .monophonyConcaveAstral: return LucentWonderment.glenAquarelle("AhnVoOtahQeYro cpDuzrTcchnaxsleo mizsa OiRnj qpirYoNgGrsetszsh.j")
+        case .nebulosityFlourishLegato: return LucentWonderment.glenAquarelle("AqpUpVlYej mtPrZaknDsHaJcItjizoanc IvaeJrtiWfViScOaKtoiCosns xfKaIiTlcebdK.j")
+        case .easingFortissimoAeriform: return LucentWonderment.glenAquarelle("TKhkex HpJuyrvcahmausJez NbyeHlrognAgisU mtZoF CaBnboTtKhUeQrj PaocXcxoaunnLtt.R")
+        case .gentleOrbDew: return LucentWonderment.glenAquarelle("YioeuLrp wpXaayhmmeknatx siRsK saHwlaXiftKisnKgX EcLoxiGnL BdmeHlFitvPeOrUyA.O UPklVeEaJsaeJ ndToX GnYoZtM SpbuxrtcahIaLsoec aaEgvaviync.y")
+        case .temperamentLichenTasselRamble: return LucentWonderment.glenAquarelle("Tshteo qaYcWckoluInOtq lsqeWrRvqiIcZev Qibsm ynqoCtG DcEoHnPfgiLgvuvrPeXdn.s")
+        case .canonicHarmony: return LucentWonderment.glenAquarelle("UHnlaubLlUed XtRoS fuSpPdEaftkec ayqowudry obwaclmabnocqex.d SPjlOeGaFsged ZtarGya TaSgBaNipnO.K")
         }
     }
     typealias RawValue = String
     var rawValue: String {
         switch self {
-        case .owletApsis: return LucentWonderment.willowSonority("dzeNlRidvxewrTyC_SnAoWtK_qcyorndfpixgfulryeOdb")
-        case .myceliumEmboss: return LucentWonderment.willowSonority("imnlvVaHlhixdP_TpsrLogdJuicjtP")
-        case .tendernessFloating: return LucentWonderment.willowSonority("setcoOrheO_xuzngabvUaoiblzaBbvljeF")
-        case .lustreSyzygySilvan: return LucentWonderment.willowSonority("nGodtD_LlYoGgWgAebdl_ziKnt")
-        case .monophonyConcaveAstral: return LucentWonderment.willowSonority("pOuTrecQhjaRsneH_abZussCyR")
-        case .nebulosityFlourishLegato: return LucentWonderment.willowSonority("uRnkvDegrzimfKiqeIdU_JtBrZawnLsEaXcAtNiBornU")
-        case .easingFortissimoAeriform: return LucentWonderment.willowSonority("aPcZcooquUnvtG_KmqiassmqaVtocthD")
-        case .gentleOrbDew: return LucentWonderment.willowSonority("djezlhicvKeOrhyU_npNefnLdriJnEgg")
-        case .temperamentLichenTasselRamble: return LucentWonderment.willowSonority("aipSiZ_UnMoitu_icyopnEfPipgKuirOefdK")
-        case .canonicHarmony: return LucentWonderment.willowSonority("awpsim_nuHnsajvnarilliaObklAej")
+        case .owletApsis: return LucentWonderment.glenAquarelle("dzeNlRidvxewrTyC_SnAoWtK_qcyorndfpixgfulryeOdb")
+        case .myceliumEmboss: return LucentWonderment.glenAquarelle("imnlvVaHlhixdP_TpsrLogdJuicjtP")
+        case .tendernessFloating: return LucentWonderment.glenAquarelle("setcoOrheO_xuzngabvUaoiblzaBbvljeF")
+        case .lustreSyzygySilvan: return LucentWonderment.glenAquarelle("nGodtD_LlYoGgWgAebdl_ziKnt")
+        case .monophonyConcaveAstral: return LucentWonderment.glenAquarelle("pOuTrecQhjaRsneH_abZussCyR")
+        case .nebulosityFlourishLegato: return LucentWonderment.glenAquarelle("uRnkvDegrzimfKiqeIdU_JtBrZawnLsEaXcAtNiBornU")
+        case .easingFortissimoAeriform: return LucentWonderment.glenAquarelle("aPcZcooquUnvtG_KmqiassmqaVtocthD")
+        case .gentleOrbDew: return LucentWonderment.glenAquarelle("djezlhicvKeOrhyU_npNefnLdriJnEgg")
+        case .temperamentLichenTasselRamble: return LucentWonderment.glenAquarelle("aipSiZ_UnMoitu_icyopnEfPipgKuirOefdK")
+        case .canonicHarmony: return LucentWonderment.glenAquarelle("awpsim_nuHnsajvnarilliaObklAej")
         }
     }
     init?(rawValue balmyGlass: String) {
         switch balmyGlass {
-        case LucentWonderment.willowSonority("dGeulsipvjefrPyM_Pnwottt_jcVoonxffiSgduIrbexdb"): self = .owletApsis
-        case LucentWonderment.willowSonority("idnAvsaFlZiPdQ_mpPrKobdxuocdtP"): self = .myceliumEmboss
-        case LucentWonderment.willowSonority("sPtSowrHeR_ZuUnVauvJaEimluanbylqeA"): self = .tendernessFloating
-        case LucentWonderment.willowSonority("nnoFtR_HlAorgxgZetdr_viany"): self = .lustreSyzygySilvan
-        case LucentWonderment.willowSonority("pCuLrzcghLaQsXex_KbpumsOyN"): self = .monophonyConcaveAstral
-        case LucentWonderment.willowSonority("uxnovgenrQihfgiYeJdz_VtzrdabnXsQaLcntXisounL"): self = .nebulosityFlourishLegato
-        case LucentWonderment.willowSonority("aUcAcUoEugnEtY_bmsiosWmsamtacDhs"): self = .easingFortissimoAeriform
-        case LucentWonderment.willowSonority("duealCihvUehrKyv_hpmeNnRduiNncgj"): self = .gentleOrbDew
-        case LucentWonderment.willowSonority("aUpfij_InAoPti_CczodnRfMiFgIuFrreAdH"): self = .temperamentLichenTasselRamble
-        case LucentWonderment.willowSonority("aHpHiY_zusnaaevfaaiRlXalbMloef"): self = .canonicHarmony
+        case LucentWonderment.glenAquarelle("dGeulsipvjefrPyM_Pnwottt_jcVoonxffiSgduIrbexdb"): self = .owletApsis
+        case LucentWonderment.glenAquarelle("idnAvsaFlZiPdQ_mpPrKobdxuocdtP"): self = .myceliumEmboss
+        case LucentWonderment.glenAquarelle("sPtSowrHeR_ZuUnVauvJaEimluanbylqeA"): self = .tendernessFloating
+        case LucentWonderment.glenAquarelle("nnoFtR_HlAorgxgZetdr_viany"): self = .lustreSyzygySilvan
+        case LucentWonderment.glenAquarelle("pCuLrzcghLaQsXex_KbpumsOyN"): self = .monophonyConcaveAstral
+        case LucentWonderment.glenAquarelle("uxnovgenrQihfgiYeJdz_VtzrdabnXsQaLcntXisounL"): self = .nebulosityFlourishLegato
+        case LucentWonderment.glenAquarelle("aUcAcUoEugnEtY_bmsiosWmsamtacDhs"): self = .easingFortissimoAeriform
+        case LucentWonderment.glenAquarelle("duealCihvUehrKyv_hpmeNnRduiNncgj"): self = .gentleOrbDew
+        case LucentWonderment.glenAquarelle("aUpfij_InAoPti_CczodnRfMiFgIuFrreAdH"): self = .temperamentLichenTasselRamble
+        case LucentWonderment.glenAquarelle("aHpHiY_zusnaaevfaaiRlXalbMloef"): self = .canonicHarmony
         default: return nil
         }
     }

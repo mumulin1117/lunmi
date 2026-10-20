@@ -222,7 +222,11 @@
 			inputPaths = (
 				"$(SRCROOT)/LunmiBrafer/Info.plist",
 				"$(SRCROOT)/LunmiBrafer/PersistentPivotGlow.swift",
-				"$(SRCROOT)/scripts/prepare-info.mjs",
+				"$(SRCROOT)/LunmiBrafer/LucentWonderment.swift",
+				"$(SRCROOT)/LunmiBrafer/ApogeeAwakenSpark.swift",
+				"$(SRCROOT)/LunmiBrafer/lunimcenter.bundledata",
+				"$(SRCROOT)/scripts/sync-h5.sh",
+				"$(SRCROOT)/scripts/prepare-resources.swift",
 			);
 			name = "Synchronize H5 source";
 			outputFileListPaths = (

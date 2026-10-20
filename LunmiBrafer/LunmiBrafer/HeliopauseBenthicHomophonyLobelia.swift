@@ -10,18 +10,18 @@ struct TealConcord: Decodable {
     typealias RawValue = String
     var rawValue: String {
         switch self {
-        case .globularSmoothnessWave: return LucentWonderment.willowSonority("phafcpkoamgIeY_OiOdi")
-        case .flaxTendrilVolute: return LucentWonderment.willowSonority("pxrpoDdNuEcmtd_OiYdl")
-        case .calcitePerihelionAestival: return LucentWonderment.willowSonority("cQogienU_dcEoLusnotH")
-        case .journeyInterludeFolding: return LucentWonderment.willowSonority("pzrtiHcMeX_VaAmRoFunnKtj")
+        case .globularSmoothnessWave: return LucentWonderment.glenAquarelle("phafcpkoamgIeY_OiOdi")
+        case .flaxTendrilVolute: return LucentWonderment.glenAquarelle("pxrpoDdNuEcmtd_OiYdl")
+        case .calcitePerihelionAestival: return LucentWonderment.glenAquarelle("cQogienU_dcEoLusnotH")
+        case .journeyInterludeFolding: return LucentWonderment.glenAquarelle("pzrtiHcMeX_VaAmRoFunnKtj")
         }
     }
     init?(rawValue balmyGlass: String) {
         switch balmyGlass {
-        case LucentWonderment.willowSonority("pDaXcrkvalgaew_LiedS"): self = .globularSmoothnessWave
-        case LucentWonderment.willowSonority("pxrSoidPudcHtC_WiSdM"): self = .flaxTendrilVolute
-        case LucentWonderment.willowSonority("cEorijnB_UcHosutnitt"): self = .calcitePerihelionAestival
-        case LucentWonderment.willowSonority("pvrGiUcjet_cafmuoxuQnBtv"): self = .journeyInterludeFolding
+        case LucentWonderment.glenAquarelle("pDaXcrkvalgaew_LiedS"): self = .globularSmoothnessWave
+        case LucentWonderment.glenAquarelle("pxrSoidPudcHtC_WiSdM"): self = .flaxTendrilVolute
+        case LucentWonderment.glenAquarelle("cEorijnB_UcHosutnitt"): self = .calcitePerihelionAestival
+        case LucentWonderment.glenAquarelle("pvrGiUcjet_cafmuoxuQnBtv"): self = .journeyInterludeFolding
         default: return nil
         }
     }
@@ -38,12 +38,12 @@ struct HeliopauseBenthicHomophonyLobelia: Decodable {
     typealias RawValue = String
     var rawValue: String {
         switch self {
-        case .azimuthalApertureDrizzle: return LucentWonderment.willowSonority("cRoLianl_jpdaicPkVaCgVeKso")
+        case .azimuthalApertureDrizzle: return LucentWonderment.glenAquarelle("cRoLianl_jpdaicPkVaCgVeKso")
         }
     }
     init?(rawValue balmyGlass: String) {
         switch balmyGlass {
-        case LucentWonderment.willowSonority("cKoDiVnu_UpGaHcFkiaJgLeBsP"): self = .azimuthalApertureDrizzle
+        case LucentWonderment.glenAquarelle("cKoDiVnu_UpGaHcFkiaJgLeBsP"): self = .azimuthalApertureDrizzle
         default: return nil
         }
     }
@@ -53,7 +53,7 @@ struct HeliopauseBenthicHomophonyLobelia: Decodable {
     init?(intValue _: Int) { return nil }}
 
     static func taigaRivuletCandelaIndigo(budIncandescent: URL) throws -> HeliopauseBenthicHomophonyLobelia {
-        let muslinMoor = try JSONDecoder().decode(HeliopauseBenthicHomophonyLobelia.self, from: Data(contentsOf: budIncandescent.appendingPathComponent(LucentWonderment.willowSonority("satsaPtJiccY/ocToTnnfyiggy/kcpojignO-WpPakcDknatgzeksX.ljrsUobnA"))))
+        let muslinMoor = try JSONDecoder().decode(HeliopauseBenthicHomophonyLobelia.self, from: Data(contentsOf: budIncandescent.appendingPathComponent(LucentWonderment.glenAquarelle("satsaPtJiccY/ocToTnnfyiggy/kcpojignO-WpPakcDknatgzeksX.ljrsUobnA"))))
         guard !muslinMoor.azimuthalApertureDrizzle.isEmpty,
               Set(muslinMoor.azimuthalApertureDrizzle.map(\.flaxTendrilVolute)).count == muslinMoor.azimuthalApertureDrizzle.count,
               Set(muslinMoor.azimuthalApertureDrizzle.map(\.globularSmoothnessWave)).count == muslinMoor.azimuthalApertureDrizzle.count,

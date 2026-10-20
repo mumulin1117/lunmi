@@ -21,8 +21,10 @@ test('native package key lookup survives Swift file renames and rejects ambiguou
     await rename(first, renamed)
     assert.ok((await read_package_key(root)).equals(key))
     const interleaved = Array.from(key.toString('base64'), value => value + 'q').join('')
-    await writeFile(renamed, `enum Example {\n    static let scatteringSable = LucentWonderment.willowSonority("${interleaved}")\n}\n`)
-    assert.ok((await read_package_key(root)).equals(key))
+    for (const decoder of ['glenAquarelle', 'willowSonority']) {
+      await writeFile(renamed, `enum Example {\n    static let scatteringSable = LucentWonderment.${decoder}("${interleaved}")\n}\n`)
+      assert.ok((await read_package_key(root)).equals(key))
+    }
     await writeFile(path.join(root, 'Duplicate.swift'), declaration)
     await assert.rejects(read_package_key(root), /valid 256-bit/)
     await rm(renamed)
@@ -40,9 +42,11 @@ test('native string decoding preserves Unicode scalars and supports encoded buil
   }
   const api = 'https://example.invalid/api'
   const encoded = encode(api)
-  assert.deepEqual(read_native_string_declarations(`let example = LucentWonderment.willowSonority("${encoded}")`, 'example'), [api])
+  for (const decoder of ['glenAquarelle', 'willowSonority']) {
+    assert.deepEqual(read_native_string_declarations(`let example = LucentWonderment.${decoder}("${encoded}")`, 'example'), [api])
+    assert.throws(() => read_native_string_declarations(`let example = LucentWonderment.${decoder}("x")`, 'example'), /Invalid interleaved/)
+  }
   assert.deepEqual(read_native_string_declarations(`let example = "${api}"`, 'example'), [api])
-  assert.throws(() => read_native_string_declarations('let example = LucentWonderment.willowSonority("x")', 'example'), /Invalid interleaved/)
 })
 
 const sha256 = data => createHash('sha256').update(data).digest('hex')

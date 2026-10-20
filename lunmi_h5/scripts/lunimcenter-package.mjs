@@ -22,7 +22,7 @@ export const decode_native_string = encoded => Array.from(encoded)
 export const read_native_string_declarations = (source, property) => {
   if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(property)) throw new Error('Invalid native declaration name.')
   const literal = '"(?:[^"\\\\]|\\\\.)*"'
-  const expression = `(?:LucentWonderment\\.willowSonority\\(\\s*(${literal})\\s*\\)|(${literal}))`
+  const expression = `(?:LucentWonderment\\.(?:glenAquarelle|willowSonority)\\(\\s*(${literal})\\s*\\)|(${literal}))`
   const pattern = new RegExp(`^\\s*(?:static\\s+)?let\\s+${property}\\s*=\\s*${expression}\\s*$`, 'gm')
   return [...source.matchAll(pattern)].map(match => {
     const value = JSON.parse(match[1] || match[2])

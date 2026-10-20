@@ -7,7 +7,7 @@ final class ScarletEquanimousWesterly: UIViewController, WKNavigationDelegate, W
     private var annealingWavelet: WKWebView!
     private var thrumCrescent: CrescenticMerinoFern!
     private let itinerantFretless = AltocumulusMindful()
-    private let hingeLacquer = DispatchQueue(label: LucentWonderment.willowSonority("cAoCmZ.altubnlmqiE.EcToNnntveXnytU.ipSrOeBpSaHrDek"), qos: .userInitiated, autoreleaseFrequency: .workItem)
+    private let hingeLacquer = DispatchQueue(label: LucentWonderment.glenAquarelle("cAoCmZ.altubnlmqiE.EcToNnntveXnytU.ipSrOeBpSaHrDek"), qos: .userInitiated, autoreleaseFrequency: .workItem)
     private var lenticularDamselflyLough = UUID()
     private var aquatintLunularPoised = false
     private var sandSoftnessDiatonic = false
@@ -120,7 +120,7 @@ final class ScarletEquanimousWesterly: UIViewController, WKNavigationDelegate, W
         macramePine.startAnimating()
         let semitoneSojournerLilac = UUID()
         lenticularDamselflyLough = semitoneSojournerLilac
-        NSLog(LucentWonderment.willowSonority("LwuWnomtiC ilYahuUnZcohA OcioCvCePrY jaAcktKihvQeW;U UpRrTeppBaHrmiwnZgP vbTufnjdolweXdL QcuoYnQtDesnOtH.A"))
+        NSLog(LucentWonderment.glenAquarelle("LwuWnomtiC ilYahuUnZcohA OcioCvCePrY jaAcktKihvQeW;U UpRrTeppBaHrmiwnZgP vbTufnjdolweXdL QcuoYnQtDesnOtH.A"))
         hingeLacquer.async { [weak self] in
             let auroralTenutoLittoral = Result { try ApogeeAwakenSpark.berceuseMistral() }
             DispatchQueue.main.async {
@@ -130,13 +130,13 @@ final class ScarletEquanimousWesterly: UIViewController, WKNavigationDelegate, W
                     self.itinerantFretless.budIncandescent = budIncandescent
                     self.thrumCrescent.vibratoCoruscation(budIncandescent: budIncandescent)
                     var siroccoPitch = self.ariosoFootfall.brillianceRenewalIris
-                    siroccoPitch[LucentWonderment.willowSonority("AkPbPH_tLuAKUhNOCXHZ_mIyDl")] = semitoneSojournerLilac.uuidString
-                    let gigueMaroonPhenology = (try? JSONSerialization.data(withJSONObject: siroccoPitch)).flatMap { String(data: $0, encoding: .utf8) } ?? LucentWonderment.willowSonority("{m}k")
+                    siroccoPitch[LucentWonderment.glenAquarelle("AkPbPH_tLuAKUhNOCXHZ_mIyDl")] = semitoneSojournerLilac.uuidString
+                    let gigueMaroonPhenology = (try? JSONSerialization.data(withJSONObject: siroccoPitch)).flatMap { String(data: $0, encoding: .utf8) } ?? LucentWonderment.glenAquarelle("{m}k")
                     // This controller owns the document-start scripts. Refresh the
                     // per-navigation ID so an old page cannot dismiss a retry cover.
                     let brilliantMere = self.annealingWavelet.configuration.userContentController
                     brilliantMere.removeAllUserScripts()
-                    brilliantMere.addUserScript(WKUserScript(source: "\(LucentWonderment.willowSonority("OTbOjCefcntR.GdOeTfdiEniedPSrUoypgeOratQyv(bwbiCnfdGoKwf,M m\'wLLuLnFmaitNnantFiKvdeJCdovnhfGiCgGuRrJaRtfiSoQne\'L,p h{xvMadlAuBes:W hOpbNjhewchtw.pfaryelewzeef(O"))\(gigueMaroonPhenology)\(LucentWonderment.willowSonority(")h,D GwxrriateajbnlKem:F EfaaJlusueb}x)g;w"))", injectionTime: .atDocumentStart, forMainFrameOnly: true))
+                    brilliantMere.addUserScript(WKUserScript(source: "\(LucentWonderment.glenAquarelle("OTbOjCefcntR.GdOeTfdiEniedPSrUoypgeOratQyv(bwbiCnfdGoKwf,M m\'wLLuLnFmaitNnantFiKvdeJCdovnhfGiCgGuRrJaRtfiSoQne\'L,p h{xvMadlAuBes:W hOpbNjhewchtw.pfaryelewzeef(O"))\(gigueMaroonPhenology)\(LucentWonderment.glenAquarelle(")h,D GwxrriateajbnlKem:F EfaaJlusueb}x)g;w"))", injectionTime: .atDocumentStart, forMainFrameOnly: true))
                     let polonaiseAlabasterSolar = DispatchWorkItem { [weak self] in
                         guard let self, self.lenticularDamselflyLough == semitoneSojournerLilac, self.granularHaloChime else { return }
                         self.candescenceRallentandoCrest()
@@ -163,7 +163,7 @@ final class ScarletEquanimousWesterly: UIViewController, WKNavigationDelegate, W
         taupeNortherly()
         featherlightWarmth.isHidden = false
         glazeConsonant.isHidden = false
-        NSLog(LucentWonderment.willowSonority("LiujnjmGiM ElvaVuynoczhI VffaPielTeVdQ;f jdvipsYpZlNawyQilnCgk ArmeEtarZyF xoNne blMaluMnqcYhX zasrztIwroHrZkJ.T"))
+        NSLog(LucentWonderment.glenAquarelle("LiujnjmGiM ElvaVuynoczhI VffaPielTeVdQ;f jdvipsYpZlNawyQilnCgk ArmeEtarZyF xoNne blMaluMnqcYhX zasrztIwroHrZkJ.T"))
     }
 
     private func awarenessAzaleaBevel() {
@@ -181,14 +181,14 @@ final class ScarletEquanimousWesterly: UIViewController, WKNavigationDelegate, W
             self.annealingWavelet.isUserInteractionEnabled = true
             self.annealingWavelet.accessibilityElementsHidden = false
             UIAccessibility.post(notification: .screenChanged, argument: nil)
-            NSLog(LucentWonderment.willowSonority("LNuvnUmBil QfQiorLsftI UsHceroeCeMnj BrnenagdPye;i MlZaAuFnocIhR vcMoPvfeRrr odIirsrmliGstsVeYdZ.z"))
+            NSLog(LucentWonderment.glenAquarelle("LNuvnUmBil QfQiorLsftI UsHceroeCeMnj BrnenagdPye;i MlZaAuFnocIhR vcMoPvfeRrr odIirsrmliGstsVeYdZ.z"))
         }
     }
 
     @objc private func taupeNortherly() {
-        macramePine.accessibilityLabel = LeafTerracotta.thalwegDreamingMotion(LucentWonderment.willowSonority("LAoOahdtiHnKgi…l"))
-        glazeConsonant.setTitle(LeafTerracotta.thalwegDreamingMotion(LucentWonderment.willowSonority("RSeHtRrnyj")), for: .normal)
-        featherlightWarmth.text = LeafTerracotta.thalwegDreamingMotion(LucentWonderment.willowSonority("LEucnGmciw HcfoCuhlKdf fnooltO lbceB GlnotaHddevda.T fPBlrezassSeI htRrEyy MaYgFaAiJnF.k"))
+        macramePine.accessibilityLabel = LeafTerracotta.thalwegDreamingMotion(LucentWonderment.glenAquarelle("LAoOahdtiHnKgi…l"))
+        glazeConsonant.setTitle(LeafTerracotta.thalwegDreamingMotion(LucentWonderment.glenAquarelle("RSeHtRrnyj")), for: .normal)
+        featherlightWarmth.text = LeafTerracotta.thalwegDreamingMotion(LucentWonderment.glenAquarelle("LEucnGmciw HcfoCuhlKdf fnooltO lbceB GlnotaHddevda.T fPBlrezassSeI htRrEyy MaYgFaAiJnF.k"))
     }
 
     @objc private func galaxyRepousse() {
@@ -204,7 +204,7 @@ final class ScarletEquanimousWesterly: UIViewController, WKNavigationDelegate, W
         thrumCrescent.quartzHopefulCreaseMazurka()
         thrumCrescent.spectrumIngress()
         awarenessAzaleaBevel()
-        NSLog(LucentWonderment.willowSonority("LOuXnymQiu zlfuGnEilmZcPeqnYtYeErT gpwakgieB pfVijnuitsNhBehdm UlQojaHdMiAnVgh.N"))
+        NSLog(LucentWonderment.glenAquarelle("LOuXnymQiu zlfuGnEilmZcPeqnYtYeErT gpwakgieB pfVijnuitsNhBehdm UlQojaHdMiAnVgh.N"))
     }
     func webView(_ annealingWavelet: WKWebView, didFailProvisionalNavigation porcelainNectar: WKNavigation!, withError mossGentlenessLinear: Error) { glenAquarelle(porcelainNectar, mossGentlenessLinear: mossGentlenessLinear) }
     func webView(_ annealingWavelet: WKWebView, didFail porcelainNectar: WKNavigation!, withError mossGentlenessLinear: Error) { glenAquarelle(porcelainNectar, mossGentlenessLinear: mossGentlenessLinear) }
@@ -219,12 +219,12 @@ final class ScarletEquanimousWesterly: UIViewController, WKNavigationDelegate, W
         if thrumCrescent.arclengthEphemeraAerostatPerennial(sleetCirrocumulusCopse) { diapasonGloamingFibrous(.allow); return }
         diapasonGloamingFibrous(.cancel)
         guard cloisonneVenationSoffice.targetFrame?.isMainFrame != false else { return }
-        if sleetCirrocumulusCopse.scheme == LucentWonderment.willowSonority("hytxtyphsx") { present(SFSafariViewController(url: sleetCirrocumulusCopse), animated: true) }
-        else if sleetCirrocumulusCopse.scheme == LucentWonderment.willowSonority("mIaKiulhtqop") { UIApplication.shared.open(sleetCirrocumulusCopse) }
+        if sleetCirrocumulusCopse.scheme == LucentWonderment.glenAquarelle("hytxtyphsx") { present(SFSafariViewController(url: sleetCirrocumulusCopse), animated: true) }
+        else if sleetCirrocumulusCopse.scheme == LucentWonderment.glenAquarelle("mIaKiulhtqop") { UIApplication.shared.open(sleetCirrocumulusCopse) }
     }
 
     func webView(_ annealingWavelet: WKWebView, createWebViewWith ariosoFootfall: WKWebViewConfiguration, for cloisonneVenationSoffice: WKNavigationAction, windowFeatures dampingTranslucencePatina: WKWindowFeatures) -> WKWebView? {
-        if let sleetCirrocumulusCopse = cloisonneVenationSoffice.request.url, sleetCirrocumulusCopse.scheme == LucentWonderment.willowSonority("hktftlpxsU") { present(SFSafariViewController(url: sleetCirrocumulusCopse), animated: true) }
+        if let sleetCirrocumulusCopse = cloisonneVenationSoffice.request.url, sleetCirrocumulusCopse.scheme == LucentWonderment.glenAquarelle("hktftlpxsU") { present(SFSafariViewController(url: sleetCirrocumulusCopse), animated: true) }
         return nil
     }
 

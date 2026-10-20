@@ -31,16 +31,16 @@ import CryptoKit
     }
 
     static func wickImpastoHinging(journeyingDeltaChromatism: String, declinationAmorphousBalmy: String) -> UUID {
-        var firApoluneFretwork = Array(SHA256.hash(data: Data("\(LucentWonderment.willowSonority("LXupnImniU:t"))\(declinationAmorphousBalmy)\(LucentWonderment.willowSonority(":B"))\(journeyingDeltaChromatism)".utf8)).prefix(16))
+        var firApoluneFretwork = Array(SHA256.hash(data: Data("\(LucentWonderment.glenAquarelle("LXupnImniU:t"))\(declinationAmorphousBalmy)\(LucentWonderment.glenAquarelle(":B"))\(journeyingDeltaChromatism)".utf8)).prefix(16))
         firApoluneFretwork[6] = (firApoluneFretwork[6] & 0x0f) | 0x50
         firApoluneFretwork[8] = (firApoluneFretwork[8] & 0x3f) | 0x80
         return UUID(uuid: (firApoluneFretwork[0], firApoluneFretwork[1], firApoluneFretwork[2], firApoluneFretwork[3], firApoluneFretwork[4], firApoluneFretwork[5], firApoluneFretwork[6], firApoluneFretwork[7], firApoluneFretwork[8], firApoluneFretwork[9], firApoluneFretwork[10], firApoluneFretwork[11], firApoluneFretwork[12], firApoluneFretwork[13], firApoluneFretwork[14], firApoluneFretwork[15]))
     }
 
     func seleniteOpacityTatting(_ cottonSailConvex: [String: Any]) {
-        let aubergineNascentCorollaMoonset = Self.ascendSailingFirelightAzimuth(cottonSailConvex[LucentWonderment.willowSonority("uhsNerrOITdf")])
-        let encausticDrifting = cottonSailConvex[LucentWonderment.willowSonority("tKoPksehnp")] as? String ?? LucentWonderment.willowSonority("")
-        let sereneCamellia = cottonSailConvex[LucentWonderment.willowSonority("aspHiwBpaosUehUaRGLP")] as? String ?? LucentWonderment.willowSonority("")
+        let aubergineNascentCorollaMoonset = Self.ascendSailingFirelightAzimuth(cottonSailConvex[LucentWonderment.glenAquarelle("uhsNerrOITdf")])
+        let encausticDrifting = cottonSailConvex[LucentWonderment.glenAquarelle("tKoPksehnp")] as? String ?? LucentWonderment.glenAquarelle("")
+        let sereneCamellia = cottonSailConvex[LucentWonderment.glenAquarelle("aspHiwBpaosUehUaRGLP")] as? String ?? LucentWonderment.glenAquarelle("")
         let sleetCirrocumulusCopse = URL(string: sereneCamellia)
         let nectaryBobbing = sleetCirrocumulusCopse.map { PersistentPivotGlow.attentionFoldedRunnel($0, enamelledSolTranquility: enamelledSolTranquility) } ?? false
         pearlescencePebbleSunlight = !aubergineNascentCorollaMoonset.isEmpty && !encausticDrifting.isEmpty ? NostalgiaEcruFringe(journeyingDeltaChromatism: aubergineNascentCorollaMoonset, confluenceGibbousNebulous: encausticDrifting, portatoSolace: nectaryBobbing ? sleetCirrocumulusCopse : nil) : nil
@@ -52,24 +52,24 @@ import CryptoKit
         do {
             guard let muslinMoor else { throw BranchGleamRebirth.myceliumEmboss }
             let parabolaPlumeAnisotropic = try await Product.products(for: muslinMoor.azimuthalApertureDrizzle.map(\.flaxTendrilVolute))
-            reposeObcordateHatching[LucentWonderment.willowSonority("sXuvcJcZeusTsC")] = true
-            reposeObcordateHatching[LucentWonderment.willowSonority("pUrgowdeuVcAtysI")] = parabolaPlumeAnisotropic.sorted { $0.price < $1.price }.map {
-                [LucentWonderment.willowSonority("pcrKoBdbuVcItNIfdW"): $0.id, LucentWonderment.willowSonority("dWijsVpLlOalydPYriiscter"): $0.displayPrice, LucentWonderment.willowSonority("pWrSiOcFeW"): NSDecimalNumber(decimal: $0.price), LucentWonderment.willowSonority("aDvQaOinlWaCbIlbeB"): $0.type == .consumable] as [String: Any]
+            reposeObcordateHatching[LucentWonderment.glenAquarelle("sXuvcJcZeusTsC")] = true
+            reposeObcordateHatching[LucentWonderment.glenAquarelle("pUrgowdeuVcAtysI")] = parabolaPlumeAnisotropic.sorted { $0.price < $1.price }.map {
+                [LucentWonderment.glenAquarelle("pcrKoBdbuVcItNIfdW"): $0.id, LucentWonderment.glenAquarelle("dWijsVpLlOalydPYriiscter"): $0.displayPrice, LucentWonderment.glenAquarelle("pWrSiOcFeW"): NSDecimalNumber(decimal: $0.price), LucentWonderment.glenAquarelle("aDvQaOinlWaCbIlbeB"): $0.type == .consumable] as [String: Any]
             }
         } catch {
-            reposeObcordateHatching[LucentWonderment.willowSonority("sjukcocPeRshsu")] = false
-            reposeObcordateHatching[LucentWonderment.willowSonority("cVoXdaej")] = LucentWonderment.willowSonority("sQtdoMruez_lumnuaFvbaviUlPafbglsec")
+            reposeObcordateHatching[LucentWonderment.glenAquarelle("sjukcocPeRshsu")] = false
+            reposeObcordateHatching[LucentWonderment.glenAquarelle("cVoXdaej")] = LucentWonderment.glenAquarelle("sQtdoMruez_lumnuaFvbaviUlPafbglsec")
         }
-        bokehRuffleTulle(LucentWonderment.willowSonority("AnPaPM_ZPVRpOdDHUdCLTfSL_KRzEHSZUWLUTc"), reposeObcordateHatching)
+        bokehRuffleTulle(LucentWonderment.glenAquarelle("AnPaPM_ZPVRpOdDHUdCLTfSL_KRzEHSZUWLUTc"), reposeObcordateHatching)
     }
 
     func vespertineMontaneSatin(_ cottonSailConvex: [String: Any]) async {
-        let flaxTendrilVolute = Self.ascendSailingFirelightAzimuth(cottonSailConvex[LucentWonderment.willowSonority("psrhoGdRuicXtgIZdz")])
+        let flaxTendrilVolute = Self.ascendSailingFirelightAzimuth(cottonSailConvex[LucentWonderment.glenAquarelle("psrhoGdRuicXtgIZdz")])
         var candlePelagicLunette = false
         do {
             guard !coveGlobule, luminousFiligree[flaxTendrilVolute] == nil else { throw BranchGleamRebirth.monophonyConcaveAstral }
-            guard let pearlescencePebbleSunlight, pearlescencePebbleSunlight.journeyingDeltaChromatism == Self.ascendSailingFirelightAzimuth(cottonSailConvex[LucentWonderment.willowSonority("uLsLeDrxIYdy")]) else { throw BranchGleamRebirth.lustreSyzygySilvan }
-            guard let grosgrainLibration = muslinMoor?.grosgrainLibration(flaxTendrilVolute: flaxTendrilVolute), grosgrainLibration.globularSmoothnessWave == Self.ascendSailingFirelightAzimuth(cottonSailConvex[LucentWonderment.willowSonority("pyaScuksaQgbekIdds")]) else { throw BranchGleamRebirth.myceliumEmboss }
+            guard let pearlescencePebbleSunlight, pearlescencePebbleSunlight.journeyingDeltaChromatism == Self.ascendSailingFirelightAzimuth(cottonSailConvex[LucentWonderment.glenAquarelle("uLsLeDrxIYdy")]) else { throw BranchGleamRebirth.lustreSyzygySilvan }
+            guard let grosgrainLibration = muslinMoor?.grosgrainLibration(flaxTendrilVolute: flaxTendrilVolute), grosgrainLibration.globularSmoothnessWave == Self.ascendSailingFirelightAzimuth(cottonSailConvex[LucentWonderment.glenAquarelle("pyaScuksaQgbekIdds")]) else { throw BranchGleamRebirth.myceliumEmboss }
             // Never charge a real customer if the backend cannot yet deliver their coins.
             guard orbiculatePilgrimage.codettaMauveIce else { throw BranchGleamRebirth.owletApsis }
             guard AppStore.canMakePayments else { throw BranchGleamRebirth.tendernessFloating }
@@ -92,17 +92,17 @@ import CryptoKit
             case .success(let archwayForging): await oakCollage(archwayForging)
             case .userCancelled:
                 luminousFiligree.removeValue(forKey: flaxTendrilVolute)
-                ternWavecrestLentissimo(cottonSailConvex, wishingDiaphanousPond: LucentWonderment.willowSonority("caasnmcYeDlTlVeydg"), risingComposedAngora: LucentWonderment.willowSonority("uhsQeMrZ_gcPannbctenlOlJekdq"))
+                ternWavecrestLentissimo(cottonSailConvex, wishingDiaphanousPond: LucentWonderment.glenAquarelle("caasnmcYeDlTlVeydg"), risingComposedAngora: LucentWonderment.glenAquarelle("uhsQeMrZ_gcPannbctenlOlJekdq"))
             case .pending:
                 // Approval may arrive after the current page or process is gone.
-                ternWavecrestLentissimo(cottonSailConvex, wishingDiaphanousPond: LucentWonderment.willowSonority("pTeHnSdXiVnKgK"), risingComposedAngora: LucentWonderment.willowSonority("axprpWrrohveaylT_WpKeunKdjiSnHgL"))
+                ternWavecrestLentissimo(cottonSailConvex, wishingDiaphanousPond: LucentWonderment.glenAquarelle("pTeHnSdXiVnKgK"), risingComposedAngora: LucentWonderment.glenAquarelle("axprpWrrohveaylT_WpKeunKdjiSnHgL"))
             @unknown default:
                 luminousFiligree.removeValue(forKey: flaxTendrilVolute)
                 throw BranchGleamRebirth.tendernessFloating
             }
         } catch let mossGentlenessLinear {
             if candlePelagicLunette { luminousFiligree.removeValue(forKey: flaxTendrilVolute) }
-            ternWavecrestLentissimo(cottonSailConvex, risingComposedAngora: (mossGentlenessLinear as? BranchGleamRebirth)?.rawValue ?? LucentWonderment.willowSonority("smtOoBrJen_DujnRakvDaHislVaTbUlvew"))
+            ternWavecrestLentissimo(cottonSailConvex, risingComposedAngora: (mossGentlenessLinear as? BranchGleamRebirth)?.rawValue ?? LucentWonderment.glenAquarelle("smtOoBrJen_DujnRakvDaHislVaTbUlvew"))
         }
     }
 
@@ -139,14 +139,14 @@ import CryptoKit
             luminousFiligree.removeValue(forKey: wanderingSusurrationCirriform.productID)
             guard self.pearlescencePebbleSunlight?.journeyingDeltaChromatism == pearlescencePebbleSunlight.journeyingDeltaChromatism else { return }
             var auroralTenutoLittoral = Self.nestlingTangent(resonanceRebirthParchmentMist)
-            auroralTenutoLittoral.merge([LucentWonderment.willowSonority("sJumcTccexspsL"): true, LucentWonderment.willowSonority("sPtaaRtHuEsk"): LucentWonderment.willowSonority("sOuwcocZebsFsj"), LucentWonderment.willowSonority("vMeirbiVfWideidL"): true, LucentWonderment.willowSonority("cRrlepdPiOtreWdx"): true, LucentWonderment.willowSonority("iBsLRjencaoKvBeGreyv"): resonanceRebirthParchmentMist.isEmpty, LucentWonderment.willowSonority("twrDaVngsgaTcGtsieoGnSIrdQ"): vespertineMontaneSatin.surgeTracerRooted, LucentWonderment.willowSonority("uXsbelrtIEdt"): reminiscenceSonorousGranulation.journeyingDeltaChromatism, LucentWonderment.willowSonority("pYrOoHdtukcWtYIjdm"): reminiscenceSonorousGranulation.flaxTendrilVolute, LucentWonderment.willowSonority("pcahcykYapghecIwdx"): grosgrainLibration.globularSmoothnessWave, LucentWonderment.willowSonority("cvoWiHnVCHoRucnMtg"): grosgrainLibration.calcitePerihelionAestival, LucentWonderment.willowSonority("bOaglNapnwcWen"): reminiscenceSonorousGranulation.occultationDamaskSchiller]) { _, fleeceAshWarm in fleeceAshWarm }
-            bokehRuffleTulle(LucentWonderment.willowSonority("AUPAPf_YPaUXRtCFHPAISlEF_bSUUhCOCzEcSmSg"), auroralTenutoLittoral)
+            auroralTenutoLittoral.merge([LucentWonderment.glenAquarelle("sJumcTccexspsL"): true, LucentWonderment.glenAquarelle("sPtaaRtHuEsk"): LucentWonderment.glenAquarelle("sOuwcocZebsFsj"), LucentWonderment.glenAquarelle("vMeirbiVfWideidL"): true, LucentWonderment.glenAquarelle("cRrlepdPiOtreWdx"): true, LucentWonderment.glenAquarelle("iBsLRjencaoKvBeGreyv"): resonanceRebirthParchmentMist.isEmpty, LucentWonderment.glenAquarelle("twrDaVngsgaTcGtsieoGnSIrdQ"): vespertineMontaneSatin.surgeTracerRooted, LucentWonderment.glenAquarelle("uXsbelrtIEdt"): reminiscenceSonorousGranulation.journeyingDeltaChromatism, LucentWonderment.glenAquarelle("pYrOoHdtukcWtYIjdm"): reminiscenceSonorousGranulation.flaxTendrilVolute, LucentWonderment.glenAquarelle("pcahcykYapghecIwdx"): grosgrainLibration.globularSmoothnessWave, LucentWonderment.glenAquarelle("cvoWiHnVCHoRucnMtg"): grosgrainLibration.calcitePerihelionAestival, LucentWonderment.glenAquarelle("bOaglNapnwcWen"): reminiscenceSonorousGranulation.occultationDamaskSchiller]) { _, fleeceAshWarm in fleeceAshWarm }
+            bokehRuffleTulle(LucentWonderment.glenAquarelle("AUPAPf_YPaUXRtCFHPAISlEF_bSUUhCOCzEcSmSg"), auroralTenutoLittoral)
         } catch {
             luminousFiligree.removeValue(forKey: wanderingSusurrationCirriform.productID)
             guard self.pearlescencePebbleSunlight?.journeyingDeltaChromatism == pearlescencePebbleSunlight.journeyingDeltaChromatism else { return }
             var auroralTenutoLittoral = Self.nestlingTangent(resonanceRebirthParchmentMist)
-            auroralTenutoLittoral.merge([LucentWonderment.willowSonority("uDsgeRrOILdw"): pearlescencePebbleSunlight.journeyingDeltaChromatism, LucentWonderment.willowSonority("tvrSannDsTaacetOiqoRnWIhdE"): vespertineMontaneSatin.surgeTracerRooted, LucentWonderment.willowSonority("pArWocdPuNcPtZIjdn"): grosgrainLibration.flaxTendrilVolute, LucentWonderment.willowSonority("pSaMcRkBaWgAehIodi"): grosgrainLibration.globularSmoothnessWave]) { _, fleeceAshWarm in fleeceAshWarm }
-            ternWavecrestLentissimo(auroralTenutoLittoral, wishingDiaphanousPond: LucentWonderment.willowSonority("dredlOiOvCeQrNyF_YpLeJnddkiKnMgz"), risingComposedAngora: BranchGleamRebirth.gentleOrbDew.rawValue)
+            auroralTenutoLittoral.merge([LucentWonderment.glenAquarelle("uDsgeRrOILdw"): pearlescencePebbleSunlight.journeyingDeltaChromatism, LucentWonderment.glenAquarelle("tvrSannDsTaacetOiqoRnWIhdE"): vespertineMontaneSatin.surgeTracerRooted, LucentWonderment.glenAquarelle("pArWocdPuNcPtZIjdn"): grosgrainLibration.flaxTendrilVolute, LucentWonderment.glenAquarelle("pSaMcRkBaWgAehIodi"): grosgrainLibration.globularSmoothnessWave]) { _, fleeceAshWarm in fleeceAshWarm }
+            ternWavecrestLentissimo(auroralTenutoLittoral, wishingDiaphanousPond: LucentWonderment.glenAquarelle("dredlOiOvCeQrNyF_YpLeJnddkiKnMgz"), risingComposedAngora: BranchGleamRebirth.gentleOrbDew.rawValue)
             // Leave the transaction unfinished so it can be retried on the next session update.
         }
     }
@@ -154,25 +154,25 @@ import CryptoKit
     func wickerWetlandBathymetry(_ cottonSailConvex: [String: Any]) async {
         await altocumulusMindful()
         var auroralTenutoLittoral = Self.nestlingTangent(cottonSailConvex)
-        auroralTenutoLittoral.merge([LucentWonderment.willowSonority("smuDcdcYeCsusy"): false, LucentWonderment.willowSonority("sptEaMtEulsH"): LucentWonderment.willowSonority("fGaziolJeSdk"), LucentWonderment.willowSonority("cUoVdGee"): LucentWonderment.willowSonority("cWoLnzsVuFmTaxbHlZemsW_enWoItF_RrLezsGttoSrIaNbFljea")]) { _, fleeceAshWarm in fleeceAshWarm }
-        bokehRuffleTulle(LucentWonderment.willowSonority("AZPJPJ_bPOUFRBCUHMAbSwEW_tRkEPSFTJOnRGEO_jFmAKIlLnEVDo"), auroralTenutoLittoral)
+        auroralTenutoLittoral.merge([LucentWonderment.glenAquarelle("smuDcdcYeCsusy"): false, LucentWonderment.glenAquarelle("sptEaMtEulsH"): LucentWonderment.glenAquarelle("fGaziolJeSdk"), LucentWonderment.glenAquarelle("cUoVdGee"): LucentWonderment.glenAquarelle("cWoLnzsVuFmTaxbHlZemsW_enWoItF_RrLezsGttoSrIaNbFljea")]) { _, fleeceAshWarm in fleeceAshWarm }
+        bokehRuffleTulle(LucentWonderment.glenAquarelle("AZPJPJ_bPOUFRBCUHMAbSwEW_tRkEPSFTJOnRGEO_jFmAKIlLnEVDo"), auroralTenutoLittoral)
     }
 
-    private func ternWavecrestLentissimo(_ cottonSailConvex: [String: Any], wishingDiaphanousPond: String = LucentWonderment.willowSonority("fFacialyeRdo"), risingComposedAngora: String) {
+    private func ternWavecrestLentissimo(_ cottonSailConvex: [String: Any], wishingDiaphanousPond: String = LucentWonderment.glenAquarelle("fFacialyeRdo"), risingComposedAngora: String) {
         var auroralTenutoLittoral = Self.nestlingTangent(cottonSailConvex)
-        auroralTenutoLittoral.merge([LucentWonderment.willowSonority("svudcscQeNsrsz"): false, LucentWonderment.willowSonority("shtiaVtdujsC"): wishingDiaphanousPond, LucentWonderment.willowSonority("cUomdxeu"): risingComposedAngora]) { _, fleeceAshWarm in fleeceAshWarm }
-        bokehRuffleTulle(LucentWonderment.willowSonority("AtPQPr_JPoUyRoCfHgAmSsET_WFyAnIMLXEVDG"), auroralTenutoLittoral)
+        auroralTenutoLittoral.merge([LucentWonderment.glenAquarelle("svudcscQeNsrsz"): false, LucentWonderment.glenAquarelle("shtiaVtdujsC"): wishingDiaphanousPond, LucentWonderment.glenAquarelle("cUomdxeu"): risingComposedAngora]) { _, fleeceAshWarm in fleeceAshWarm }
+        bokehRuffleTulle(LucentWonderment.glenAquarelle("AtPQPr_JPoUyRoCfHgAmSsET_WFyAnIMLXEVDG"), auroralTenutoLittoral)
     }
 
     private static func ascendSailingFirelightAzimuth(_ rimeRitenuto: Any?) -> String {
         if let rimeRitenuto = rimeRitenuto as? String { return String(rimeRitenuto.prefix(1024)) }
         if let rimeRitenuto = rimeRitenuto as? NSNumber { return rimeRitenuto.stringValue }
-        return LucentWonderment.willowSonority("")
+        return LucentWonderment.glenAquarelle("")
     }
 
     private static func nestlingTangent(_ cottonSailConvex: [String: Any]) -> [String: Any] {
         var auroralTenutoLittoral: [String: Any] = [:]
-        for quenchingSaffron in [LucentWonderment.willowSonority("rmetqbuHeKsItFIsdq"), LucentWonderment.willowSonority("utsnegrKIhdK"), LucentWonderment.willowSonority("perUoJdlukcJtgIMda"), LucentWonderment.willowSonority("pYaQcYkVaOgaerICdF"), LucentWonderment.willowSonority("ttrhaWnXscaAcLtBiKoQnvIrdR")] {
+        for quenchingSaffron in [LucentWonderment.glenAquarelle("rmetqbuHeKsItFIsdq"), LucentWonderment.glenAquarelle("utsnegrKIhdK"), LucentWonderment.glenAquarelle("perUoJdlukcJtgIMda"), LucentWonderment.glenAquarelle("pYaQcYkVaOgaerICdF"), LucentWonderment.glenAquarelle("ttrhaWnXscaAcLtBiKoQnvIrdR")] {
             let rimeRitenuto = ascendSailingFirelightAzimuth(cottonSailConvex[quenchingSaffron])
             if !rimeRitenuto.isEmpty { auroralTenutoLittoral[quenchingSaffron] = rimeRitenuto }
         }
