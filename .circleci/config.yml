@@ -24,13 +24,10 @@ jobs:
 
       # 以下敏感变量不要写在 config.yml 中。
       # 请在 CircleCI -> Project Settings -> Environment Variables 中配置：
-      # FASTLANE_USER、BUNDLE_ID、EXPORT_METHOD
       # ASC_KEY_ID
       # ASC_ISSUER_ID
-      # ASC_KEY_CONTENT（完整 .p8 PEM，不含变量名和外围引号）
-      # 或 ASC_KEY_CONTENT_BASE64（完整 .p8 文件的 Base64；与上一项二选一）
+      # ASC_KEY_CONTENT
       # MATCH_PASSWORD（如果 Fastfile 使用 match）
-      # pgy_api_key（EXPORT_METHOD=ad-hoc 时）
 
     steps:
       - checkout

@@ -1,11 +1,11 @@
 require "xcodeproj"
-require_relative "signing_key"
 
 default_platform(:ios)
 
 username = ENV["FASTLANE_USER"].to_s.strip
 asc_key_id = ENV["ASC_KEY_ID"].to_s.strip
 asc_issuer_id = ENV["ASC_ISSUER_ID"].to_s.strip
+asc_key_content = ENV["ASC_KEY_CONTENT"]
 asc_key_path = ENV["ASC_KEY_PATH"].to_s.strip
 asc_key_path = "AuthKey_#{asc_key_id}.p8" if asc_key_path.empty?
 
@@ -214,23 +214,22 @@ platform :ios do
     missing_names = required_values.select { |_, value| value.empty? }.keys
     UI.user_error!("Missing required environment variables: #{missing_names.join(", ")}") unless missing_names.empty?
 
-    begin
-      key_content = LunmiSigningKey.load(
-        content: ENV["ASC_KEY_CONTENT"],
-        content_base64: ENV["ASC_KEY_CONTENT_BASE64"],
-        path: File.expand_path(asc_key_path)
+    if asc_key_content.to_s.empty?
+      UI.user_error!("App Store Connect API key file is not configured") unless File.file?(asc_key_path)
+      app_store_connect_api_key(
+        key_id: asc_key_id,
+        issuer_id: asc_issuer_id,
+        key_filepath: asc_key_path,
+        in_house: false
       )
-    rescue LunmiSigningKey::InvalidKey => error
-      UI.user_error!(error.message)
+    else
+      app_store_connect_api_key(
+        key_id: asc_key_id,
+        issuer_id: asc_issuer_id,
+        key_content: asc_key_content,
+        in_house: false
+      )
     end
-    UI.message("App Store Connect private-key format checked (EC P-256).")
-    app_store_connect_api_key(
-      key_id: asc_key_id,
-      issuer_id: asc_issuer_id,
-      key_content: key_content,
-      is_key_content_base64: false,
-      in_house: false
-    )
   end
 
   private_lane :validate_release_configuration do
