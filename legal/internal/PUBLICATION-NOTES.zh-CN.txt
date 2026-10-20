@@ -1,0 +1,113 @@
+Lunmi 英文法律文档交付说明
+整理日期：2026 年 10 月 16 日
+
+一、交付内容与当前状态
+
+本次依据用户提供的产品描述生成三份英文审阅稿：Privacy Policy、Terms of Service and Community Standards、End User License Agreement。每份同时提供 HTML、纯文本以及便于接入 App 的 JSON。HTML 为独立静态文件，无外部字体、脚本、统计或远程资源。
+
+用户已确认的信息：统一联系邮箱 lunmi_user@gmail.com；最低使用年龄 18 岁。按用户要求，暂不填写未提供的运营主体名称、国家或地区、地址、电话及官网；不虚构 SDK 名单、服务器所在地、录制状态或法律管辖地。文档没有发布至外网，也没有替换现有 App 页面。
+
+这些文件是可供产品、运营和法律审核的文案初稿，不是关于当前实现已经合规的证明，也不保证 App Store 审核通过。英文文件顶部的 Review draft 提示应在下列问题解决、内容核验完成后再移除。发布时应使用实际生效或更新日期，并保留历史版本和接受记录。
+
+二、与产品描述保持一致的规则
+
+1. 发现一个灯笼后，只能通过该灯笼流程发送一次初始回复；灯笼主人回复后才开启持续私聊。
+2. 金币仅用于灯笼曝光和心愿树位置，不能解锁聊天、回复、祝福、Voice Rooms 或视频通话，也不保证互动或心愿实现。
+3. Lantern Boost 100 Coins；Low Branch 7 天免费；Mid Branch 14 天 100 Coins；High Branch 30 天 300 Coins。没有编造 Boost 持续时长。Boost 的实际交付内容、展示范围和任何持续时长，需在确认消费前说明。
+4. 购买的 Coin 余额不因时间经过而过期；树枝展示期限与 Coin 有效性分开。文稿拟定树枝展示自激活起计时、不自动续费，实际交易逻辑必须一致。
+5. 未成年人即使获得监护人许可也不能使用；18+ 是服务准入规则，App Store 年龄分级问卷仍须如实填写，不能只靠协议中的年龄声明。
+
+三、举报、拉黑和处罚的拟采用标准
+
+文稿提出：举报与拉黑相互独立；拉黑成功后立即阻止该账号的新私信和呼叫，不等待平台审核；严重风险优先及时处置；普通安全举报以收到后 24 小时内启动人工审核为运营目标；确认违规后及时删除或限制内容，并对违规用户限制功能、停用房间、临时或永久封禁。复杂调查不承诺 24 小时内结案。
+
+24 小时是本稿提出的运营目标，沿用了项目现有文案中的时间尺度并明确了“启动人工审核”的含义。Apple 1.2 要求及时响应，并未在该条公开指南中统一规定所有举报必须在 24 小时内结案。必须按实际可达到的能力确定承诺，并同步 App 所有文案，不能把本稿当作已具备审核人员与后台系统的证据。
+
+处罚按风险、证据和重复违规情况决定；严重违法或伤害可以直接永久封禁，无需逐级警告。误报但出于善意、善意申诉不处罚；恶意造假和骚扰式举报可以处罚。申诉经人工重新评估。购买金币不能免除处罚，但封号也不能自动排除强制消费者退款权或一律没收无关付费余额。
+
+四、已在当前项目中看到、需要上线前处理的问题
+
+以下是对前端文件的有限核对，不构成对原生 App、服务端或实际运营的完整审计。
+
+1. 当前举报弹窗没有保存举报。lunmi_h5/src/components/ReportUserSheet.vue 第 181 行明确写有“no report is persisted here”；第 236 至 241 行只等待本地定时反馈后显示成功。选中拉黑时调用的是用户关系接口，不能视为举报已经发送。必须接入真实举报接口、保存内容或账号标识及证据、进入运营队列、返回真实受理状态；举报与拉黑同时选择时，两项动作都须完成且能独立显示失败。
+
+2. lunmi_h5/src/utils/moderation.js 中 submit_post_report 仍返回“The report API is not configured.”，block_user 为直接返回成功的函数。其是否仍被其他路径调用，需要在正式接入时核查，不能据此认定服务端已封禁或已受理举报。
+
+3. lunmi_h5/src/pages/profile/user-agreement.vue 第 33 行及该文件的条款数组仍写 17 岁；需要改为已确认的 18 岁，并同步注册、登录、年龄确认、其他语言和应用商店资料。应验证年龄限制在产品和服务端实际执行，而不是只有一段协议文字。
+
+4. lunmi_h5/src/pages/profile/safety-support/index.vue 使用 safety@lunmi.app、support@lunmi.app、privacy@lunmi.app。用户本次确认的有效联系邮箱是 lunmi_user@gmail.com。应统一联系入口并实际验证邮箱收信、回复和处置流程。
+
+5. lunmi_h5/src/utils/privacyPolicyPresentation.js 的隐私文字末段截断在“Access is requested only when you attach a”，并含“precise location is never collected”等尚未验证的绝对表述。权限相关代码包含位置桥接；不能仅根据“只公开城市”推断“从不收集精确位置”。需要核对原生定位结果、接口参数和 SDK 行为。
+
+6. lunmi_h5/src/pages/profile/user-agreement.vue 声称每个灯笼、心愿、帖子和回复发布前都经过检查；safety-support 页面声称每份举报均人工审核且 24 小时内处理。本次未获得后台实现或运营记录，不能确认这些承诺。本稿只描述应落实的筛查和审核机制，没有承诺每条内容都先由人工批准。
+
+7. 项目 package.json 包含 agora-rtc-sdk-ng，AgoraOneToOneCall.vue 使用实时音视频；同时存在媒体上传和 AI 接口代码。依赖存在不等于正式版本启用，也不等于录制、转写、AI 分享或跨境处理已经发生。上线前应确认实际启用的供应商、传输数据、处理地区、是否录制或转写、保留时间及额外同意。本次没有写入具体未确认的厂商和配置。
+
+8. 原麦克风权限文案声称“nothing is recorded”，与可能存在的语音消息等功能需要分别核对。实时通话传输、用户主动录制语音消息、平台录制房间及第三方参与者自行录制，是不同活动。本稿没有替未确认的配置作出“从不录制”的保证。
+
+五、正式发布前需要补齐的信息
+
+1. 自定义 EULA：Apple Minimum Terms 第 8 项要求开发者名称、地址及联系信息，包括电话和邮箱。本次依用户要求仅填品牌和邮箱，所以仍是未完成的自定义 EULA，不能标为完全符合 Apple 最低条款。需要用户之后提供实际法定名称、地址和电话。可选择使用 Apple 标准 EULA，并单独使用有效的服务条款；若采用自定义 EULA，应在 App Store Connect 中为对应国家或地区正式设置，App 内同意不能代替该设置。
+
+2. 隐私政策：正式发布前应核实数据控制者身份、上线地区、具体 SDK/供应商及其保护义务、真实数据收集项目和用途、录音录像及私信访问能力、处理国家和跨境机制、删除周期、备份清理周期、购买记录及安全记录保存规则。没有事实依据，不应增加“从不出售”“绝不追踪”“端到端加密”等承诺。本稿的通用保留标准仍需与实际执行情况对齐；如上线地区要求具体周期或补充披露，应补足。
+
+3. 地区法律：尚未确定发行地区，本稿没有任意指定管辖地、仲裁机构、责任上限或注册地址，也未宣称满足全球所有法律。欧洲、英国、美国各州、中国大陆及其他地区可能要求不同的隐私补充、代表或联系人、告知、权利入口和程序。发布到相应地区之前应由熟悉当地要求的法律人员核对。
+
+六、与 Apple 审核有关的落地核对
+
+1. 社交分类：根据当前提供的产品描述，优先考虑 Social Networking；这是基于主要功能的判断，最终分类及年龄分级需按实际版本与 App Store Connect 问卷确认。18+ 不代表允许色情、骚扰或儿童伤害内容。
+2. 用户生成内容：所有发布与展示入口都要具备适用的内容过滤；灯笼、心愿、回复、私信、资料、Voice Rooms 和通话内应有易发现的举报和拉黑入口；运营后台需有真实审核、删除、限制及封禁能力。房主个人管理不能替代平台处理。
+3. 随机或匿名聊天：Apple 1.2 明确限制主要用于这类体验的应用。一次初始回复和主人回复后开启私聊，有助于体现用户控制，但本身不构成符合指南或一定过审的保证。需要如实展示发现、回复、建立会话及呼叫流程；不得通过改变文案掩盖实际的随机匹配或自动呼叫。
+4. 隐私与权限：隐私政策链接应在 App 内和 App Store Connect 中可访问。公开 URL 应为可直接读取的稳定 HTTPS 页面，不要求登录；可以将 en 目录内的 HTML 托管至自己控制的域名，完成核对后移除审阅稿提示。权限用途文字、隐私标签、SDK 行为、实际接口和正文应保持一致。只申请实际需要的权限，并在相关操作发生时解释用途；不能把非必要权限捆绑为访问其他功能的条件。
+5. 账户删除：必须能从 App 内发起真正的账户删除，并按适用要求删除关联个人数据及内容，不能仅退出登录、冻结或删除本地缓存。应验证数据库、媒体存储、服务商副本及有限留存例外。如采用 Sign in with Apple，还需核对删除时撤销相应授权或令牌的要求。
+6. 金币：iOS 内购买虚拟金币按适用的 Apple 支付规则实施；余额不按时间过期，买入与消费记录可核对，异常交易及退款有实际处理路径。消费型 Coin 不应写成可通过“Restore Purchases”恢复的非消费型商品；应基于账号和服务端账本保留真实余额，不编造已消耗 Coin 的恢复能力。
+7. 审核材料：提供有效测试账号、可访问后台、可测举报与拉黑入口以及可核实的付费流程。审核备注应描述实际功能；不要把尚未实现的筛查、人工审核或处罚能力写成现有事实。
+
+七、文件使用方式
+
+en/privacy-policy.txt、en/terms-of-service.txt、en/eula.txt 是英文内容源文件。
+同名 HTML 是可在浏览器、WebView 中阅读并进一步托管的版本。
+en/legal-content.json 保留标题、版本、状态和章节，便于之后接入现有 Vue 页面。段落与列表以 blocks 表达，不应静默丢失列表或只展示摘要。
+en/index.html 提供三个文档的阅读入口。
+
+本次没有修改现有 Vue 页面、i18n、注册流程、举报逻辑或 App Store 配置。若需要接入，建议先完成未确认事实与后台能力核对，再同步替换页面正文、接受记录、邮箱和年龄规则。
+
+八、核对来源
+
+查阅日期：2026 年 10 月 16 日。Apple 指南和地区法律会更新，正式提交前应再次核对适用版本。
+
+Apple App Review Guidelines：1.2 用户生成内容；1.5 联系方式；2.5.14 记录活动告知；3.1.1 虚拟币与支付；5.1.1 隐私政策、权限和账户删除。
+https://developer.apple.com/app-store/review/guidelines/
+
+Apple Minimum Terms of Developer’s End User License Agreement：自定义 EULA 最低内容，包括开发者责任、Apple 角色、设备许可、保修、索赔、出口合规及开发者身份与联系方式。
+https://www.apple.com/legal/internet-services/itunes/dev/minterms/
+
+Apple Developer Program License Agreement：自定义许可与 Apple 最低条款及适用法律的关系。
+https://developer.apple.com/support/terms/apple-developer-program-license-agreement/
+
+Apple Standard Licensed Application End User License Agreement：没有在相应地区采用自定义 EULA 时的标准软件许可。
+https://www.apple.com/legal/internet-services/itunes/dev/stdeula/
+
+Apple App Store Connect Provide a custom license agreement：如何为对应地区设置自定义 EULA。
+https://developer.apple.com/help/app-store-connect/manage-app-information/provide-a-custom-license-agreement
+
+Apple Account Deletion：App 内发起删除、删除关联数据及第三方登录相关处理。
+https://developer.apple.com/help/app-review/guideline-reference/5-1-1-account-deletion
+
+Apple App Privacy Details：隐私标签应包含第三方合作方实际的数据实践。
+https://developer.apple.com/app-store/app-privacy-details/
+
+Apple Age Ratings Values and Definitions：分级问卷、用户生成内容、消息聊天等能力的披露。
+https://developer.apple.com/help/app-store-connect/reference/app-information/age-ratings-values-and-definitions/
+
+ICO A Guide to Lawful Basis：相关地区的数据处理依据及告知。
+https://ico.org.uk/for-organisations/uk-gdpr-guidance-and-resources/lawful-basis/a-guide-to-lawful-basis/
+
+ICO Your Data Protection Rights：适用的数据权利及联系处理。
+https://ico.org.uk/global/privacy-notice/your-data-protection-rights
+
+California Attorney General CCPA：适用企业的告知、访问、删除、更正、销售或共享退出等要求；不能仅凭通用条款认定已完成加州披露。
+https://oag.ca.gov/privacy/ccpa
+
+Agora Privacy Policy：仅用于确认供应商处理可能依赖具体产品与配置；不表示 Lunmi 已启用其所有能力。
+https://www.agora.io/en/privacy-policy/

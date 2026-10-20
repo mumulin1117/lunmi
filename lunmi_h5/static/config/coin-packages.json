@@ -1,0 +1,82 @@
+{
+  "version": 2,
+  "coin_packages": [
+    {
+      "package_id": "lantern_coins_280",
+      "product_id": "rmbsziwbnslhsddk",
+      "package_name": "280 Lantern Coins",
+      "coin_count": 280,
+      "price_amount": 0.99,
+      "price_currency": "USD",
+      "price_text": "$0.99",
+      "coin_icon_url": "/static/assets/coin-sm.png",
+      "is_popular": false
+    },
+    {
+      "package_id": "lantern_coins_560",
+      "product_id": "pleaimfvbtyjtyjz",
+      "package_name": "560 Lantern Coins",
+      "coin_count": 560,
+      "price_amount": 1.99,
+      "price_currency": "USD",
+      "price_text": "$1.99",
+      "coin_icon_url": "/static/assets/coin-sm.png",
+      "is_popular": false
+    },
+    {
+      "package_id": "lantern_coins_1400",
+      "product_id": "osmjqvwjzzerocwd",
+      "package_name": "1,400 Lantern Coins",
+      "coin_count": 1400,
+      "price_amount": 4.99,
+      "price_currency": "USD",
+      "price_text": "$4.99",
+      "coin_icon_url": "/static/assets/coin-sm.png",
+      "is_popular": false
+    },
+    {
+      "package_id": "lantern_coins_2800",
+      "product_id": "rxtsdinlflyesgik",
+      "package_name": "2,800 Lantern Coins",
+      "coin_count": 2800,
+      "price_amount": 9.99,
+      "price_currency": "USD",
+      "price_text": "$9.99",
+      "coin_icon_url": "/static/assets/coin-sm.png",
+      "is_popular": false
+    },
+    {
+      "package_id": "lantern_coins_5600",
+      "product_id": "lklakechsrphypay",
+      "package_name": "5,600 Lantern Coins",
+      "coin_count": 5600,
+      "price_amount": 19.99,
+      "price_currency": "USD",
+      "price_text": "$19.99",
+      "coin_icon_url": "/static/assets/coin-sm.png",
+      "is_popular": false
+    },
+    {
+      "package_id": "lantern_coins_14050",
+      "product_id": "bwibfrpuysevpeqb",
+      "package_name": "14,050 Lantern Coins",
+      "coin_count": 14050,
+      "price_amount": 49.99,
+      "price_currency": "USD",
+      "price_text": "$49.99",
+      "coin_icon_url": "/static/assets/coin-sm.png",
+      "is_popular": false
+    },
+    {
+      "package_id": "lantern_coins_28300",
+      "product_id": "nejagbiggkbeoncm",
+      "package_name": "28,300 Lantern Coins",
+      "coin_count": 28300,
+      "price_amount": 99.99,
+      "price_currency": "USD",
+      "price_text": "$99.99",
+      "coin_icon_url": "/static/assets/coin-sm.png",
+      "is_popular": false
+    }
+  ]
+}

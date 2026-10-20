@@ -1,0 +1,91 @@
+Lunmi End User License Agreement
+Version 1.0 | Last updated October 16, 2026
+Review draft. Developer identity and contact particulars required for publication remain to be completed separately.
+
+1. Parties and Acceptance
+
+This End User License Agreement ("EULA") is between you and the operator of Lunmi (the "Licensor," "Lunmi," "we," or "us") for the Lunmi application and its included software content (the "App"). Apple is not a party to this agreement. Responsibility for the App and its content belongs to the Licensor.
+
+You accept this EULA through the agreement control presented before use. You must be at least 18 years old and legally able to enter it. If you do not agree or are under 18, do not use the App. Questions, complaints, and claims may be sent to lunmi_user@gmail.com.
+
+2. Software License and Ownership
+
+We give you a limited, personal, non-exclusive, non-transferable license to use the App on Apple-branded devices that you own or control, within the Usage Rules in the Apple Media Services Terms and Conditions. This includes access by eligible associated accounts through Family Sharing or volume purchasing where those rules permit it. A shared App license does not transfer a personal Lunmi account or Coin balance.
+
+The App is licensed, rather than sold. We and our licensors retain ownership of the software, branding, interfaces, and other protected materials. Your own content remains yours, subject to the limited service permission in the Terms of Service.
+
+3. License Restrictions
+
+Except where applicable law permits despite this restriction, you may not copy or distribute the App, sublicense or commercially exploit it, modify it, create derivative software from it, or attempt to obtain its source code through decompilation or reverse engineering. You may not remove ownership notices, defeat security controls, gain unauthorized access, or use the App to infringe another person's rights.
+
+Do not introduce malware, automate abusive access, scrape user information, forge purchase records, exploit Coin balances, or bypass account, age, moderation, or contact restrictions. We do not prohibit acts that applicable law expressly protects, including legally protected interoperability or security research conducted within lawful limits.
+
+4. User Generated Content and Safety Rules
+
+Lunmi hosts user-generated content, including lanterns, wishes, blessings, replies, profiles, messages, room content, and live audio and video. We have zero tolerance for objectionable content and abusive users. You must not submit or facilitate pornography, child exploitation, sexual coercion, harassment, hate, threats, stalking, scams, unlawful activity, doxxing, non-consensual intimate imagery, unlawful recording, or infringement of another person's rights.
+
+You must respect the one-initial-reply rule: an ongoing lantern conversation opens only after the lantern owner replies. Do not evade a block or ban, pressure another person to respond, or use additional accounts to continue unwanted contact. Full conduct rules and enforcement procedures appear in the Terms of Service and Community Standards, which apply to your service use.
+
+Lunmi applies content screening and moderation measures and may reject, remove, or restrict offending content, limit features, remove participants, close rooms, suspend accounts, or permanently ban serious or repeated abusers. Severe violations can result in immediate action without a prior warning. Reports and relevant evidence may be reviewed by authorized personnel under the Privacy Policy.
+
+Report abuse through the relevant Report control or email lunmi_user@gmail.com with the subject "Safety Report." You may block another account independently of a report; once a block succeeds, that account must not send you new private messages or call invitations. Platform-wide sanctions require a separate safety decision. Our operational target is to begin human review of ordinary safety reports within 24 hours, with credible urgent threats prioritized without undue delay. We act promptly on confirmed violations; a complex investigation may require additional time.
+
+Appeal an enforcement decision by emailing lunmi_user@gmail.com with the subject "Moderation Appeal" and the account and decision details. Good-faith reports and appeals are not punished simply because no violation or error is established. Lunmi is not an emergency service.
+
+5. Lantern Coins and Purchases
+
+Coins are optional and are used only for Lantern visibility and Wish Tree placement: Lantern Boost costs 100 Coins; Low Branch is free for 7 days; Mid Branch costs 100 Coins for 14 days; and High Branch costs 300 Coins for 30 days. The Boost service details and any duration must be shown before confirmation.
+
+Coins do not unlock chats, replies, blessings, Voice Rooms, or video calls, and do not guarantee interaction or an outcome. Purchased Coins do not expire. Time-limited branch placement is distinct from Coin validity and does not automatically renew. Coins cannot be transferred between users or exchanged for money.
+
+Apple processes in-app Coin purchases made in the iOS app. Purchase delivery, refunds, reversals, and the effect of account restrictions are addressed in the Terms of Service, subject to mandatory consumer rights and Apple's payment rules. No license provision waives a remedy that the law requires.
+
+6. Privacy Device Access and Recordings
+
+The Privacy Policy describes information handling and available privacy rights. Camera, microphone, photo, notification, or location access is subject to the relevant device setting and feature explanation. This EULA is not a substitute for required permission or consent.
+
+Do not secretly record or intercept a room or call. Any App-operated recording or transcription must be separately disclosed and supported by the permissions and consent required by law. We do not represent that the word "private" means end-to-end encryption or absolute confidentiality.
+
+7. Maintenance and Support
+
+The Licensor supplies the App's maintenance and support to the extent provided or legally required; Apple has no duty to supply those services. Contact lunmi_user@gmail.com for help. Connectivity and device compatibility can affect availability.
+
+8. Warranties
+
+Mandatory legal warranties and consumer remedies remain available. To the extent legally permitted, any additional implied warranties are disclaimed and the App is supplied in its available condition without a promise of uninterrupted or error-free operation.
+
+If the App fails an applicable warranty, you may notify Apple to obtain a refund of the App's purchase price. Beyond that refund, Apple bears no further warranty responsibility to the fullest lawful extent. The Licensor remains responsible for other warranty-related claims, losses, liabilities, and expenses that the law assigns to the Licensor. This App-price provision does not determine eligibility for a separate Coin purchase refund.
+
+9. Product Claims and Liability
+
+Claims relating to the App or its possession or use must be addressed by the Licensor, including product liability, legal or regulatory compliance, consumer protection, and privacy claims; Apple is not responsible for resolving those claims under this EULA.
+
+Any limitation of the Licensor's liability is subject to applicable law and the Terms of Service. No provision excludes a mandatory warranty, consumer remedy, liability for fraud or other non-excludable misconduct, or a non-excludable privacy right. This agreement must not be read as limiting liability more broadly than the law allows.
+
+10. Third Party Intellectual Property Claims
+
+If a third party alleges that the App, or your authorized possession or use of it, infringes its intellectual property, the Licensor is responsible for investigating and handling the defense, settlement, and discharge of that claim. Those responsibilities do not belong to Apple.
+
+11. Legal Compliance and Third Party Agreements
+
+You represent that you are not in a country subject to a United States government embargo or designated by that government as supporting terrorism, and that you are not on a United States government list of prohibited or restricted parties. You must comply with applicable export controls and other laws governing your use.
+
+You must also comply with relevant third-party agreements, including your mobile network or data service agreement when using voice or video. Nothing in this EULA permits use that breaches Apple's applicable Usage Rules. Open-source components remain subject to their applicable licenses where those licenses control.
+
+12. Apple as Beneficiary
+
+You and the Licensor agree that Apple and its subsidiaries are beneficiaries of this EULA. When you accept it, Apple obtains and is treated as accepting the right to enforce this EULA against you in that capacity.
+
+13. Termination and Relationship to Other Documents
+
+The software license may be suspended or terminated for a material breach, serious safety or security risk, or legal requirement, subject to mandatory law. Upon termination, stop using the App. You may stop using it at any time. Signing out or uninstalling does not delete your account; initiate deletion through Settings > Delete Account or contact support if you cannot access it. Lawful retention, purchase remedies, and provisions intended to survive termination continue as applicable.
+
+The Terms of Service govern the social service, purchases, community rules, and appeals; this EULA governs the App software license and Apple's distribution-related provisions. The Privacy Policy describes data handling. Mandatory law and Apple's applicable Usage Rules take precedence over conflicting restrictions. A conflict does not create broader rights to access another user or to process personal information.
+
+If this custom EULA has not been adopted for the relevant App Store country or region, Apple's standard Licensed Application End User License Agreement governs the App Store software license there. Service terms may still apply to service use to the extent valid and consistent with that license. We do not claim that two conflicting software licenses apply simultaneously.
+
+14. Changes and Contact
+
+We identify revised versions and provide notice of material changes, obtaining fresh acceptance where required. Revisions do not remove accrued statutory rights. If part of this EULA is unenforceable, the remaining parts continue to the extent lawful. You retain access to competent courts and mandatory local consumer protections.
+
+Support, privacy, safety, and legal questions: lunmi_user@gmail.com.

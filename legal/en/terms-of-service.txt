@@ -1,0 +1,156 @@
+Lunmi Terms of Service and Community Standards
+Version 1.0 | Last updated October 16, 2026
+Review draft. Publication requires verification of the practices described below.
+
+1. Agreement and Eligibility
+
+These Terms govern access to Lunmi and its account-based social services. "Lunmi," "we," "us," and "our" mean the operator of the Lunmi service. You accept these Terms through the acceptance control presented to you. If you do not agree, do not create an account or use the service. Contact us at lunmi_user@gmail.com.
+
+You must be at least 18 years old and have legal capacity to enter this agreement. If a higher minimum age is required for your use by applicable law, that higher age applies. Do not falsify your age, help an underage person obtain access, or create an account on someone else's behalf without authority. Parental permission does not make a person under 18 eligible.
+
+The Privacy Policy explains how personal information is handled. The End User License Agreement governs the application software. Our Community Standards in Sections 6 through 9 form part of these Terms. Privacy notices do not replace any separate consent required for data collection or device access.
+
+2. Your Account
+
+Provide accurate account information, keep your sign-in credentials secure, and tell us promptly about suspected unauthorized access. Do not sell, rent, share, or transfer an account to evade our rules. You remain responsible for your own conduct and for taking reasonable care of your credentials; you are not automatically responsible for every unauthorized act merely because it involved your account.
+
+We may request proportionate information when necessary to verify eligibility, ownership, or a safety concern. Do not submit another person's identity documents. We may restrict an account while a credible eligibility or security issue is investigated.
+
+3. How Lunmi Works
+
+Lanterns. You may release supported content and discover lanterns shared by others. After finding a lantern, you may send only one initial reply through that lantern's reply flow. An ongoing private conversation opens only if the lantern owner replies back. You must not bypass this gate through repeated accounts, automated requests, alternate entry points, or pressure on the owner. An initial reply does not entitle you to an answer.
+
+Wish Tree. You may hang wishes and, where available, receive or send blessings and replies. A blessing is a social expression. It is not a purchase, professional service, promise, or guarantee that a wish will be fulfilled.
+
+Voice Rooms. You may join available rooms and choose whether to speak. Follow the same conduct rules that apply to posts and messages, as well as reasonable room rules consistent with these Terms. Hosts may manage participation but cannot override these Terms or act as an authorized representative of Lunmi merely by hosting a room.
+
+Messages and calls. Established conversations may continue through the available messaging and video-call features. A chat opening or previous call does not imply consent to future contact, sexual content, recording, or off-platform interaction. The recipient may decline, stop replying, leave, report, or block at any time.
+
+Lunmi is a social communication service built around user content. Discovering a lantern does not automatically create a live call or an unrestricted conversation. User identities and statements may not be independently verified, and you must exercise judgment when interacting.
+
+4. Lantern Coins and Optional Visibility Services
+
+Lantern Coins are optional virtual credits used only for Lantern visibility and Wish Tree placement. The current options are:
+
+- Lantern Boost: 100 Coins. The nature and any duration of the visibility service must be shown before confirmation.
+- Wish Tree Low Branch: 7 days, Free.
+- Wish Tree Mid Branch: 14 days, 100 Coins.
+- Wish Tree High Branch: 30 days, 300 Coins.
+
+Coins do not unlock chats, initial or ongoing replies, blessings, Voice Rooms, or video calls. They do not buy a person, a relationship, priority access to another user, or an exemption from moderation. Visibility or placement does not guarantee views, discovery, replies, blessings, conversations, wish fulfillment, or any other interaction or outcome.
+
+The duration of a branch placement is distinct from the validity of a Coin balance. Purchased Coins do not expire. A branch period begins when the placement activates and does not automatically renew. A later placement requires a separate confirmation. Costs, duration, and any relevant visibility limits must be disclosed before Coins are deducted. A price change applies to future transactions and does not retroactively change a purchase already confirmed.
+
+Coin purchases within the iOS app are handled through Apple's in-app purchase system. The purchase sheet shows the real-money price, currency, and applicable transaction details. Coins are licensed for use within Lunmi, cannot be traded or transferred between users, and are not cash, cryptocurrency, a stored-value payment account, or an investment. They cannot be cashed out, used for gambling, or used to pay another user for interaction.
+
+For an App Store purchase refund, use Apple's refund process, including reportaproblem.apple.com where available. You can also contact lunmi_user@gmail.com for delivery or billing help. Refund eligibility is determined by applicable law and the payment platform's rules; these Terms do not exclude mandatory refund or consumer rights. If a transaction is reversed, we may adjust only the associated Coin or service records to reflect that reversal.
+
+If a paid service fails to activate or is materially not delivered, contact us so we can investigate and provide the remedy required by law, which may include re-performance, replacement of the affected Coins, or a refund through the appropriate purchase channel. No interaction guarantee is different from failure to deliver the purchased visibility or placement service itself.
+
+Deletion, suspension, or service closure may affect access to unused Coins. Any treatment of unused paid balances must respect mandatory law and applicable payment-platform rules. A ban is not a blanket waiver of statutory purchase remedies. We may restrict use while investigating fraud, but will not impose a punitive charge or confiscate unrelated paid balances automatically merely because a report was filed.
+
+5. Your Content and Our Limited Permission to Use It
+
+You keep the rights you own in the content you submit. You must own the necessary rights or have the permission needed to share it, including permission for identifiable people where required. Do not submit content that breaches another person's copyright, privacy, image rights, confidentiality, or other legal rights.
+
+You grant Lunmi a non-exclusive, worldwide, royalty-free permission to host, store, reproduce, transmit, display to the intended audience, and technically adapt your content as reasonably needed to provide, secure, and moderate the service. Technical adaptation includes formatting, resizing, and delivery across supported devices. Service providers may exercise this permission only to perform those functions for us. Private communications remain subject to their intended audience and the Privacy Policy; this permission does not authorize public advertising use of your private messages.
+
+This permission ends when the content is deleted from service-controlled systems, except for limited retention allowed by the Privacy Policy or applicable law. It does not transfer ownership, create a general right to sell your content, or grant unrelated model-training or promotional rights. Any separate use requiring consent must be presented separately.
+
+6. Community Standards and Prohibited Conduct
+
+Lunmi has zero tolerance for objectionable content, exploitation, and abusive users. These rules apply to all user-generated content and conduct, including usernames, avatars, biographies, lanterns, wishes, blessings, replies, messages, room titles, live audio, video calls, and links. Private communication and paid placement are not exceptions.
+
+You must not create, upload, transmit, request, solicit, promote, or facilitate:
+
+- Child sexual abuse material, grooming, sexualization of anyone under 18, sexual exploitation, trafficking, or any attempt to obtain sexual material from a minor. This prohibition includes synthetic or altered depictions and any content that is unlawful or exploits a child.
+- Pornography, sexually explicit material, sexual coercion, unwanted sexual advances, sexual services, compensated sexual arrangements, or non-consensual intimate imagery. Do not use calls to expose another person to nudity or sexual acts without consent; sexually explicit content is prohibited even if a participant says they consent.
+- Harassment, bullying, stalking, repeated unwanted contact, sexual harassment, threats, intimidation, blackmail, sextortion, or coordinated targeting of a person.
+- Hate speech, dehumanization, or advocacy of discrimination or violence based on characteristics such as race, ethnicity, nationality, religion, sex, gender identity, sexual orientation, or disability.
+- Credible threats of violence, terrorism, violent extremism, graphic abuse, or encouragement or instructions for serious physical harm, suicide, or self-injury. Good-faith discussion of difficult feelings or seeking support is not by itself prohibited; do not glorify harm or pressure another person to act.
+- Scams, phishing, romance fraud, impersonation, fabricated emergencies used to obtain money, fraudulent fundraising, investment solicitation, pyramid schemes, malware, or attempts to obtain credentials or payment details.
+- Unlawful trade, exploitation, trafficking, illegal drugs, weapons transactions, illegal gambling, or instructions intended to facilitate serious wrongdoing.
+- Doxxing, unauthorized disclosure of personal or confidential information, identity theft, or sharing another person's private conversation or intimate content without permission or another lawful basis.
+- Copyright infringement, unauthorized commercial use of another person's identity, fabricated endorsements, or deceptive synthetic media presented as an authentic person or event.
+- Spam, bulk unsolicited promotion, bot activity, scraping, mass collection of profiles, or attempts to use personal content for identification or AI training without the necessary authorization.
+- Secret recording, interception, or redistribution of room or call content without the notice, permissions, and lawful basis required for that activity. Do not mislead anyone about whether they are being recorded.
+- Circumvention of the one-initial-reply rule, blocks, age restrictions, publication checks, room restrictions, account suspensions, or permanent bans. Creating another account to re-contact a person who blocked you is prohibited.
+- Coin exploits, fraudulent purchases, unauthorized resale, forged receipts, artificial engagement, manipulation of visibility systems, or demands that another user pay or interact in exchange for access to an ordinary social feature.
+- Knowingly fabricated reports, malicious mass reporting, retaliation against a reporter, or false evidence. A good-faith report will not be punished merely because a violation cannot be proven.
+- Unauthorized access, interference with the service, vulnerability exploitation against other users, or attempts to disable safety controls. Report a suspected vulnerability privately to our support email rather than exploiting it.
+
+Do not encourage or assist someone else to do any of these things. Conduct outside Lunmi may be relevant where there is reliable evidence of a direct risk to users or abuse of the service; we do not treat an unsupported allegation as proof.
+
+7. Filtering and Moderation of User Generated Content
+
+Lunmi uses measures designed to prevent prohibited material from being posted and to address it after publication. These include content screening, publication restrictions where appropriate, user reports, and human review. Checks may be automated or assisted by tools, with human assessment where needed. The relevant methods must be suitable for the type of content, including media and live interactions.
+
+Content may be held for review, rejected, hidden, restricted, or removed. We may disable a lantern, remove a wish or reply, stop paid promotion of prohibited content, remove a participant, or close a room. We do not guarantee that every post is approved by a person before publication or that every live conversation is continuously monitored. Those limits do not remove our responsibility to respond to credible reports and confirmed violations.
+
+Authorized reviewers may access reported content, relevant contextual records, and necessary evidence as described in the Privacy Policy. They must not use a safety investigation as permission to inspect unrelated private communications. A room host's decision does not replace the platform's report handling or appeal process.
+
+8. Reporting Blocking and Timely Action
+
+Report objectionable content or an abusive account using the available Report control on the relevant content, profile, conversation, or room. You can also email lunmi_user@gmail.com with the subject "Safety Report." Identify the account or content and explain the concern. Include only relevant evidence. Do not download, forward, or attach suspected child sexual abuse material; identify its location so the safety team can address it securely.
+
+You may block an account without submitting a report, and you may report without blocking. Once a block is successfully applied, the blocked account must not be able to send you new private messages or call invitations. Blocking does not wait for a moderation decision. Manage blocks in Settings > Blocked Users. A personal block is different from a platform-wide suspension or ban.
+
+Blocking does not erase previously received material, remove copies held by another person, or guarantee that two users will never encounter the same shared room. You may leave or mute a shared room and report further contact. A blocked person must not use a shared space or another account to bypass the block. Unblocking does not restore a right to contact you or bypass the lantern reply gate.
+
+We prioritize credible reports of child exploitation, non-consensual intimate imagery, credible imminent threats, and other serious safety risks for review without undue delay, and may restrict access immediately while investigating. Our operational target is to begin human review of other safety reports within 24 hours of receipt. We act promptly on confirmed violations, including removing or disabling offending content and restricting or banning abusive accounts. The initial-review target is not a promise that every complex investigation will be completed within 24 hours and does not replace any shorter legal deadline.
+
+We may request relevant clarification and provide status or outcome information where appropriate. We protect reporter information and do not ordinarily reveal the reporter's identity to the reported user, but cannot promise absolute anonymity where disclosure is legally required or necessary for a lawful process.
+
+Lunmi is not an emergency service. If there is an immediate danger, contact local emergency services directly; do not wait for an in-app report to be reviewed.
+
+9. Enforcement and Appeals
+
+We choose measures proportionate to the severity, likelihood of harm, available evidence, account history, and risk of repetition. Measures may include:
+
+- A warning or instruction to correct or remove content.
+- Rejection, removal, audience restriction, or loss of promotion for offending content.
+- Limits on publishing, replies, messaging, room access, hosting, or calls.
+- Muting or removal from a room, or closure of the room.
+- Temporary account suspension, eligibility re-verification, or a permanent ban.
+- Steps to prevent ban evasion and fraudulent reuse of the service, consistent with privacy law.
+- Preservation of relevant evidence and referral to competent authorities when legally required or otherwise lawfully justified.
+
+We do not have to issue a warning or use each measure in sequence. Child exploitation, serious threats, sexual coercion, trafficking, major fraud, or deliberate repeat abuse may result in immediate permanent removal. Coin purchases and unused balances do not protect an account from enforcement. Financial remedies remain subject to Section 4 and mandatory law.
+
+Where feasible and legally permitted, we explain the main reason for a material restriction and how to appeal. We may limit notice when it would expose a victim, compromise an investigation, enable evasion, or conflict with a legal duty.
+
+To appeal, email lunmi_user@gmail.com with the subject "Moderation Appeal," your account identifier, the decision being challenged, and a concise explanation or relevant new evidence. We provide a human reassessment appropriate to the issue and correct a decision if the review establishes an error. An appeal does not automatically restore access while a serious risk remains. We do not penalize a good-faith appeal.
+
+10. Intellectual Property Complaints
+
+To report infringement, contact lunmi_user@gmail.com with the subject "Copyright or Rights Complaint." Identify the protected work or right, the allegedly infringing content and its location, your contact details, and an explanation of your authority and good-faith basis for the complaint. Provide a signature and any statements required by the applicable legal procedure. We may request clarification, remove or restrict content where appropriate, and address repeated infringement. A counter-notice or restoration procedure is available where the applicable law requires it. Do not submit a knowingly false rights claim.
+
+11. Permissions Privacy and Safe Use
+
+Use device access only for features you choose, and respect other participants' privacy and consent. You can withdraw system permissions in device settings. The Privacy Policy explains data handling and deletion rights. Optional permissions must not become a precondition for unrelated text features or for spending Coins.
+
+Do not send money, identity documents, passwords, verification codes, or intimate material to someone because of a lantern or wish. Lunmi does not guarantee a user's identity, intentions, or statements. A wish or conversation is not professional medical, legal, or financial advice and does not create a professional relationship.
+
+12. Ending Use and Deleting an Account
+
+You may stop using Lunmi at any time and initiate account deletion in Settings > Delete Account. Signing out or uninstalling does not delete an account. Contact lunmi_user@gmail.com if you cannot access the control. Deletion and any limited lawful retention are governed by the Privacy Policy.
+
+We may suspend or terminate access for a breach of these Terms, a serious safety or security concern, a legal requirement, or service closure. Where reasonably possible, we provide advance notice of a planned service closure and information about affected paid services. Emergency restrictions may take effect immediately. Termination does not remove rights and obligations that by their nature must continue, including valid purchase remedies, limited lawful retention, and responsibility for prior conduct.
+
+13. Service Availability and Legal Rights
+
+Features may be unavailable because of maintenance, connectivity, supported-device limits, safety measures, or legal restrictions. We take reasonable care in providing the service but do not promise uninterrupted access, error-free operation, or a particular social outcome.
+
+To the extent allowed by applicable law, we are not responsible for losses that are not reasonably foreseeable consequences of our breach or negligence. Nothing in these Terms excludes or limits liability that cannot lawfully be excluded, including applicable consumer guarantees, fraud, deliberate misconduct, gross negligence, death or personal injury caused by negligence, or non-excludable privacy and data protection rights. These Terms do not excuse a failure to provide a paid service as promised.
+
+You are responsible for your own unlawful conduct and infringement to the extent provided by law. No provision creates an automatic fine, permits an unlawful deduction, or makes you compensate Lunmi for losses for which you are not legally responsible.
+
+14. Updates Disputes and Contact
+
+We may revise these Terms to reflect changes in the service or applicable law. We identify the updated version and provide reasonable notice of material changes. When fresh acceptance is required, we ask for it before the relevant change applies. Changes do not retroactively remove accrued rights or change an already confirmed transaction.
+
+If a dispute arises, contact lunmi_user@gmail.com so we can try to resolve it. You retain access to competent courts and any mandatory complaint, regulatory, or consumer dispute mechanisms. Nothing in these Terms waives mandatory protections or jurisdictional rights available where you live. These Terms do not impose mandatory private arbitration or a class-action waiver.
+
+If one provision is unenforceable, the remaining provisions continue to the extent lawful. A failure to enforce a provision on one occasion is not a permanent waiver.
+
+Account support, purchases, privacy requests, abuse reports, and appeals: lunmi_user@gmail.com.
