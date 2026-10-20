@@ -27,6 +27,7 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<!-- Lunmi API transport: managed by pnpm sync:ios. -->
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSExceptionDomains</key>
@@ -40,6 +41,7 @@
 			</dict>
 		</dict>
 	</dict>
+	<!-- End Lunmi API transport. -->
 	<key>NSCameraUsageDescription</key>
 	<string>Use your camera to take a profile photo, share media, or join a video call.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
