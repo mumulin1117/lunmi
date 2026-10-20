@@ -11,38 +11,38 @@ LunmiBrafer iOS 工程
   LunmiBrafer/                 原生代码、资源和英文/日文本地化
   LunmiBrafer/Assets.xcassets   用户提供的启动图、App Icon
   LunmiBrafer/lunimcenter.bundledata  自动生成的单文件加密 H5 资源包
-  scripts/                    H5 同步、资源嵌入和构建配置脚本
+  LunmiBrafer.xcodeproj/       标准 Xcode 工程，无外部脚本构建阶段
 
 资源同步
   H5 源码位于 ../lunmi_h5，不要直接编辑生成的 lunimcenter.bundledata。
   修改 H5 后执行 pnpm sync:ios，再执行 pnpm check:ios-sync。
   pnpm build:h5 自动同步 iOS；pnpm watch:ios 在持续编辑时监听并同步。
-  开发电脑存在 ../lunmi_h5 和 Node.js 时，Xcode 每次构建会检查、刷新并嵌入当前 H5 资源。
+  iOS 工程已删除 scripts 文件夹及所有脚本构建阶段；Xcode 通过 Copy Bundle Resources 直接嵌入资源包，直接读取已保存的 Info.plist。
   发送给其他 Mac 时，完整复制 LunmiBrafer 文件夹即可；只运行已有版本不要求安装 Node.js、pnpm 或 H5 依赖。
-  未附带 H5 源码时，Xcode 使用自带 Swift 工具校验随工程分发的加密包，并从原生配置生成 Info.plist。
-  有 H5 源码但没有 Node.js 时，也会比对源码指纹；源码已改变而包未更新会明确报错，需回开发电脑执行同步后重新发送。
-  缺失、损坏或密钥不匹配的资源包会阻止构建；不会跳过资源校验或嵌入旧包。
+  H5 开发工具仅保留在 ../lunmi_h5/scripts；同步和校验在开发端完成，Xcode 不再检查或重新编译 H5 源码。
+  pnpm sync:ios 同时将原生 Swift API 地址对应的 HTTP 例外更新到 Info.plist；pnpm check:ios-sync 校验资源和系统配置。
+  交付或构建前必须先完成上述同步；持续编辑时使用 pnpm watch:ios 自动更新资源包。
+  缺失的资源包会使 Xcode 复制失败；包的认证、解密和逐文件校验继续在同步时与 App 启动时执行。
   生产资源归档后执行两层 raw DEFLATE 压缩，再使用 AES-256-GCM 加密，文件名为 lunimcenter.bundledata。
   密钥由 32 个随机字节生成，Base64 编码长度 44 位，声明在 ApogeeAwakenSpark.swift 的 RamblingHelix 中；同步脚本自动定位唯一的密钥声明，不依赖 Swift 文件名，不要输出密钥。
   校验清单包含版本、源码、密文、入口和逐文件 SHA-256，单独认证加密后嵌入同一资源包；工程与 IPA 无独立 manifest.json。
   check:ios-sync 会读取包内清单，解密、解压并核对全部内容。
   构建失败时保留上次完整压缩包；密钥和压缩包必须一起保存，修改密钥后重新同步并构建。
-  Xcode 工程直接引用并嵌入单个 lunimcenter.bundledata，增量构建时删除旧 lunimcenter/ 与 Web/ 资源目录。
+  Xcode 工程直接引用并嵌入单个 lunimcenter.bundledata，不分发明文 H5 资源目录。
   同步后需要重新构建、安装 App，已运行的安装包不会自动热更新。
   初次开发需要在 H5 目录执行 pnpm install --frozen-lockfile。
-  开发 H5 时，Xcode 找不到已安装的 Node 可设置 NODE_BINARY 为实际可执行文件路径。
-  scripts/prepare-resources.swift 仅作为 macOS 构建工具，不会进入 iOS Target 或 IPA；临时解压的校验资源在检查后删除。
+  Xcode 的运行、归档和 IPA 导出不再调用 Node、Shell 或 Swift 开发工具；H5 同步工具无需随 iOS 工程交付。
 
 正式业务配置
   H5 .env 与原生 PersistentPivotGlow.swift 使用用户指定的同一接口地址：
     http://0sc8fcvanc9gf8ckb40o.shop/api
   不再有 DebugAPIBaseURL 或其他测试接口覆盖。
   接口相对路径直接拼接，例如登录实际路径为 /api/api/emailLogin。
-  构建脚本只为该配置域名生成 HTTP 例外，不放行子域名或其他 HTTP 来源。
-  后端提供 HTTPS 地址后应同步更新两处配置，HTTP 例外将自动取消。
+  H5 同步工具只为该配置域名在 Info.plist 生成 HTTP 例外，不放行子域名或其他 HTTP 来源。
+  后端提供 HTTPS 地址后应同步更新两处配置并运行 pnpm sync:ios，HTTP 例外将自动取消。
   原生 apiBaseURL、liveWebSocketURL、apiBundleID 直接声明为 Swift 常量，供 WebView 注入、内购及网络校验使用。
-  已移除独立 Configuration.plist 及其工程资源引用，构建时也会清除旧包残留文件。
-  prepare-resources.swift 复用同一 Swift URL 常量生成系统要求的 Info.plist HTTP 域名例外，保持与实际接口一致。
+  已移除独立 Configuration.plist 及其工程资源引用。
+  ../lunmi_h5/scripts/ios-native-info.mjs 从同一 Swift URL 常量更新系统要求的 Info.plist HTTP 域名例外，保持与实际接口一致。
   liveWebSocketURL 可显式配置；留空时 H5 按 API 地址推导连接来源。
   登录注册仅使用邮箱，已移除 Apple 登录授权、验证配置及工程能力；Apple 内购功能保留。
   H5 中显式的 VITE_* 配置优先于原生注入值。
@@ -87,7 +87,7 @@ LunmiBrafer iOS 工程
   cd ../LunmiBrafer
   xcodebuild -project LunmiBrafer.xcodeproj -scheme LunmiBrafer -configuration Release \
     -destination 'generic/platform=iOS Simulator' CODE_SIGNING_ALLOWED=NO build
-  scripts/generate-project.rb 仅供首次初始化，不覆盖已有工程，也不创建测试目标。
+  归档使用 Xcode Product > Archive；导出可安装或上架的 IPA 需要实际开发者 Team、签名证书和描述文件。
 
 业务边界
   工程清理不代表服务端部署、全部业务联调或 App Store 审核已经完成。

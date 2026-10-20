@@ -4,6 +4,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { source_fingerprint } from './ios-sync-lib.mjs'
 import { PACKAGE_NAME, check_package, package_web_bundle, read_package_key } from './lunimcenter-package.mjs'
+import { native_info_state, synchronize_native_info } from './ios-native-info.mjs'
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 const ios_root = path.resolve(root, '../LunmiBrafer/LunmiBrafer')
@@ -48,10 +49,19 @@ const main = async () => {
   const is_current = Boolean(current)
   if (checking) {
     if (!is_current) throw new Error('iOS resources are stale. Run pnpm sync:ios in lunmi_h5.')
+    if (!(await native_info_state(ios_root)).current) throw new Error('iOS API transport configuration is stale. Run pnpm sync:ios in lunmi_h5.')
     console.log('LunmiBrafer encrypted package matches H5 source and decrypted content fingerprints (' + current.fileCount + ' files).')
+    console.log('Native Info.plist matches the Swift API configuration.')
     return
   }
-  if (is_current && !force) { console.log('LunmiBrafer encrypted H5 package is current.'); return }
+  // Xcode consumes checked-in resources directly and never needs development
+  // scripts. Keep its system-required transport settings ready for handoff too.
+  await native_info_state(ios_root)
+  if (is_current && !force) {
+    await synchronize_native_info(ios_root)
+    console.log('LunmiBrafer encrypted H5 package is current.')
+    return
+  }
   await mkdir(ios_root, { recursive: true })
   const lock = path.join(ios_root, '.web-sync-lock')
   await acquire_lock(lock)
@@ -59,6 +69,7 @@ const main = async () => {
     fingerprint = await source_fingerprint(root)
     key = await read_package_key(ios_root)
     if (!force && await check_package({ destination, key, source_sha256: fingerprint })) {
+      await synchronize_native_info(ios_root)
       console.log('LunmiBrafer encrypted H5 package is current.')
       return
     }
@@ -75,6 +86,7 @@ const main = async () => {
     await rm(path.join(ios_root, 'Web'), { recursive: true, force: true })
     await rm(path.join(ios_root, 'WebBundleManifest.json'), { force: true })
     await rm(path.join(ios_root, 'lunimcenter'), { recursive: true, force: true })
+    await synchronize_native_info(ios_root)
     console.log('Synchronized ' + result.fileCount + ' H5 files into ' + result.archiveName + ' (embedded encrypted manifest, two compression layers, AES-256-GCM).')
   } finally { await rm(lock, { recursive: true, force: true }) }
 }

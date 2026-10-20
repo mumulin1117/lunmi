@@ -23,6 +23,7 @@
 		F9C28201840F1D301101DD6F /* CrescenticMerinoFern.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A859D46B6B7C8ABB77DAEC3 /* CrescenticMerinoFern.swift */; };
 		FF00C8783D4C39DAE05CFF1A /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BA3A4BBB70A90C5B0C857778 /* LaunchScreen.storyboard */; };
 		262F27F5DA1C6439A5FAF163 /* LucentWonderment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FAB8B5280A413647E33B85 /* LucentWonderment.swift */; };
+		8471C57296E140A2B80E9749 /* lunimcenter.bundledata in Resources */ = {isa = PBXBuildFile; fileRef = 4536F2A1B6D47F69648B17DA /* lunimcenter.bundledata */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -125,11 +126,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1F9ED3AAA3F30555BBEB7538 /* Build configuration list for PBXNativeTarget "LunmiBrafer" */;
 			buildPhases = (
-				AE14AF3A0ACF11FBD4F453DA /* Synchronize H5 source */,
 				1650DC1282267C6B1C2BDB74 /* Sources */,
 				ACD3DEDEFE7643AB21AAAE07 /* Frameworks */,
 				C79BE562EB41735204B718F0 /* Resources */,
-				127D1DC1789D60761777D150 /* Embed current H5 bundle */,
 			);
 			buildRules = (
 			);
@@ -186,59 +185,11 @@
 				12336164606D45BF9268F103 /* Assets.xcassets in Resources */,
 				22991216E2D9E282A07E7A3D /* InfoPlist.strings in Resources */,
 				B6E98D8BB48E0BFFDBECC2DB /* Localizable.strings in Resources */,
+				8471C57296E140A2B80E9749 /* lunimcenter.bundledata in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		127D1DC1789D60761777D150 /* Embed current H5 bundle */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			name = "Embed current H5 bundle";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"$SRCROOT/scripts/embed-h5.sh\"";
-		};
-		AE14AF3A0ACF11FBD4F453DA /* Synchronize H5 source */ = {
-			isa = PBXShellScriptBuildPhase;
-			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/LunmiBrafer/Info.plist",
-				"$(SRCROOT)/LunmiBrafer/PersistentPivotGlow.swift",
-				"$(SRCROOT)/LunmiBrafer/LucentWonderment.swift",
-				"$(SRCROOT)/LunmiBrafer/ApogeeAwakenSpark.swift",
-				"$(SRCROOT)/LunmiBrafer/lunimcenter.bundledata",
-				"$(SRCROOT)/scripts/sync-h5.sh",
-				"$(SRCROOT)/scripts/prepare-resources.swift",
-			);
-			name = "Synchronize H5 source";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/LunmiBrafer-Info.plist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/bin/sh \"$SRCROOT/scripts/sync-h5.sh\"";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		1650DC1282267C6B1C2BDB74 /* Sources */ = {
@@ -410,7 +361,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "$(DERIVED_FILE_DIR)/LunmiBrafer-Info.plist";
+				INFOPLIST_FILE = LunmiBrafer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -440,7 +391,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "$(DERIVED_FILE_DIR)/LunmiBrafer-Info.plist";
+				INFOPLIST_FILE = LunmiBrafer/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

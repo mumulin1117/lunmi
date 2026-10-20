@@ -53,5 +53,20 @@
 	<string>Lunmi uses your location while you use the app to recommend lanterns from your area when you select Nearby on the home page.</string>
 	<key>UIRequiresFullScreen</key>
 	<true/>
+	<!-- Lunmi API transport: managed by pnpm sync:ios. -->
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>0sc8fcvanc9gf8ckb40o.shop</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<false/>
+			</dict>
+		</dict>
+	</dict>
+	<!-- End Lunmi API transport. -->
 </dict>
 </plist>
