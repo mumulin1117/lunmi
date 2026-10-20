@@ -35,6 +35,18 @@ test('the existing Swift string decoder format is accepted without changing its 
   assert.match(render_native_info(base, source), /<key>encoded\.invalid<\/key>/)
 })
 
+test('Xcode may discard comments without invalidating an otherwise identical API transport dictionary', () => {
+  const config = configuration('http://example.invalid/api')
+  const info = render_native_info(base, config)
+  const savedByXcode = info.replace(/\t<!--[^]*?-->\n?/g, '')
+  assert.match(savedByXcode, /NSAppTransportSecurity/)
+  const restored = render_native_info(savedByXcode, config)
+  assert.match(restored, /Lunmi API transport: managed/)
+  assert.equal((restored.match(/<key>NSAppTransportSecurity<\/key>/g) || []).length, 1)
+  assert.equal(render_native_info(restored, config), restored)
+  assert.throws(() => render_native_info(savedByXcode, configuration('http://different.invalid/api')), /Unmanaged/)
+})
+
 test('invalid or ambiguous API declarations and unsafe URL forms fail explicitly', () => {
   for (const url of ['not a URL', 'ftp://example.invalid/api', 'https://name:secret@example.invalid/api',
     'https://example.invalid/api?query=1', 'https://example.invalid/api#fragment']) {
