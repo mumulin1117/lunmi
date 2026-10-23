@@ -42,7 +42,15 @@ export const render_native_info = (source, configuration) => {
     if (/<key>\s*NSAppTransportSecurity\s*<\/key>/.test(outside)) throw new Error('Duplicate API transport configuration in Info.plist.')
     return source.slice(0, start) + block + source.slice(finish + end.length)
   }
-  if (/<key>\s*NSAppTransportSecurity\s*<\/key>/.test(source)) throw new Error('Unmanaged API transport configuration in Info.plist.')
+  const unmanaged = [...source.matchAll(/<key\s*>\s*NSAppTransportSecurity\s*<\/key\s*>/g)]
+  if (unmanaged.length) {
+    const compact = value => value.replace(/>\s+</g, '><').trim()
+    // Xcode can remove XML comments. Accept only the exact current exception,
+    // preserving the user's file instead of claiming ownership of its ATS block.
+    if (unmanaged.length === 1 && transport.length
+      && compact(source).includes(compact(transport.join('\n')))) return source
+    throw new Error('Unmanaged API transport configuration in Info.plist.')
+  }
   const closing = source.lastIndexOf('</dict>')
   if (closing < 0 || !source.slice(closing).includes('</plist>')) throw new Error('Invalid Info.plist root dictionary.')
   return source.slice(0, closing) + block + '\n' + source.slice(closing)

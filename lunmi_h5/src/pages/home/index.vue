@@ -21,6 +21,8 @@
           role="button"
           :aria-label="$t('Show nearby lanterns')"
           :aria-pressed="feed_scope === 'nearby'"
+          :aria-busy="is_nearby_requesting"
+          :aria-disabled="is_nearby_requesting"
           @click="choose_nearby"
         >
           <text>{{ $t('Nearby') }}</text>
@@ -131,9 +133,12 @@
     <PermissionRequestOverlay
       :visible="is_permission_request_visible"
       :permission-key="permission_request_key"
+      :mode="permission_request_mode"
       @update:visible="is_permission_request_visible = $event"
       @granted="on_permission_granted"
       @denied="on_permission_denied"
+      @cancelled="on_permission_cancelled"
+      @settings-opened="on_permission_settings_opened"
     />
     <view class="main-tabbar-spacer" aria-hidden="true" />
   </PageTransition>
@@ -157,6 +162,7 @@ import PurchaseScoopAttemptsConfirmDialog from '@/components/PurchaseScoopAttemp
 import ReleaseLanternSheet from '@/components/ReleaseLanternSheet.vue'
 import TopSafeArea from '@/components/TopSafeArea.vue'
 import { storeGlobal } from '@/stores/store'
+import { ensure_ios_permission } from '@/utils/iosPermissionBridge'
 import { read_balance_after_update } from '@/utils/coinPurchasePresentation'
 import { read_coin_balance } from '@/utils/myProfilePresentation'
 import { build_lantern_reply_url } from '@/utils/lanternDetailPresentation'
@@ -183,6 +189,8 @@ const HOME_PAGE_PATH = '/pages/home/index'
 const page_transition = ref(null)
 const release_sheet = ref(null)
 const feed_scope = ref('all')
+const is_nearby_requesting = ref(false)
+let nearby_request_generation = 0
 const scoop_remaining = ref(null)
 const attempt_record = ref(null)
 const is_loading = ref(false)
@@ -219,7 +227,9 @@ let scoop_purchase_sync_context = {}
 let request_context = null
 const is_permission_request_visible = ref(false)
 const permission_request_key = ref('')
+const permission_request_mode = ref('explanation')
 let permission_request_intent = ''
+let recheck_nearby_on_show = false
 let release_leave_timer = null
 const RELEASE_SHEET_LEAVE_MS = 340
 const home_sheet_bottom_offset = 'calc(156rpx + var(--page-safe-bottom))'
@@ -290,26 +300,68 @@ const load_home = async () => {
 }
 
 const choose_all = () => {
+  nearby_request_generation += 1
+  if (permission_request_intent === 'nearby') on_permission_cancelled()
   feed_scope.value = 'all'
   action_message.value = ''
 }
 
-const choose_nearby = () => {
-  if (feed_scope.value === 'nearby') return
-  action_message.value = ''
-  const account_store = storeGlobal()
-  if (account_store.getAuthRecord('location')) {
-    feed_scope.value = 'nearby'
-    return
+const choose_nearby = async (check_only = false) => {
+  if (is_nearby_requesting.value || is_permission_request_visible.value || !is_page_active.value || !is_home_shown) return
+  const query_only = check_only === true
+  if (!query_only) action_message.value = ''
+  const generation = ++nearby_request_generation
+  is_nearby_requesting.value = true
+  try {
+    // Inspect the current OS state first. Only Continue in the explanation may
+    // make an authorization request; this query never opens the system prompt.
+    const result = await ensure_ios_permission('location', {
+      force_refresh: true,
+      check_only: true,
+      reason: 'Use your location to recommend lanterns from your area when you select Nearby.'
+    })
+    if (!is_page_active.value || !is_home_shown || generation !== nearby_request_generation) return
+    if (result.success === true && result.granted === true && result.permission_status === 'granted') {
+      feed_scope.value = 'nearby'
+      return
+    }
+    feed_scope.value = 'all'
+    if (result.permanent === true) {
+      action_message.value = 'Location access is restricted on this device. You can keep using All lanterns.'
+    } else if (result.permission_status === 'denied') {
+      action_message.value = 'Location access is off. You can keep using All lanterns.'
+      if (!query_only) {
+        permission_request_intent = 'nearby'
+        permission_request_key.value = 'location'
+        permission_request_mode.value = 'settings'
+        is_permission_request_visible.value = true
+      }
+    } else if (result.cancelled === true && result.permission_status === 'unavailable') {
+      if (!query_only) {
+        permission_request_intent = 'nearby'
+        permission_request_key.value = 'location'
+        permission_request_mode.value = 'explanation'
+        is_permission_request_visible.value = true
+      }
+    } else {
+      action_message.value = 'Location access is unavailable. You can keep using All lanterns.'
+    }
+  } catch {
+    if (is_page_active.value && is_home_shown && generation === nearby_request_generation) {
+      feed_scope.value = 'all'
+      action_message.value = 'Location access is unavailable. You can keep using All lanterns.'
+    }
+  } finally {
+    if (is_page_active.value) is_nearby_requesting.value = false
   }
-  permission_request_intent = 'nearby'
-  permission_request_key.value = 'location'
-  is_permission_request_visible.value = true
 }
 
 const on_permission_granted = () => {
   is_permission_request_visible.value = false
-  if (permission_request_intent === 'nearby') feed_scope.value = 'nearby'
+  if (permission_request_intent === 'nearby' && is_page_active.value && is_home_shown) {
+    feed_scope.value = 'nearby'
+    action_message.value = ''
+  }
   if (permission_request_intent === 'photos') {
     is_release_visible.value = true
     nextTick(() => {
@@ -317,12 +369,30 @@ const on_permission_granted = () => {
     })
   }
   permission_request_intent = ''
+  permission_request_mode.value = 'explanation'
 }
 
 const on_permission_denied = () => {
   is_permission_request_visible.value = false
+  if (permission_request_intent === 'nearby') {
+    feed_scope.value = 'all'
+    action_message.value = 'Location access is off. You can keep using All lanterns.'
+  }
   if (permission_request_intent === 'photos') is_release_visible.value = true
   permission_request_intent = ''
+  permission_request_mode.value = 'explanation'
+}
+
+const on_permission_cancelled = () => {
+  is_permission_request_visible.value = false
+  if (permission_request_intent === 'nearby') feed_scope.value = 'all'
+  permission_request_intent = ''
+  permission_request_mode.value = 'explanation'
+}
+
+const on_permission_settings_opened = () => {
+  recheck_nearby_on_show = true
+  on_permission_cancelled()
 }
 
 const open_posts = () => {
@@ -738,8 +808,7 @@ const reply_to_caught = ({ lantern_id, target_user_id }) => {
 onBackPress(() => {
   if (is_purchasing.value) return true
   if (is_permission_request_visible.value) {
-    is_permission_request_visible.value = false
-    permission_request_intent = ''
+    if (permission_request_mode.value === 'settings') on_permission_cancelled()
     return true
   }
   if (is_caught_report_visible.value) {
@@ -769,6 +838,9 @@ onLoad((query = {}) => {
 
 onShow(() => {
   is_home_shown = true
+  const needs_location_check = recheck_nearby_on_show || feed_scope.value === 'nearby'
+  recheck_nearby_on_show = false
+  if (needs_location_check) void choose_nearby(true)
   const is_opening_caught = open_caught_sheet(caught_route_query)
   caught_route_query = null
   open_scheduled_release_sheet()
@@ -777,12 +849,16 @@ onShow(() => {
 
 onHide(() => {
   is_home_shown = false
+  nearby_request_generation += 1
+  if (permission_request_intent === 'nearby') on_permission_cancelled()
+  if (is_nearby_requesting.value) feed_scope.value = 'all'
   cancel_caught_open()
 })
 
 onBeforeUnmount(() => {
   is_page_active.value = false
   is_home_shown = false
+  nearby_request_generation += 1
   cancel_caught_open()
   request_context?.cancel?.()
   purchase_request_context.cancel?.()

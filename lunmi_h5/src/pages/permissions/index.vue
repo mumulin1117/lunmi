@@ -72,7 +72,6 @@ const return_to_source = () => {
 
 const handle_overlay_visible = (visible) => {
   is_overlay_visible.value = visible
-  if (!visible) return_to_source()
 }
 
 onLoad((options) => {
@@ -84,8 +83,6 @@ onLoad((options) => {
 onBackPress(() => {
   if (allow_route_back) return false
   if (is_overlay_visible.value) {
-    is_overlay_visible.value = false
-    return_to_source()
     return true
   }
   if (page_stack_length() > 1) return false

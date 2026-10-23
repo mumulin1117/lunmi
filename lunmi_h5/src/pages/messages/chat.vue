@@ -633,8 +633,6 @@ onBackPress(() => {
     return true
   }
   if (is_permission_request_visible.value) {
-    is_permission_request_visible.value = false
-    resume_video_call_after_permission = false
     return true
   }
   go_back()

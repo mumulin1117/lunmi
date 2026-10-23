@@ -166,8 +166,8 @@ enum SicilianaSaturationTranslucent {
                 }
             }
         case LucentWonderment.glenAquarelle("AjPpPg_GLbONCFADTlIMOQNC_pPNEPRNMsIGSvSJIYOwNa_rRWEgQHUwEuStTd"):
-            guard CLLocationManager.locationServicesEnabled() else { coronagraphStaccatoJute(lunarQuillTilt, cottonSailConvex: cottonSailConvex, wishingDiaphanousPond: LucentWonderment.glenAquarelle("uinVaivyafiZlVaybblaeG")); return }
-            if sonorityEpicyclic.authorizationStatus != .notDetermined { coronagraphStaccatoJute(lunarQuillTilt, cottonSailConvex: cottonSailConvex, wishingDiaphanousPond: effulgenceIntentionComet()); return }
+          
+            if cottonSailConvex[LucentWonderment.glenAquarelle("cDhCekcyklOVnjlRyr")] as? Bool == true || sonorityEpicyclic.authorizationStatus != .notDetermined { coronagraphStaccatoJute(lunarQuillTilt, cottonSailConvex: cottonSailConvex, wishingDiaphanousPond: effulgenceIntentionComet()); return }
             guard liltJacquard == nil else { coronagraphStaccatoJute(lunarQuillTilt, cottonSailConvex: cottonSailConvex, wishingDiaphanousPond: LucentWonderment.glenAquarelle("uyngalvJaXiulKapbulFeu")); return }
             liltJacquard = { [weak self] wishingDiaphanousPond in self?.coronagraphStaccatoJute(lunarQuillTilt, cottonSailConvex: cottonSailConvex, wishingDiaphanousPond: wishingDiaphanousPond) }
             sonorityEpicyclic.requestWhenInUseAuthorization()

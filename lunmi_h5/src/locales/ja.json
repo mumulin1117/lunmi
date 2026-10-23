@@ -1312,5 +1312,12 @@
   "Unable to update your balance. Please try again.": "残高を更新できません。もう一度お試しください。",
   "Please enter your email": "メールアドレスを入力してください",
   "Please enter password": "パスワードを入力してください",
-  "Use your location to recommend lanterns from your area when you select Nearby.": "「近く」を選択した際に位置情報を利用して、お近くのランタンをすくう候補としておすすめします。"
+  "Use your location to recommend lanterns from your area when you select Nearby.": "「近く」を選択した際に位置情報を利用して、お近くのランタンをすくう候補としておすすめします。",
+  "Location access is off. You can keep using All lanterns.": "位置情報へのアクセスはオフです。引き続き「すべて」でランタンを利用できます。",
+  "Location access is restricted on this device. You can keep using All lanterns.": "この端末では位置情報へのアクセスが制限されています。引き続き「すべて」でランタンを利用できます。",
+  "Location access is unavailable. You can keep using All lanterns.": "現在、位置情報へのアクセスを利用できません。引き続き「すべて」でランタンを利用できます。",
+  "Nearby lanterns": "近くのランタン",
+  "Location access is off": "位置情報へのアクセスはオフです",
+  "Location access is off. You can change it in Settings, or keep using All lanterns.": "端末の設定で位置情報へのアクセスを変更できます。変更せずに「すべて」のランタンを引き続き利用することもできます。",
+  "You choose whether to allow access in the next iOS prompt.": "次のiOSの確認画面で、位置情報へのアクセスを許可するかどうか選択できます。"
 }

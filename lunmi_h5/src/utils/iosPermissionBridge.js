@@ -112,8 +112,11 @@ const normalize_permission_result = (permission, payload) => {
     : parsed && typeof parsed === 'object' ? parsed : {}
   const status = normalize_status(data)
   const granted = granted_statuses.has(status)
+  // Legacy callbacks normalize twice; retain state details only with compatible statuses.
   const permanent = status === IOS_PERMISSION_STATUS.RESTRICTED
+    || (status === IOS_PERMISSION_STATUS.DENIED && data.permanent === true)
   const cancelled = status === IOS_PERMISSION_STATUS.NOT_DETERMINED
+    || (status === IOS_PERMISSION_STATUS.UNAVAILABLE && data.cancelled === true)
   const denied = [IOS_PERMISSION_STATUS.DENIED, IOS_PERMISSION_STATUS.RESTRICTED].includes(status)
   return {
     request_id: normalize_text(data.requestId || data.request_id),

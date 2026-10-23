@@ -1312,5 +1312,12 @@
   "Unable to update your balance. Please try again.": "Unable to update your balance. Please try again.",
   "Please enter your email": "Please enter your email",
   "Please enter password": "Please enter password",
-  "Use your location to recommend lanterns from your area when you select Nearby.": "Use your location to recommend lanterns from your area when you select Nearby."
+  "Use your location to recommend lanterns from your area when you select Nearby.": "Use your location to recommend lanterns from your area when you select Nearby.",
+  "Location access is off. You can keep using All lanterns.": "Location access is off. You can keep using All lanterns.",
+  "Location access is restricted on this device. You can keep using All lanterns.": "Location access is restricted on this device. You can keep using All lanterns.",
+  "Location access is unavailable. You can keep using All lanterns.": "Location access is unavailable. You can keep using All lanterns.",
+  "Nearby lanterns": "Nearby lanterns",
+  "Location access is off": "Location access is off",
+  "Location access is off. You can change it in Settings, or keep using All lanterns.": "Location access is off. You can change it in Settings, or keep using All lanterns.",
+  "You choose whether to allow access in the next iOS prompt.": "You choose whether to allow access in the next iOS prompt."
 }

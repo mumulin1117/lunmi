@@ -50,6 +50,75 @@ test('system permission queries bypass old grants and preserve unified and legac
   }
 })
 
+test('unified and legacy queries preserve undetermined and restricted states without widening grants', async (context) => {
+  for (const transport of ['unified', 'legacy']) {
+    await context.test(transport, async () => {
+      const previous_window = globalThis.window
+      const key = `__permission_roundtrip_${transport}`
+      const sent = []
+      const store = { authRecord: { location: true }, setAuthRecord: (kind, granted) => { store.authRecord[kind] = granted } }
+      globalThis[key] = store
+      globalThis.window = {
+        addEventListener() {},
+        webkit: { messageHandlers: transport === 'unified'
+          ? { CommonTemplateBridge: { postMessage: message => sent.push(message) } }
+          : { requestLocationPermission: { postMessage: message => sent.push(message) } } }
+      }
+      try {
+        // Each transport gets its own receiver registration and real bridge dispatch.
+        const bridge_url = `${new URL('../src/utils/iosBridge.js', import.meta.url).href}?roundtrip=${transport}`
+        const bridge = await import_source('src/utils/iosPermissionBridge.js', [
+          ["import { storeGlobal } from '@/stores/store'", `const storeGlobal = () => globalThis.${key}`],
+          ["import { t } from './i18n.js'", 'const t = value => value'],
+          ["from './iosBridge.js'", `from '${bridge_url}'`],
+          ["from './iosMessageTypes.js'", `from '${new URL('../src/utils/iosMessageTypes.js', import.meta.url).href}'`]
+        ])
+        const cases = [
+          [{ permission_status: 'not_determined' }, 'unavailable', true, false],
+          [{ permission_status: 'restricted' }, 'denied', false, true],
+          [{ permission_status: 'denied' }, 'denied', false, false],
+          [{ permission_status: 'authorized_when_in_use' }, 'granted', false, false],
+          [{ permission_status: 'granted' }, 'granted', false, false],
+          [{ permission_status: 'unavailable' }, 'unavailable', false, false],
+          [{ permission_status: 'denied', granted: true, success: true, cancelled: true }, 'denied', false, false],
+          [{ permission_status: 'authorized', permanent: true, cancelled: true }, 'granted', false, false],
+          [{ permission_status: 'not_determined', permanent: true }, 'unavailable', true, false],
+          [{ permission_status: 'unavailable', permanent: true }, 'unavailable', false, false],
+          [{ permission_status: 'unavailable', cancelled: true }, 'unavailable', true, false],
+          [{ permission_status: 'denied', permanent: true }, 'denied', false, true]
+        ]
+        for (const [payload, status, cancelled, permanent] of cases) {
+          store.authRecord.location = true
+          const before = sent.length
+          const pending = bridge.ensure_ios_permission('location', { check_only: true })
+          assert.equal(sent.length, before + 1)
+          const request = transport === 'unified' ? sent.at(-1).data : sent.at(-1)
+          assert.equal(request.checkOnly, true)
+          const data = { requestId: request.requestId, ...payload }
+          if (transport === 'unified') {
+            window.CommonTemplateH5Bridge.receive({ type: 'APP_LOCATION_PERMISSION_RESULT', data })
+          } else {
+            window.receiveIOSLocationPermissionResult(JSON.stringify(data))
+          }
+          const result = await pending
+          assert.equal(result.request_id, request.requestId)
+          assert.equal(result.permission_status, status, JSON.stringify(payload))
+          assert.equal(result.status, status, JSON.stringify(payload))
+          assert.equal(result.cancelled, cancelled, JSON.stringify(payload))
+          assert.equal(result.permanent, permanent, JSON.stringify(payload))
+          assert.equal(result.granted, status === 'granted', JSON.stringify(payload))
+          assert.equal(result.success, status === 'granted', JSON.stringify(payload))
+          assert.equal(result.unavailable, status === 'unavailable', JSON.stringify(payload))
+          assert.equal(store.authRecord.location, status === 'granted', JSON.stringify(payload))
+        }
+      } finally {
+        globalThis.window = previous_window
+        delete globalThis[key]
+      }
+    })
+  }
+})
+
 test('removed permissions cannot dispatch requests or reuse cached grants', async () => {
   const previous_window = globalThis.window
   const key = '__removed_permission_test'

@@ -7,6 +7,7 @@ import { render_native_info, native_info_state, synchronize_native_info } from '
 
 const base = '<?xml version="1.0"?><plist version="1.0">\n<dict>\n\t<key>CFBundleDisplayName</key><string>Lunmi</string>\n</dict>\n</plist>\n'
 const configuration = url => `struct Example {\n    let portatoSolace = ${JSON.stringify(url)}\n}\n`
+const without_transport_markers = source => source.replace(/^\t<!-- (?:Lunmi API transport: managed by pnpm sync:ios\.|End Lunmi API transport\.) -->\n?/gm, '')
 
 test('HTTP configuration generates only the specific API host exception and preserves existing metadata', () => {
   const info = render_native_info(base, configuration('http://example.invalid:8080/api'))
@@ -26,6 +27,31 @@ test('changing the API host replaces the exception and HTTPS removes the old HTT
   const secure = render_native_info(changed, configuration('https://second.invalid/api'))
   assert.doesNotMatch(secure, /NSAppTransportSecurity|NSExceptionDomains|second\.invalid/)
   assert.equal(render_native_info(secure, configuration('https://second.invalid/api')), secure)
+})
+
+test('an exact unmarked HTTP exception remains byte-for-byte unchanged despite different indentation', () => {
+  const config = configuration('http://example.invalid:8080/api')
+  const unmarked = without_transport_markers(render_native_info(base, config))
+  for (const info of [unmarked, unmarked.replace(/\t/g, '  '), unmarked.replace(/>\s+</g, '><')]) {
+    assert.equal(render_native_info(info, config), info)
+    assert.doesNotMatch(render_native_info(info, config), /managed by pnpm sync:ios|End Lunmi API transport/)
+  }
+})
+
+test('unmarked exceptions with different, broader or duplicate settings are rejected without replacement', () => {
+  const config = configuration('http://example.invalid/api')
+  const unmarked = without_transport_markers(render_native_info(base, config))
+  for (const info of [
+    unmarked.replace('example.invalid', 'other.invalid'),
+    unmarked.replace('<key>NSIncludesSubdomains</key>\n\t\t\t\t<false/>', '<key>NSIncludesSubdomains</key>\n\t\t\t\t<true/>'),
+    unmarked.replace('<key>NSExceptionDomains</key>', '<key>NSAllowsArbitraryLoads</key><true/><key>NSExceptionDomains</key>'),
+    unmarked.replace('\t\t\t<key>example.invalid</key>', '\t\t\t<key>other.invalid</key><dict/><key>example.invalid</key>'),
+    unmarked + unmarked,
+    unmarked.replace('</plist>', '<key >NSAppTransportSecurity</key><dict/></plist>')
+  ]) {
+    assert.throws(() => render_native_info(info, config), /Unmanaged/)
+  }
+  assert.throws(() => render_native_info(unmarked, configuration('https://example.invalid/api')), /Unmanaged/)
 })
 
 test('the existing Swift string decoder format is accepted without changing its literal', () => {
@@ -65,5 +91,19 @@ test('sync updates checked-in Info.plist and check detects native changes even w
     await synchronize_native_info(root)
     assert.doesNotMatch(await readFile(path.join(root, 'Info.plist'), 'utf8'), /NSExceptionDomains/)
     assert.equal((await native_info_state(root)).current, true)
+  } finally { await rm(root, { recursive: true, force: true }) }
+})
+
+test('sync recognizes an exact unmarked exception as current and does not rewrite its contents', async () => {
+  const root = await mkdtemp(path.join(os.tmpdir(), 'lunmi-native-info-unmarked-'))
+  try {
+    const config = configuration('http://example.invalid/api')
+    const info = without_transport_markers(render_native_info(base, config)).replace(/\t/g, '   ')
+    const filename = path.join(root, 'Info.plist')
+    await writeFile(filename, info)
+    await writeFile(path.join(root, 'PersistentPivotGlow.swift'), config)
+    assert.equal((await native_info_state(root)).current, true)
+    await synchronize_native_info(root)
+    assert.equal(await readFile(filename, 'utf8'), info)
   } finally { await rm(root, { recursive: true, force: true }) }
 })
