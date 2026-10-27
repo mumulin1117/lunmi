@@ -1,10 +1,10 @@
 <template>
-  <transition name="found-sheet-slide">
+  <transition name="found-sheet-slide" :duration="{ enter: 360, leave: 320 }" @after-leave="finish_leave">
     <view v-if="visible" class="found-sheet" :style="theme_style">
       <view class="found-sheet__scrim" @click="close" />
       <view class="found-sheet__panel" @click.stop>
-        <view class="found-sheet__handle" aria-hidden="true" />
-        <scroll-view :key="wishId" class="found-sheet__scroll" scroll-y :scroll-into-view="reply_scroll_target" :show-scrollbar="false">
+        <ResultSheetToolbar @close="close" />
+        <scroll-view :key="wish?.wish_id || wishId" class="found-sheet__scroll" scroll-y :scroll-into-view="reply_scroll_target" :show-scrollbar="false">
           <view class="found-sheet__inner">
             <view v-if="is_loading && !wish" class="found-skeleton" aria-hidden="true">
               <view class="found-skeleton__head" />
@@ -150,6 +150,7 @@ import theme from '@/config/theme.json'
 import { addLmWishBlessing, addLmWishReply, deleteLmWishReply } from '@/api/wish'
 import BottomSafeArea from '@/components/BottomSafeArea.vue'
 import ReportUserSheet from '@/components/ReportUserSheet.vue'
+import ResultSheetToolbar from '@/components/ResultSheetToolbar.vue'
 import UserAvatar from '@/components/UserAvatar.vue'
 import MediaShimmer from '@/components/MediaShimmer.vue'
 import { storeGlobal } from '@/stores/store'
@@ -295,9 +296,15 @@ const reset_sheet = () => {
 
 const close = () => {
   if (is_blessing.value || deleting_reply_id.value) return
+  cancel_load()
   is_report_open.value = false
   clear_found_wish_random_detail()
   emit('update:visible', false)
+}
+
+const finish_leave = () => {
+  if (!is_sheet_active.value || props.visible) return
+  reset_sheet()
 }
 
 const open_author = () => {
@@ -516,7 +523,10 @@ watch(
   ([visible, wish_id], previous = []) => {
     if (!visible) {
       cancel_load()
-      reset_sheet()
+      reply_send_context?.cancel?.()
+      reply_send_context = null
+      reply_delete_context?.cancel?.()
+      reply_delete_context = null
       return
     }
     if (!previous[0] || previous[1] !== wish_id) reset_sheet()
@@ -552,6 +562,10 @@ onBeforeUnmount(() => {
 }
 
 .found-sheet__panel {
+  --dismiss-handle: var(--found-handle);
+  --dismiss-ink: var(--found-title);
+  --dismiss-fill: var(--found-photo);
+  --dismiss-border: var(--found-border);
   position: relative;
   z-index: 1;
   display: flex;
@@ -566,15 +580,7 @@ onBeforeUnmount(() => {
   border-bottom: 0px;
   border-radius: 40rpx 40rpx 0 0;
   background: var(--found-panel);
-}
-
-.found-sheet__handle {
-  width: 84rpx;
-  height: 8rpx;
-  flex-shrink: 0;
-  margin: 0 auto 20rpx;
-  border-radius: 999rpx;
-  background: var(--found-handle);
+  transform: translate3d(0, 0, 0);
 }
 
 .found-sheet__scroll {
@@ -910,9 +916,16 @@ onBeforeUnmount(() => {
   transition: opacity .28s ease;
 }
 
-.found-sheet-slide-enter-active .found-sheet__panel,
-.found-sheet-slide-leave-active .found-sheet__panel {
+.found-sheet-slide-enter-active .found-sheet__panel {
   transition: transform .36s cubic-bezier(.22, .8, .25, 1);
+}
+
+.found-sheet-slide-leave-active {
+  pointer-events: none;
+}
+
+.found-sheet-slide-leave-active .found-sheet__panel {
+  transition: transform .32s cubic-bezier(.4, 0, 1, 1);
 }
 
 .found-sheet-slide-enter-from .found-sheet__scrim,
@@ -922,6 +935,30 @@ onBeforeUnmount(() => {
 
 .found-sheet-slide-enter-from .found-sheet__panel,
 .found-sheet-slide-leave-to .found-sheet__panel {
-  transform: translateY(100%);
+  transform: translate3d(0, 100%, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .found-sheet-slide-enter-active,
+  .found-sheet-slide-leave-active {
+    transition: opacity .12s ease;
+  }
+
+  .found-sheet-slide-enter-from,
+  .found-sheet-slide-leave-to {
+    opacity: 0;
+  }
+
+  .found-sheet-slide-enter-active .found-sheet__scrim,
+  .found-sheet-slide-leave-active .found-sheet__scrim,
+  .found-sheet-slide-enter-active .found-sheet__panel,
+  .found-sheet-slide-leave-active .found-sheet__panel {
+    transition: none;
+  }
+
+  .found-sheet-slide-enter-from .found-sheet__panel,
+  .found-sheet-slide-leave-to .found-sheet__panel {
+    transform: none;
+  }
 }
 </style>

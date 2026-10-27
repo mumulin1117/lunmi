@@ -1,16 +1,15 @@
 <template>
   <teleport to="body">
-    <transition name="caught-sheet-slide" :duration="{ enter: 560, leave: 280 }" appear>
+    <transition name="caught-sheet-slide" :duration="{ enter: 560, leave: 320 }" appear @after-leave="after_close">
       <view
         v-if="visible"
         class="sheet-layer"
         :style="sheet_style"
         @click="close"
       >
+        <view class="sheet-scrim" />
         <view class="sheet-panel" @click.stop>
-          <view class="sheet-toolbar">
-            <view class="sheet-handle" aria-hidden="true" />
-          </view>
+          <ResultSheetToolbar @close="close" />
           <scroll-view class="sheet-scroll" scroll-y :show-scrollbar="false">
             <view class="sheet-scroll__inner">
               <view v-if="is_loading && !lantern && !has_owner_preview" class="sheet-skeleton" aria-hidden="true">
@@ -97,6 +96,7 @@ import { selectUserBaseInfo } from '@/api/common'
 import { selectLmLanternPage } from '@/api/lantern'
 import { selectLmLanternReplyPage, selectLmLanternScoopPage } from '@/api/scoop'
 import UserAvatar from '@/components/UserAvatar.vue'
+import ResultSheetToolbar from '@/components/ResultSheetToolbar.vue'
 import { storeGlobal } from '@/stores/store'
 import {
   build_select_reply_params,
@@ -125,10 +125,10 @@ const props = defineProps({
   cachedOwnerAvatarUrl: { type: String, default: '' },
   cachedOwnerAnonymous: { type: Boolean, default: false },
   caughtData: { type: Object, default: null },
-  bottomOffset: { type: String, default: '0rpx' }
+  bottomOffset: { type: String, default: '0px' }
 })
 
-const emit = defineEmits(['close', 'reply', 'report'])
+const emit = defineEmits(['close', 'after-close', 'reply', 'report'])
 
 const lantern = ref(null)
 const scoop = ref(null)
@@ -139,12 +139,14 @@ const is_loading = ref(false)
 const load_error = ref('')
 const is_sheet_active = ref(true)
 let request_context = { cancel() {} }
+let load_token = 0
 
 const sheet_style = computed(() => ({
   '--sheet-bottom-offset': props.bottomOffset,
   '--sheet-panel-safe-bottom': 'var(--page-safe-bottom)',
   '--sheet-background': theme.colors.release_sheet.background,
   '--sheet-shadow': theme.colors.release_sheet.shadow,
+  '--sheet-scrim': theme.colors.surface.scrim,
   '--sheet-handle': theme.colors.release_sheet.handle,
   '--sheet-border': theme.colors.surface.border,
   '--sheet-title': theme.colors.text.title,
@@ -221,8 +223,13 @@ const begin_requests = () => {
 }
 
 const close = () => {
+  load_token += 1
   request_context.cancel?.()
   emit('close')
+}
+
+const after_close = () => {
+  if (!props.visible) emit('after-close')
 }
 
 const reply = () => {
@@ -244,6 +251,9 @@ const open_report = () => {
 // feedback_mode: region_loading — sheet skeleton follows the scoop and lantern queries.
 const load_caught = async () => {
   if (!is_sheet_active.value || !props.visible) return
+  const token = ++load_token
+  const is_current = () => is_sheet_active.value && props.visible && load_token === token
+  request_context.cancel?.()
   const caught = props.caughtData
   if (caught && `${caught.lantern?.lantern_id}` === `${props.lanternId}`
     && `${caught.scoop?.lantern_scoop_id}` === `${props.lanternScoopId}`) {
@@ -265,7 +275,6 @@ const load_caught = async () => {
   const account_store = storeGlobal()
   is_loading.value = true
   load_error.value = ''
-  request_context.cancel?.()
   const track_request = begin_requests()
   try {
     const [scoop_result, lantern_result] = await Promise.all([
@@ -278,7 +287,7 @@ const load_caught = async () => {
         lantern_id: props.lanternId
       }), track_request())
     ])
-    if (!is_sheet_active.value || !props.visible) return
+    if (!is_current()) return
     if (!scoop_result?.success) {
       load_error.value = scoop_result?.error || 'Unable to load this lantern.'
       return
@@ -302,7 +311,7 @@ const load_caught = async () => {
       build_select_reply_params({ lantern_scoop_id: matched.lantern_scoop_id }),
       track_request()
     )
-    if (!is_sheet_active.value || !props.visible) return
+    if (!is_current()) return
     if (reply_result?.success) {
       reply_record.value = map_reply_record(read_page_records(reply_result.data)[0])
     } else {
@@ -315,7 +324,7 @@ const load_caught = async () => {
         const profile_result = await selectUserBaseInfo({
           userId: owner_user_id
         }, track_request())
-        if (!is_sheet_active.value || !props.visible) return
+        if (!is_current()) return
         if (profile_result?.success) {
           const profile = map_user_base_profile(profile_result.data)
           owner_name.value = profile.username
@@ -327,10 +336,10 @@ const load_caught = async () => {
       avatar_url.value = ''
     }
   } catch (error) {
-    if (!is_sheet_active.value || !props.visible) return
+    if (!is_current()) return
     load_error.value = error?.message || 'Unable to load this lantern.'
   } finally {
-    if (is_sheet_active.value) is_loading.value = false
+    if (is_current()) is_loading.value = false
   }
 }
 
@@ -338,6 +347,7 @@ watch(
   () => [props.visible, props.lanternId, props.lanternScoopId],
   ([visible]) => {
     if (!visible) {
+      load_token += 1
       request_context.cancel?.()
       return
     }
@@ -351,6 +361,7 @@ watch(
 
 onBeforeUnmount(() => {
   is_sheet_active.value = false
+  load_token += 1
   request_context.cancel?.()
 })
 </script>
@@ -366,6 +377,10 @@ onBeforeUnmount(() => {
 }
 
 .sheet-panel {
+  --dismiss-handle: var(--sheet-handle);
+  --dismiss-ink: var(--sheet-title);
+  --dismiss-fill: var(--sheet-card);
+  --dismiss-border: var(--sheet-border);
   position: relative;
   z-index: 1;
   display: flex;
@@ -381,26 +396,13 @@ onBeforeUnmount(() => {
   background: var(--sheet-background);
   box-shadow: 0 -4rpx 80rpx var(--sheet-shadow);
   flex-direction: column;
-  will-change: opacity, transform;
+  will-change: transform;
 }
 
-.sheet-toolbar {
-  position: relative;
-  display: flex;
-  width: 100%;
-  min-height: 30rpx;
-  align-items: center;
-  justify-content: center;
-  padding: 8rpx 32rpx 12rpx;
-  flex: none;
-}
-
-.sheet-handle {
-  width: 92rpx;
-  height: 10rpx;
-  border-radius: 999rpx;
-  background: var(--sheet-handle);
-  flex: none;
+.sheet-scrim {
+  position: absolute;
+  inset: 0;
+  background: var(--sheet-scrim);
 }
 
 .sheet-report {
@@ -630,8 +632,26 @@ onBeforeUnmount(() => {
   animation: caught-sheet-rise 0.56s cubic-bezier(0.25, 0.1, 0.25, 1) both;
 }
 
+.caught-sheet-slide-enter-active .sheet-scrim,
+.caught-sheet-slide-leave-active .sheet-scrim {
+  transition: opacity .28s ease;
+}
+
+.caught-sheet-slide-enter-from .sheet-scrim,
+.caught-sheet-slide-leave-to .sheet-scrim {
+  opacity: 0;
+}
+
 .caught-sheet-slide-leave-active .sheet-panel {
-  animation: caught-sheet-rise 0.28s ease-in reverse both;
+  transition: transform .32s cubic-bezier(.4, 0, 1, 1);
+}
+
+.caught-sheet-slide-leave-to .sheet-panel {
+  transform: translate3d(0, calc(100% + var(--sheet-bottom-offset)), 0);
+}
+
+.caught-sheet-slide-leave-active {
+  pointer-events: none;
 }
 
 @keyframes caught-sheet-rise {
@@ -643,6 +663,32 @@ onBeforeUnmount(() => {
   to {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .caught-sheet-slide-enter-active .sheet-panel {
+    animation: none;
+  }
+
+  .caught-sheet-slide-enter-active,
+  .caught-sheet-slide-leave-active {
+    transition: opacity .12s ease;
+  }
+
+  .caught-sheet-slide-enter-from,
+  .caught-sheet-slide-leave-to {
+    opacity: 0;
+  }
+
+  .caught-sheet-slide-enter-active .sheet-scrim,
+  .caught-sheet-slide-leave-active .sheet-scrim,
+  .caught-sheet-slide-leave-active .sheet-panel {
+    transition: none;
+  }
+
+  .caught-sheet-slide-leave-to .sheet-panel {
+    transform: none;
   }
 }
 </style>

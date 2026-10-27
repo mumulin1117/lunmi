@@ -116,8 +116,9 @@
       :cached-owner-name="caught_owner_name"
       :cached-owner-avatar-url="caught_owner_avatar_url"
       :cached-owner-anonymous="caught_owner_anonymous"
-      bottom-offset="0rpx"
+      bottom-offset="0px"
       @close="close_caught"
+      @after-close="reset_caught_owner_cache"
       @reply="reply_to_caught"
       @report="open_caught_report"
     />
@@ -784,7 +785,6 @@ const close_caught = () => {
   is_caught_visible.value = false
   is_caught_report_visible.value = false
   caught_query_key = ''
-  reset_caught_owner_cache()
 }
 
 const open_caught_report = ({ target_user_id, target_name }) => {

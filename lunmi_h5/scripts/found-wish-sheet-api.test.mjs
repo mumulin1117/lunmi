@@ -76,7 +76,7 @@ const mount_sheet = async (transport = () => { throw new Error('Unexpected trans
     'load_error', 'reply_error', 'action_error', 'is_loading', 'is_blessing', 'is_replying',
     'theme_style', 'place_line', 'waiting_line', 'reply_total', 'wish_photo', 'can_report_author',
     'can_report_reply', 'can_delete_reply', 'deleting_reply_id', 'placeholder_style', 'is_report_open', 'report_name', 'report_user_id',
-    'close', 'load_sheet', 'open_author', 'open_report', 'bless_wish', 'delete_reply', 'send_reply', 'apply_random_detail',
+    'close', 'finish_leave', 'load_sheet', 'open_author', 'open_report', 'bless_wish', 'delete_reply', 'send_reply', 'apply_random_detail',
     'is_photo_loading', 'photo_error', 'on_photo_load', 'on_photo_error', 'show_cover_shimmer', 'already_blessed']
   scope.run(() => vm.runInContext(`${strip_imports(descriptor.scriptSetup.content)}\nglobalThis.subject = { ${fields.join(', ')} }`, context))
   const template = compileTemplate({ source: descriptor.template.content, filename: 'FoundWishSheet.vue', id: 'test' })
@@ -196,6 +196,86 @@ test('sheet has a definite scroll viewport and fixed composer', async () => {
     assert.match(sheet.source, /\.found-sheet__panel\s*\{[^}]*\bheight:\s*92%/s)
     assert.match(sheet.source, /\.found-sheet__scroll\s*\{[^}]*\bheight:\s*0;/s)
     assert.match(sheet.source, /\.found-composer\s*\{[^}]*flex-shrink:\s*0;/s)
+  } finally { sheet.dispose() }
+})
+
+test('the result toolbar closes the sheet while populated content remains until after-leave', async () => {
+  const sheet = await mount_sheet()
+  try {
+    storage.save_found_wish_random_detail({ user_id: 3, detail: detail() })
+    sheet.props.wishId = '42'
+    sheet.props.visible = true
+    await flush()
+    sheet.reply_draft.value = 'A retained draft'
+    sheet.open_report('9', 'Luna')
+    const rendered = sheet.render()
+    assert.equal(rendered.props.duration.enter, 360)
+    assert.equal(rendered.props.duration.leave, 320)
+    assert.equal(rendered.props.onAfterLeave, sheet.finish_leave)
+    const toolbar = render_nodes(rendered).find(node => node.type === 'ResultSheetToolbar')
+    assert.ok(toolbar)
+    toolbar.props.onClose()
+    assert.equal(JSON.stringify(sheet.emits), JSON.stringify([['update:visible', false]]))
+    assert.equal(sheet.is_report_open.value, false)
+    // The parent clears its result ID as soon as it handles update:visible.
+    sheet.props.visible = false
+    sheet.props.wishId = ''
+    await flush()
+    assert.equal(sheet.wish.value.content, 'Wish 42')
+    assert.equal(sheet.replies.value[0].content, 'Reply 42')
+    assert.equal(sheet.reply_draft.value, 'A retained draft')
+    sheet.finish_leave()
+    await flush()
+    assert.equal(sheet.wish.value, null)
+    assert.equal(sheet.replies.value.length, 0)
+    assert.equal(sheet.reply_draft.value, '')
+    assert.equal(sheet.api.calls.length, 0)
+  } finally { sheet.dispose() }
+})
+
+test('an old leave completion cannot clear a reopened result', async () => {
+  const sheet = await mount_sheet()
+  try {
+    storage.save_found_wish_random_detail({ user_id: 3, detail: detail() })
+    sheet.props.wishId = '42'
+    sheet.props.visible = true
+    await flush()
+    sheet.close()
+    sheet.props.visible = false
+    sheet.props.wishId = ''
+    await flush()
+    storage.save_found_wish_random_detail({ user_id: 3, detail: detail(55) })
+    sheet.props.wishId = '55'
+    sheet.props.visible = true
+    await flush()
+    sheet.finish_leave()
+    assert.equal(sheet.wish.value.content, 'Wish 55')
+    assert.equal(sheet.replies.value[0].content, 'Reply 55')
+    assert.equal(sheet.load_error.value, '')
+    sheet.props.visible = false
+    await flush()
+    sheet.finish_leave()
+    assert.equal(sheet.wish.value, null)
+  } finally { sheet.dispose() }
+})
+
+test('dismissal keeps the existing blessing and reply-deletion guards', async () => {
+  const sheet = await mount_sheet()
+  try {
+    storage.save_found_wish_random_detail({ user_id: 3, detail: detail() })
+    sheet.props.wishId = '42'
+    sheet.props.visible = true
+    await flush()
+    sheet.is_blessing.value = true
+    sheet.close()
+    assert.equal(sheet.emits.length, 0)
+    sheet.is_blessing.value = false
+    sheet.deleting_reply_id.value = '7'
+    sheet.close()
+    assert.equal(sheet.emits.length, 0)
+    sheet.deleting_reply_id.value = ''
+    sheet.close()
+    assert.equal(JSON.stringify(sheet.emits), JSON.stringify([['update:visible', false]]))
   } finally { sheet.dispose() }
 })
 
