@@ -65,6 +65,7 @@ const storage_infrastructure_files = new Set([
   'src/utils/loginSession.js',
   'src/utils/permissionStorage.js',
   'src/utils/profileSetupStorage.js',
+  'src/utils/profileGuideStorage.js',
   'src/utils/projectCache.js'
 ])
 const bridge_infrastructure_files = new Set([

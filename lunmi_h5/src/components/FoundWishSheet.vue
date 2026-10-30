@@ -39,6 +39,11 @@
                   <image src="/static/icon/vertical_more.png" mode="aspectFit" />
                 </view>
               </view>
+              <ProfileAvatarGuide
+                ref="avatar_guide"
+                context="wish"
+                :eligible="visible && !is_report_open && !wish.is_anonymous && Boolean(wish.owner_user_id) && Boolean(avatar_url)"
+              />
               <view class="found-photo">
                 <view v-if="show_cover_shimmer" class="found-photo__loading">
                   <MediaShimmer class="found-photo__shimmer" :label="$t('Loading wish photo')" />
@@ -151,6 +156,7 @@ import { addLmWishBlessing, addLmWishReply, deleteLmWishReply } from '@/api/wish
 import BottomSafeArea from '@/components/BottomSafeArea.vue'
 import ReportUserSheet from '@/components/ReportUserSheet.vue'
 import ResultSheetToolbar from '@/components/ResultSheetToolbar.vue'
+import ProfileAvatarGuide from '@/components/ProfileAvatarGuide.vue'
 import UserAvatar from '@/components/UserAvatar.vue'
 import MediaShimmer from '@/components/MediaShimmer.vue'
 import { storeGlobal } from '@/stores/store'
@@ -178,6 +184,7 @@ const props = defineProps({
 const emit = defineEmits(['update:visible', 'open-profile'])
 
 const wish = ref(null)
+const avatar_guide = ref(null)
 const replies = ref([])
 const reply_draft = ref('')
 const reply_scroll_target = ref('')
@@ -309,6 +316,7 @@ const finish_leave = () => {
 
 const open_author = () => {
   if (!wish.value?.owner_user_id) return
+  avatar_guide.value?.dismiss()
   emit('open-profile', wish.value.owner_user_id)
 }
 

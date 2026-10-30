@@ -67,7 +67,8 @@ const load_controller = (permission = async () => denied, { shown = true } = {})
     scoop_purchase_sync_context: {},
     release_leave_timer: null,
     scoop_remaining: { value: 1 },
-    is_caught_visible: { value: true }
+    is_caught_visible: { value: true },
+    is_caught_suspended: { value: false }
   })
   vm.runInContext(`${state_source}
     let caught_route_query = null

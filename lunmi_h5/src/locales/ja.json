@@ -1319,5 +1319,8 @@
   "Nearby lanterns": "近くのランタン",
   "Location access is off": "位置情報へのアクセスはオフです",
   "Location access is off. You can change it in Settings, or keep using All lanterns.": "端末の設定で位置情報へのアクセスを変更できます。変更せずに「すべて」のランタンを引き続き利用することもできます。",
-  "You choose whether to allow access in the next iOS prompt.": "次のiOSの確認画面で、位置情報へのアクセスを許可するかどうか選択できます。"
+  "You choose whether to allow access in the next iOS prompt.": "次のiOSの確認画面で、位置情報へのアクセスを許可するかどうか選択できます。",
+  "View profile": "プロフィールを見る",
+  "Tap the avatar to visit their profile.": "アイコンをタップして、プロフィールを見てみましょう。",
+  "Got it": "わかりました"
 }

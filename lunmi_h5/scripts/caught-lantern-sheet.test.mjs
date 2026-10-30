@@ -8,6 +8,7 @@ import * as detail from '../src/utils/lanternDetailPresentation.js'
 import * as scoop from '../src/utils/scoopLanternPresentation.js'
 import * as release from '../src/utils/releaseLanternPresentation.js'
 import * as profile from '../src/utils/profilePresentation.js'
+import { build_profile_page_url } from '../src/utils/communityUserPresentation.js'
 import { set_app_language, t } from '../src/utils/i18n.js'
 
 const root = new URL('../', import.meta.url)
@@ -60,7 +61,7 @@ const mount_sheet = async (read = () => { throw new Error('Unexpected read') }) 
   set_app_language('en')
   const source = await readFile(new URL('src/components/CaughtLanternSheet.vue', root), 'utf8')
   const { descriptor } = parse(source)
-  const props = vue.reactive({ visible: false, lanternId: '', lanternScoopId: '', caughtData: null,
+  const props = vue.reactive({ visible: false, suspended: false, lanternId: '', lanternScoopId: '', caughtData: null,
     cachedOwnerUserId: '', cachedOwnerName: '', cachedOwnerAvatarUrl: '', cachedOwnerAnonymous: false, bottomOffset: '0px' })
   const emits = []
   const calls = []
@@ -80,7 +81,8 @@ const mount_sheet = async (read = () => { throw new Error('Unexpected read') }) 
   })
   const fields = ['lantern', 'scoop', 'reply_record', 'avatar_url', 'owner_name', 'is_loading', 'load_error',
     'sheet_style', 'has_owner_preview', 'show_owner_avatar', 'owner_label', 'place_label', 'lantern_label',
-    'can_report', 'notice_text', 'reply_label', 'close', 'after_close', 'reply', 'open_report', 'load_caught']
+    'can_report', 'can_open_owner_profile', 'notice_text', 'reply_label', 'close', 'after_close',
+    'reply', 'open_report', 'open_owner_profile', 'load_caught']
   const scope = vue.effectScope()
   scope.run(() => vm.runInContext(`${strip_imports(descriptor.scriptSetup.content)}\nglobalThis.subject = { ${fields.join(', ')} }`, context))
   const render = template_renderer(descriptor.template.content, context, 'CaughtLanternSheet.vue')
@@ -240,18 +242,18 @@ test('Home retains owner-only preview until the actual after-close event', async
     assert.ok(statement)
     return script.slice(statement.start, statement.end)
   }).join('\n')
-  const bindings = Object.fromEntries(Object.entries({ is_caught_visible: true, is_caught_report_visible: true,
+  const bindings = Object.fromEntries(Object.entries({ is_caught_visible: true, is_caught_suspended: false, is_caught_report_visible: true,
     caught_data: null, caught_lantern_id: 42, caught_scoop_id: 142, caught_owner_user_id: '9',
     caught_owner_name: 'Luna', caught_owner_avatar_url: 'https://example.test/luna.jpg', caught_owner_anonymous: false })
     .map(([key, value]) => [key, vue.ref(value)]))
-  const context = vm.createContext({ ...bindings, cancel_caught_open() {}, reply_to_caught() {}, open_caught_report() {} })
+  const context = vm.createContext({ ...bindings, cancel_caught_open() {}, reply_to_caught() {}, open_caught_report() {}, open_caught_profile() {} })
   vm.runInContext(`let caught_query_key = 'old-query';\n${functions}\nglobalThis.handlers = { close_caught, reset_caught_owner_cache }`, context)
   const find_sheet = (node) => node?.tag === 'CaughtLanternSheet' ? node
     : node?.children?.map(find_sheet).find(Boolean)
   const sheet_template = find_sheet(descriptor.template.ast)
   assert.ok(sheet_template)
   const render = template_renderer(sheet_template.loc.source, context, 'HomeCaughtLanternSheet.vue')
-  const sheet = nodes(render({ ...bindings, ...context.handlers, reply_to_caught() {}, open_caught_report() {} }))
+  const sheet = nodes(render({ ...bindings, ...context.handlers, reply_to_caught() {}, open_caught_report() {}, open_caught_profile() {} }))
     .find((node) => node.type === 'CaughtLanternSheet')
   sheet.props.onClose()
   assert.equal(bindings.is_caught_visible.value, false)
@@ -263,4 +265,153 @@ test('Home retains owner-only preview until the actual after-close event', async
   assert.equal(bindings.caught_owner_name.value, '')
   assert.equal(bindings.caught_owner_user_id.value, '')
   assert.equal(bindings.caught_owner_avatar_url.value, '')
+})
+
+test('the real owner avatar click and keyboard actions emit only the current profile ID', async () => {
+  const sheet = await mount_sheet()
+  try {
+    sheet.props.cachedOwnerUserId = '99'
+    await sheet.open()
+    const avatar = nodes(sheet.render()).find((node) => node.type === 'UserAvatar' && node.props?.class === 'caught-avatar')
+    assert.ok(avatar)
+    assert.equal(avatar.props.role, 'button')
+    assert.equal(avatar.props.tabindex, 0)
+    let stopped = 0
+    const fire = (handler, key) => [handler].flat().forEach((callback) => callback({
+      key, stopPropagation: () => { stopped += 1 }, preventDefault() {}
+    }))
+    fire(avatar.props.onClick)
+    fire(avatar.props.onKeydown, 'Enter')
+    fire(avatar.props.onKeydown, ' ')
+    assert.equal(stopped, 3)
+    assert.deepEqual(sheet.emits, [['open-profile', '9'], ['open-profile', '9'], ['open-profile', '9']])
+    assert.equal(sheet.props.visible, true)
+    assert.equal(sheet.lantern.value.content, 'Lantern 42')
+    assert.equal(sheet.calls.length, 0)
+  } finally { sheet.dispose() }
+})
+
+test('a cached owner avatar opens its profile while the lantern reads are still pending', async () => {
+  const pending = deferred()
+  const sheet = await mount_sheet(() => pending.promise)
+  try {
+    Object.assign(sheet.props, { visible: true, lanternId: 42, lanternScoopId: 142,
+      cachedOwnerUserId: 17, cachedOwnerName: 'Cached owner', cachedOwnerAvatarUrl: 'https://example.test/cache.jpg' })
+    await flush()
+    assert.equal(sheet.is_loading.value, true)
+    const avatar = nodes(sheet.render()).find((node) => node.type === 'UserAvatar' && node.props?.class === 'caught-avatar')
+    avatar.props.onClick({ stopPropagation() {} })
+    assert.deepEqual(sheet.emits, [['open-profile', '17']])
+    assert.equal(sheet.calls.length, 2, 'a profile tap starts no additional reads or writes')
+    assert.equal(sheet.props.visible, true)
+  } finally { sheet.dispose() }
+})
+
+test('anonymous, missing, hidden and suspended owners cannot open a profile', async () => {
+  for (const scenario of ['anonymous', 'missing', 'hidden', 'suspended']) {
+    const sheet = await mount_sheet()
+    try {
+      const caught = aggregate()
+      if (scenario === 'anonymous') caught.lantern.anonymous_display = true
+      if (scenario === 'missing') caught.lantern.owner_user_id = ''
+      await sheet.open(caught)
+      if (scenario === 'hidden') sheet.props.visible = false
+      if (scenario === 'suspended') sheet.props.suspended = true
+      await flush()
+      assert.equal(sheet.can_open_owner_profile.value, false, scenario)
+      sheet.open_owner_profile()
+      assert.deepEqual(sheet.emits, [], scenario)
+      assert.equal(sheet.calls.length, 0)
+    } finally { sheet.dispose() }
+  }
+})
+
+const find_declaration = (node, name) => {
+  if (!node || typeof node !== 'object') return null
+  if (node.type === 'VariableDeclaration' && node.declarations.some((item) => item.id.name === name)) return node
+  for (const child of Object.values(node)) {
+    const found = Array.isArray(child) ? child.map((item) => find_declaration(item, name)).find(Boolean) : find_declaration(child, name)
+    if (found) return found
+  }
+  return null
+}
+
+const mount_home_profile = async () => {
+  const { descriptor } = parse(await readFile(new URL('src/pages/home/index.vue', root), 'utf8'))
+  const script = descriptor.scriptSetup.content
+  const ast = babelParse(script, { sourceType: 'module' }).program
+  const handler = find_declaration(ast, 'open_caught_profile')
+  assert.ok(handler)
+  const route_source = await readFile(new URL('src/utils/routeTransition.js', root), 'utf8')
+  const navigate = find_declaration(babelParse(route_source, { sourceType: 'module' }).program, 'navigate_forward')
+  assert.ok(navigate)
+  const calls = []
+  const route_context = vm.createContext({ is_route_navigating: vue.ref(false), push_route: (options) => calls.push(options) })
+  vm.runInContext(`${route_source.slice(navigate.start, navigate.end)}\nglobalThis.navigate = navigate_forward`, route_context)
+  const bindings = Object.fromEntries(Object.entries({ is_caught_visible: true, is_caught_suspended: false,
+    is_caught_report_visible: false, caught_data: aggregate(), caught_lantern_id: 42, caught_scoop_id: 142,
+    caught_owner_user_id: '9', caught_owner_name: 'Luna', caught_owner_avatar_url: 'https://example.test/luna.jpg',
+    caught_owner_anonymous: false, action_message: '' }).map(([name, value]) => [name, vue.ref(value)]))
+  const hooks = {}
+  const context = vm.createContext({ ...bindings, build_profile_page_url, HOME_PAGE_PATH: '/pages/home/index',
+    page_transition: vue.ref({ navigate_forward: route_context.navigate }),
+    onShow: (callback) => { hooks.show = callback }, onHide: (callback) => { hooks.hide = callback },
+    choose_nearby() {}, open_caught_sheet: () => false, open_scheduled_release_sheet() {}, load_home() {},
+    cancel_caught_open() {}, on_permission_cancelled() {}, close_caught() {}, reset_caught_owner_cache() {},
+    reply_to_caught() {}, open_caught_report() {}, is_nearby_requesting: vue.ref(false),
+    feed_scope: vue.ref('all'), scoop_remaining: vue.ref(3)
+  })
+  const lifecycle = ast.body.filter((node) => node.type === 'ExpressionStatement'
+    && node.expression.type === 'CallExpression' && ['onShow', 'onHide'].includes(node.expression.callee.name))
+    .map((node) => script.slice(node.start, node.end)).join('\n')
+  vm.runInContext(`let is_home_shown = true; let nearby_request_generation = 0;
+    let recheck_nearby_on_show = false; let permission_request_intent = ''; let caught_route_query = null;
+    ${script.slice(handler.start, handler.end)}\n${lifecycle}\nglobalThis.handler = open_caught_profile`, context)
+  const find_sheet = (node) => node?.tag === 'CaughtLanternSheet' ? node : node?.children?.map(find_sheet).find(Boolean)
+  const render = template_renderer(find_sheet(descriptor.template.ast).loc.source, context, 'HomeProfileEntry.vue')
+  return { ...bindings, hooks, calls, open_profile: context.handler,
+    render: () => nodes(render({ ...bindings, open_caught_profile: context.handler,
+      close_caught() {}, reset_caught_owner_cache() {}, reply_to_caught() {}, open_caught_report() {} }))
+      .find((node) => node.type === 'CaughtLanternSheet') }
+}
+
+test('Home routes the owner profile with its return source and delegates duplicate taps to the real route lock', async () => {
+  const home = await mount_home_profile()
+  const retained = home.caught_data.value
+  const sheet = home.render()
+  sheet.props.onOpenProfile('9')
+  sheet.props.onOpenProfile('9')
+  assert.equal(home.calls.length, 1)
+  const target = new URL(home.calls[0].url, 'https://example.test')
+  assert.equal(target.pathname, '/pages/community/user/index')
+  assert.equal(target.searchParams.get('targetUserId'), '9')
+  assert.equal(target.searchParams.get('user_id'), '9')
+  assert.equal(target.searchParams.get('sourcePage'), '/pages/home/index')
+  assert.equal(home.is_caught_visible.value, true)
+  assert.equal(home.caught_data.value, retained)
+  home.hooks.hide()
+  assert.equal(home.render().props.suspended, true, 'the teleported sheet is suspended while Profile is on top')
+  home.open_profile('9')
+  assert.equal(home.calls.length, 1)
+  home.hooks.show()
+  assert.equal(home.render().props.suspended, false)
+  assert.equal(home.is_caught_visible.value, true)
+  assert.equal(home.caught_data.value, retained)
+  assert.equal(home.caught_owner_name.value, 'Luna')
+})
+
+test('Home handles navigation failure without losing the caught result and allows retry', async () => {
+  const home = await mount_home_profile()
+  home.open_profile('')
+  assert.equal(home.calls.length, 0)
+  home.open_profile('9')
+  home.calls[0].fail(new Error('Synthetic navigation failure'))
+  assert.equal(home.action_message.value, 'This profile cannot be opened.')
+  assert.equal(home.is_caught_visible.value, true)
+  assert.equal(home.caught_owner_name.value, 'Luna')
+  home.open_profile('9')
+  assert.equal(home.calls.length, 2)
+  home.is_caught_visible.value = false
+  home.open_profile('9')
+  assert.equal(home.calls.length, 2)
 })

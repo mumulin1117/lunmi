@@ -4,6 +4,7 @@
       <view
         v-if="visible"
         class="sheet-layer"
+        :class="{ 'sheet-layer--suspended': suspended }"
         :style="sheet_style"
         @click="close"
       >
@@ -27,6 +28,12 @@
                     v-if="show_owner_avatar"
                     class="caught-avatar"
                     :source="avatar_url"
+                    :role="can_open_owner_profile ? 'button' : undefined"
+                    :tabindex="can_open_owner_profile ? 0 : undefined"
+                    :aria-label="$t(`Open profile for ${owner_label}`)"
+                    @click.stop="open_owner_profile"
+                    @keydown.enter.stop.prevent="open_owner_profile"
+                    @keydown.space.stop.prevent="open_owner_profile"
                   />
                   <view v-else class="caught-avatar caught-avatar--fallback">
                     <image src="/static/icon/lantern_release_avatar.png" mode="aspectFit" />
@@ -51,6 +58,11 @@
                     <image src="/static/icon/vertical_more.png" mode="aspectFit" />
                   </view>
                 </view>
+                <ProfileAvatarGuide
+                  ref="avatar_guide"
+                  context="scoop"
+                  :eligible="can_open_owner_profile && Boolean(lantern)"
+                />
                 <image
                   class="caught-photo"
                   src="/static/icon/lantern_detail_scene.png"
@@ -97,6 +109,7 @@ import { selectLmLanternPage } from '@/api/lantern'
 import { selectLmLanternReplyPage, selectLmLanternScoopPage } from '@/api/scoop'
 import UserAvatar from '@/components/UserAvatar.vue'
 import ResultSheetToolbar from '@/components/ResultSheetToolbar.vue'
+import ProfileAvatarGuide from '@/components/ProfileAvatarGuide.vue'
 import { storeGlobal } from '@/stores/store'
 import {
   build_select_reply_params,
@@ -118,6 +131,7 @@ import { build_select_lantern_params } from '@/utils/releaseLanternPresentation'
 
 const props = defineProps({
   visible: { type: Boolean, default: false },
+  suspended: { type: Boolean, default: false },
   lanternId: { type: [String, Number], default: '' },
   lanternScoopId: { type: [String, Number], default: '' },
   cachedOwnerUserId: { type: [String, Number], default: '' },
@@ -128,9 +142,10 @@ const props = defineProps({
   bottomOffset: { type: String, default: '0px' }
 })
 
-const emit = defineEmits(['close', 'after-close', 'reply', 'report'])
+const emit = defineEmits(['close', 'after-close', 'reply', 'report', 'open-profile'])
 
 const lantern = ref(null)
+const avatar_guide = ref(null)
 const scoop = ref(null)
 const reply_record = ref(null)
 const avatar_url = ref('')
@@ -189,6 +204,9 @@ const place_label = computed(() => caught_place_label(
 const notice_text = computed(() => (reply_record.value ? CAUGHT_REPLIED_NOTICE : CAUGHT_REPLY_NOTICE))
 const reply_label = computed(() => (reply_record.value ? 'View reply' : 'Reply once'))
 const show_owner_avatar = computed(() => !owner_is_anonymous.value)
+const can_open_owner_profile = computed(() => (
+  props.visible && !props.suspended && show_owner_avatar.value && resolved_owner_user_id.value !== ''
+))
 const can_report = computed(() => (
   show_owner_avatar.value && resolved_owner_user_id.value !== ''
 ))
@@ -230,6 +248,12 @@ const close = () => {
 
 const after_close = () => {
   if (!props.visible) emit('after-close')
+}
+
+const open_owner_profile = () => {
+  if (!can_open_owner_profile.value) return
+  avatar_guide.value?.dismiss()
+  emit('open-profile', resolved_owner_user_id.value)
 }
 
 const reply = () => {
@@ -374,6 +398,10 @@ onBeforeUnmount(() => {
   display: flex;
   box-sizing: border-box;
   align-items: flex-end;
+}
+
+.sheet-layer--suspended {
+  display: none;
 }
 
 .sheet-panel {

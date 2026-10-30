@@ -109,6 +109,7 @@
     />
     <CaughtLanternSheet
       :visible="is_caught_visible"
+      :suspended="is_caught_suspended"
       :caught-data="caught_data"
       :lantern-id="caught_lantern_id"
       :lantern-scoop-id="caught_scoop_id"
@@ -121,6 +122,7 @@
       @after-close="reset_caught_owner_cache"
       @reply="reply_to_caught"
       @report="open_caught_report"
+      @open-profile="open_caught_profile"
     />
     <teleport to="body">
       <ReportUserSheet
@@ -167,6 +169,7 @@ import { ensure_ios_permission } from '@/utils/iosPermissionBridge'
 import { read_balance_after_update } from '@/utils/coinPurchasePresentation'
 import { read_coin_balance } from '@/utils/myProfilePresentation'
 import { build_lantern_reply_url } from '@/utils/lanternDetailPresentation'
+import { build_profile_page_url } from '@/utils/communityUserPresentation'
 import {
   SCOOP_ATTEMPT_COIN_COST,
   build_persist_purchased_scoop_remaining_params,
@@ -204,6 +207,7 @@ const is_purchasing = ref(false)
 const purchase_error = ref('')
 const pending_scoop_purchase = ref(null)
 const is_caught_visible = ref(false)
+const is_caught_suspended = ref(false)
 const caught_data = ref(null)
 const caught_lantern_id = ref('')
 const caught_scoop_id = ref('')
@@ -793,6 +797,14 @@ const open_caught_report = ({ target_user_id, target_name }) => {
   is_caught_report_visible.value = true
 }
 
+const open_caught_profile = (user_id) => {
+  if (!user_id || !is_caught_visible.value || is_caught_suspended.value) return
+  page_transition.value?.navigate_forward({
+    url: build_profile_page_url(user_id, HOME_PAGE_PATH),
+    fail: () => { action_message.value = 'This profile cannot be opened.' }
+  })
+}
+
 const reply_to_caught = ({ lantern_id, target_user_id }) => {
   cancel_caught_open()
   is_caught_visible.value = false
@@ -838,6 +850,7 @@ onLoad((query = {}) => {
 
 onShow(() => {
   is_home_shown = true
+  is_caught_suspended.value = false
   const needs_location_check = recheck_nearby_on_show || feed_scope.value === 'nearby'
   recheck_nearby_on_show = false
   if (needs_location_check) void choose_nearby(true)
@@ -849,6 +862,7 @@ onShow(() => {
 
 onHide(() => {
   is_home_shown = false
+  is_caught_suspended.value = true
   nearby_request_generation += 1
   if (permission_request_intent === 'nearby') on_permission_cancelled()
   if (is_nearby_requesting.value) feed_scope.value = 'all'
