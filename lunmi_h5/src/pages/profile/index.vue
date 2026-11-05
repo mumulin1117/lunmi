@@ -80,6 +80,7 @@ import PageTransition from '@/components/PageTransition.vue'
 import ProfileHeroHeader from '@/components/ProfileHeroHeader.vue'
 import { storeGlobal } from '@/stores/store'
 import { map_message_conversations } from '@/utils/messagePresentation'
+import { read_declined_chat_requests } from '@/utils/declinedChatStorage'
 import { MAIN_TAB_UNREAD_EVENT } from '@/utils/mainTabNavigation'
 import {
   format_profile_count,
@@ -187,7 +188,8 @@ const load_profile = async ({ refresh_stats = true } = {}) => {
     }
     if (message_result.success) {
       unread_chat_count.value = map_message_conversations(message_result.data, {
-        current_user_id: account_store.userId
+        current_user_id: account_store.userId,
+        declined_request_keys: read_declined_chat_requests(account_store.userId)
       }).filter((item) => item.has_unread).length
       uni.$emit(MAIN_TAB_UNREAD_EVENT, {
         page_path: PROFILE_PAGE_PATH,

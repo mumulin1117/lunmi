@@ -197,7 +197,21 @@ const pick_latest_message = (messages) => (
   })[0]
 )
 
-export const map_message_conversations = (data, { current_user_id = '', now = Date.now() } = {}) => {
+// Match a particular initial reply across list summaries and message details.
+// Fingerprints are only dismissal preferences; they are not identity or security checks.
+export const chat_request_key = ({ user_id = '', updated_at = '', preview = '' } = {}) => {
+  if (!normalize_id(user_id)) return ''
+  const time = parse_message_date(updated_at)
+  const source = JSON.stringify([normalize_id(user_id), Number.isFinite(time) ? time : updated_at, normalize_text(preview)])
+  let first = 2166136261, second = 5381
+  for (let index = 0; index < source.length; index += 1) {
+    first = Math.imul(first ^ source.charCodeAt(index), 16777619)
+    second = Math.imul(second, 33) ^ source.charCodeAt(index)
+  }
+  return `${normalize_id(user_id)}:${(first >>> 0).toString(16)}:${(second >>> 0).toString(16)}:${source.length}`
+}
+
+export const map_message_conversations = (data, { current_user_id = '', now = Date.now(), declined_request_keys = [] } = {}) => {
   const conversations = new Map()
   const entries = read_message_list_entries(data)
   entries.filter(is_conversation_summary).forEach((item) => {
@@ -252,7 +266,10 @@ export const map_message_conversations = (data, { current_user_id = '', now = Da
       conversations.set(peer.user_id, conversation)
     }
   })
-  return sort_conversations(conversations.values())
+  const declined = new Set(declined_request_keys)
+  return sort_conversations(conversations.values()).filter(conversation => (
+    conversation.chat_status !== 'your_turn' || !declined.has(chat_request_key(conversation))
+  ))
 }
 
 export const format_clock_time_label = (create_date) => {

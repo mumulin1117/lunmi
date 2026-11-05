@@ -1322,5 +1322,8 @@
   "You choose whether to allow access in the next iOS prompt.": "You choose whether to allow access in the next iOS prompt.",
   "View profile": "View profile",
   "Tap the avatar to visit their profile.": "Tap the avatar to visit their profile.",
-  "Got it": "Got it"
+  "Got it": "Got it",
+  "Decline request": "Decline request",
+  "You declined this request.": "You declined this request.",
+  "Unable to save this choice. Please try again.": "Unable to save this choice. Please try again."
 }

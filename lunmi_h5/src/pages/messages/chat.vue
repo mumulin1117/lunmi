@@ -35,6 +35,12 @@
         >
           <image src="/static/icon/private_message_video_call.png" mode="aspectFit" />
         </view>
+        <DeclineRequestButton
+          v-if="can_decline_request"
+          class="header-decline"
+          :disabled="is_sending"
+          @decline="decline_pending_request"
+        />
         <view
           class="header-action"
           role="button"
@@ -53,6 +59,10 @@
           <view v-else-if="load_error && !has_thread" class="state-card" role="alert">
             <text class="state-card__copy">{{ $t(load_error) }}</text>
             <view class="state-card__retry" role="button" @click="load_chat">{{ $t('Try again') }}</view>
+          </view>
+          <view v-else-if="is_request_declined" class="state-card" role="status">
+            <text class="state-card__copy">{{ $t('You declined this request.') }}</text>
+            <view class="state-card__retry" role="button" @click="go_back">{{ $t('Go back') }}</view>
           </view>
           <view v-else-if="is_locked_layout" class="locked-thread">
             <view v-if="lantern_quote" class="lantern-card">
@@ -163,6 +173,8 @@ import PermissionRequestOverlay from '@/components/PermissionRequestOverlay.vue'
 import ReportUserSheet from '@/components/ReportUserSheet.vue'
 import TopSafeArea from '@/components/TopSafeArea.vue'
 import UserAvatar from '@/components/UserAvatar.vue'
+import DeclineRequestButton from '@/components/DeclineRequestButton.vue'
+import { decline_chat_request, read_declined_chat_requests } from '@/utils/declinedChatStorage'
 import { storeGlobal } from '@/stores/store'
 import {
   LOCKED_ONE_REPLY,
@@ -194,7 +206,7 @@ import {
   map_scoop_record,
   read_page_records
 } from '@/utils/lanternDetailPresentation'
-import { map_chat_messages } from '@/utils/messagePresentation'
+import { chat_request_key, map_chat_messages } from '@/utils/messagePresentation'
 import { map_user_base_profile } from '@/utils/profilePresentation'
 import { normalize_lantern_source_page, read_lantern_records } from '@/utils/releaseLanternPresentation'
 
@@ -207,12 +219,14 @@ const source_page = ref(MESSAGES_PAGE_PATH)
 const requested_mode = ref('')
 const chat_mode = ref(YOUR_TURN)
 const messages = ref([])
+const thread_user_id = ref(`${storeGlobal().userId || ''}`)
 const lantern_quote = ref('')
 const reply_text = ref('')
 const reply_sent_at = ref('')
 const draft = ref('')
 const is_loading = ref(true)
 const is_sending = ref(false)
+const is_request_declined = ref(false)
 const load_error = ref('')
 const send_error = ref('')
 const is_report_visible = ref(false)
@@ -275,10 +289,10 @@ const has_open_dialogue = computed(() => {
     && history.some((message) => !message.is_mine)
 })
 const show_turn_notice = computed(() => (
-  !is_loading.value && is_your_turn.value && !has_open_dialogue.value && !is_locked_layout.value
+  !is_loading.value && is_your_turn.value && !has_open_dialogue.value && !is_locked_layout.value && !is_request_declined.value
 ))
-const composer_visible = computed(() => !is_locked_layout.value && can_compose_chat(chat_mode.value))
-const video_visible = computed(() => !is_locked_layout.value && shows_video_call(chat_mode.value))
+const composer_visible = computed(() => !is_request_declined.value && !is_locked_layout.value && can_compose_chat(chat_mode.value))
+const video_visible = computed(() => !is_request_declined.value && !is_locked_layout.value && shows_video_call(chat_mode.value))
 const has_thread = computed(() => (
   messages.value.length > 0 || Boolean(lantern_quote.value) || Boolean(reply_text.value)
 ))
@@ -297,6 +311,34 @@ const thread_messages = computed(() => messages.value.map((message) => ({
 })))
 const day_label = computed(() => chat_day_label(messages.value[0]?.created_at))
 const can_send = computed(() => composer_visible.value && Boolean(draft.value.trim()) && !is_sending.value)
+
+const pending_request_key = computed(() => {
+  const last = latest_message.value
+  if (!is_your_turn.value || has_open_dialogue.value || !last || last.is_mine
+    || Number(last.message_type) !== 1 || Number(last.message_classify) !== 1) return ''
+  return chat_request_key({
+    user_id: peer_user_id.value,
+    updated_at: last.created_at,
+    preview: last.preview || last.content
+  })
+})
+const can_decline_request = computed(() => (
+  !is_loading.value && !load_error.value && !is_request_declined.value && Boolean(pending_request_key.value)
+  && thread_user_id.value === `${storeGlobal().userId || ''}`
+))
+
+const decline_pending_request = () => {
+  if (!is_page_active.value || is_leaving.value || is_sending.value || !can_decline_request.value) return
+  if (!decline_chat_request(storeGlobal().userId, pending_request_key.value)) {
+    send_error.value = 'Unable to save this choice. Please try again.'
+    return
+  }
+  is_request_declined.value = true
+  draft.value = ''
+  is_report_visible.value = false
+  message_revision += 1
+  go_back()
+}
 
 const page_stack_length = () => {
   const pages = typeof getCurrentPages === 'function' ? getCurrentPages() : []
@@ -411,6 +453,7 @@ const load_lantern_context = async (track_request) => {
 // feedback_mode: region_loading — header stays while the thread loads.
 const load_chat = async () => {
   if (!is_page_active.value) return
+  const loading_user_id = `${storeGlobal().userId || ''}`
   const receiveUserId = read_receive_user_id(peer_user_id.value)
   if (receiveUserId === null) {
     load_error.value = 'This conversation is not available.'
@@ -438,7 +481,8 @@ const load_chat = async () => {
         ? selectUserBaseInfo({ userId: receiveUserId }, track_request())
         : Promise.resolve(null)
     ])
-    if (!is_page_active.value || revision !== message_revision) return
+    if (!is_page_active.value || revision !== message_revision
+      || loading_user_id !== `${storeGlobal().userId || ''}`) return
     if (needs_peer_profile) {
       const profile = profile_result?.success && profile_result.data
         ? map_user_base_profile(profile_result.data)
@@ -459,8 +503,11 @@ const load_chat = async () => {
     }
     const mapped = map_chat_messages(result.data, { peer_user_id: peer_user_id.value })
     const decorated = decorate_chat_messages(mapped.messages, storeGlobal().userId)
+    thread_user_id.value = loading_user_id
     messages.value = decorated
     apply_mode(decorated)
+    is_request_declined.value = Boolean(pending_request_key.value)
+      && read_declined_chat_requests(storeGlobal().userId).includes(pending_request_key.value)
     if (chat_mode.value === LOCKED_ONE_REPLY || requested_mode.value === 'one_reply') {
       await load_lantern_context(track_request)
     }
@@ -690,7 +737,7 @@ onBeforeUnmount(() => {
 
 .chat-header {
   display: flex;
-  height: 112rpx;
+  min-height: 112rpx;
   flex: none;
   align-items: center;
   padding: 0 24rpx;
@@ -700,6 +747,8 @@ onBeforeUnmount(() => {
   display: flex;
   width: 80rpx;
   height: 80rpx;
+  min-width: 44px;
+  min-height: 44px;
   flex: none;
   align-items: center;
   justify-content: center;
@@ -716,6 +765,8 @@ onBeforeUnmount(() => {
   width: 80rpx;
   height: 80rpx;
 }
+
+.header-decline { margin-right: 8rpx; }
 
 .peer-entry {
   display: flex;

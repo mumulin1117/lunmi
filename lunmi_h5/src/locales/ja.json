@@ -1322,5 +1322,8 @@
   "You choose whether to allow access in the next iOS prompt.": "次のiOSの確認画面で、位置情報へのアクセスを許可するかどうか選択できます。",
   "View profile": "プロフィールを見る",
   "Tap the avatar to visit their profile.": "アイコンをタップして、プロフィールを見てみましょう。",
-  "Got it": "わかりました"
+  "Got it": "わかりました",
+  "Decline request": "リクエストを拒否",
+  "You declined this request.": "このリクエストを拒否しました。",
+  "Unable to save this choice. Please try again.": "選択を保存できませんでした。もう一度お試しください。"
 }

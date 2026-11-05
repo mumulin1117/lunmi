@@ -46,6 +46,7 @@
               </view>
             </view>
           </scroll-view>
+          <text v-if="decline_error" class="decline-error" role="alert">{{ $t(decline_error) }}</text>
           <view v-if="load_error && !conversations.length" class="messages-error" role="alert">
             <text class="messages-error__title">{{ $t('Unable to load messages') }}</text>
             <text class="messages-error__copy">{{ $t(load_error) }}</text>
@@ -55,7 +56,7 @@
             <text class="messages-empty__title">{{ $t('No messages yet') }}</text>
             <text class="messages-empty__copy">{{ $t('Your conversations will show up here.') }}</text>
           </view>
-          <view v-else class="conversation-list">
+          <TransitionGroup v-else name="conversation" tag="view" class="conversation-list">
             <view
               v-for="conversation in visible_conversations"
               :key="conversation.user_id"
@@ -69,23 +70,28 @@
               >
                 <UserAvatar class="conversation-avatar__image" :source="conversation.user_avatar_url" />
               </view>
-              <view
-                class="conversation-body"
-                role="button"
-                :aria-label="$t(`Open chat with ${conversation.user_name}`)"
-                @click="open_chat(conversation)"
-              >
-                <view class="conversation-headline">
-                  <text class="conversation-name">{{ conversation.user_name_is_placeholder ? $t(conversation.user_name) : conversation.user_name }}</text>
-                  <text class="conversation-time">{{ $t(conversation.updated_label) }}</text>
+              <view class="conversation-body">
+                <view
+                  class="conversation-entry"
+                  role="button"
+                  :aria-label="$t(`Open chat with ${conversation.user_name}`)"
+                  @click="open_chat(conversation)"
+                >
+                  <view class="conversation-headline">
+                    <text class="conversation-name">{{ conversation.user_name_is_placeholder ? $t(conversation.user_name) : conversation.user_name }}</text>
+                    <text class="conversation-time">{{ $t(conversation.updated_label) }}</text>
+                  </view>
+                  <text class="conversation-preview">{{ conversation.preview_is_system ? $t(conversation.preview) : conversation.preview }}</text>
                 </view>
-                <text class="conversation-preview">{{ conversation.preview_is_system ? $t(conversation.preview) : conversation.preview }}</text>
-                <text
-                class="conversation-status"
-                :class="`conversation-status--${conversation.chat_status}`"
-              >
-                {{ $t(status_label(conversation.chat_status)) }}
-              </text>
+                <view class="conversation-footer">
+                  <text class="conversation-status" :class="`conversation-status--${conversation.chat_status}`">
+                    {{ $t(status_label(conversation.chat_status)) }}
+                  </text>
+                  <DeclineRequestButton
+                    v-if="conversation.chat_status === 'your_turn'"
+                    @decline="decline_conversation(conversation)"
+                  />
+                </view>
               </view>
               <view
                 class="conversation-indicator"
@@ -93,7 +99,7 @@
                 :aria-label="$t(conversation.has_unread ? 'Unread messages' : undefined)"
               />
             </view>
-          </view>
+          </TransitionGroup>
         </template>
       </view>
     </scroll-view>
@@ -110,18 +116,22 @@ import MessagesListSkeleton from '@/components/MessagesListSkeleton.vue'
 import PageTransition from '@/components/PageTransition.vue'
 import TopSafeArea from '@/components/TopSafeArea.vue'
 import UserAvatar from '@/components/UserAvatar.vue'
+import DeclineRequestButton from '@/components/DeclineRequestButton.vue'
+import { decline_chat_request, read_declined_chat_requests } from '@/utils/declinedChatStorage'
 import { storeGlobal } from '@/stores/store'
 import { OPEN_CHAT, build_chat_page_url } from '@/utils/chatPresentation'
-import { map_message_conversations, map_notice_messages } from '@/utils/messagePresentation'
+import { chat_request_key, map_message_conversations, map_notice_messages } from '@/utils/messagePresentation'
 import { MAIN_TAB_UNREAD_EVENT } from '@/utils/mainTabNavigation'
 
 const MESSAGES_PAGE_PATH = '/pages/messages/index'
 const page_transition = ref(null)
 const conversations = ref([])
+const conversations_user_id = ref('')
 const notices = ref([])
 const filter_type = ref('all')
 const is_loading = ref(false)
 const load_error = ref('')
+const decline_error = ref('')
 const is_page_active = ref(true)
 let request_contexts = []
 
@@ -199,8 +209,10 @@ const load_page = async () => {
       load_error.value = message_result.error || 'Unable to load messages.'
       return
     }
+    conversations_user_id.value = `${user_id}`
     conversations.value = map_message_conversations(message_result.data, {
-      current_user_id: user_id
+      current_user_id: user_id,
+      declined_request_keys: read_declined_chat_requests(user_id)
     })
     uni.$emit(MAIN_TAB_UNREAD_EVENT, {
       page_path: MESSAGES_PAGE_PATH,
@@ -215,6 +227,22 @@ const load_page = async () => {
   } finally {
     if (is_page_active.value && request_contexts === contexts) is_loading.value = false
   }
+}
+
+const decline_conversation = (conversation) => {
+  if (!is_page_active.value || conversation.chat_status !== 'your_turn'
+    || conversations_user_id.value !== `${storeGlobal().userId}`) return
+  const user_id = storeGlobal().userId
+  const key = chat_request_key(conversation)
+  decline_error.value = ''
+  if (!decline_chat_request(user_id, key)) {
+    decline_error.value = 'Unable to save this choice. Please try again.'
+    return
+  }
+  conversations.value = conversations.value.filter(item => chat_request_key(item) !== key)
+  uni.$emit(MAIN_TAB_UNREAD_EVENT, {
+    page_path: MESSAGES_PAGE_PATH, user_id, unread_count: unread_chat_count.value
+  })
 }
 
 const open_notifications = () => {
@@ -463,6 +491,10 @@ height: 92rpx;
   color: var(--messages-accent-text);
 }
 
+.conversation-list {
+  display: block;
+}
+
 .conversation-card {
   display: flex;
   align-items: center;
@@ -522,9 +554,27 @@ height: 92rpx;
   white-space: nowrap;
 }
 
+.conversation-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12rpx;
+  margin-top: 12rpx;
+}
+
+.decline-error {
+  display: block;
+  margin: 16rpx 0;
+  color: var(--messages-error);
+  font-size: 24rpx;
+}
+
+.conversation-leave-active { transition: opacity 180ms ease, transform 180ms ease; }
+.conversation-leave-to { opacity: 0; transform: translateX(12px); }
+@media (prefers-reduced-motion: reduce) { .conversation-leave-active { transition: none; } }
+
 .conversation-status {
   display: inline-flex;
-  margin-top: 16rpx;
   padding: 8rpx 16rpx;
   border: 1px solid var(--messages-accent);
   border-radius: 16rpx;
