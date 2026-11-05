@@ -35,12 +35,6 @@
         >
           <image src="/static/icon/private_message_video_call.png" mode="aspectFit" />
         </view>
-        <DeclineRequestButton
-          v-if="can_decline_request"
-          class="header-decline"
-          :disabled="is_sending"
-          @decline="decline_pending_request"
-        />
         <view
           class="header-action"
           role="button"
@@ -107,10 +101,18 @@
       <view v-if="composer_visible || show_turn_notice" class="chat-footer">
         <view v-if="show_turn_notice" class="turn-notice">
           <image src="/static/icon/private_message_warn.png" mode="aspectFit" />
-          <text>{{ $t(your_turn_notice) }}</text>
+          <text>{{ $t('Accept to start this conversation. You can decline without replying.') }}</text>
+        </view>
+        <view v-if="needs_request_decision" class="request-decision">
+          <text v-if="send_error" class="send-error" role="alert">{{ $t(send_error) }}</text>
+          <ChatRequestActions
+            :disabled="!can_decide_request || is_sending"
+            @accept="accept_pending_request"
+            @decline="decline_pending_request"
+          />
         </view>
         <view
-          v-if="composer_visible"
+          v-else-if="composer_visible"
           class="composer"
           :class="{ 'composer--after-turn': show_turn_notice }"
         >
@@ -148,13 +150,6 @@
       bottom-offset="0rpx"
       @update:visible="is_report_visible = $event"
     />
-    <PermissionRequestOverlay
-      :visible="is_permission_request_visible"
-      :permission-key="permission_request_key"
-      @update:visible="is_permission_request_visible = $event"
-      @granted="on_permission_granted"
-      @denied="on_permission_denied"
-    />
   </PageTransition>
 </template>
 
@@ -162,19 +157,17 @@
 import { computed, nextTick, onBeforeUnmount, ref } from 'vue'
 import { onBackPress, onLoad, onShow } from '@dcloudio/uni-app'
 import theme from '@/config/theme.json'
-import { CALL_CONNECTION_ENABLED } from '@/config/callMedia'
 import { selectUserBaseInfo } from '@/api/common'
 import { selectLmLanternPage } from '@/api/lantern'
 import { selectTargetUserMessageList, sendMessage, updateMsgRead } from '@/api/message'
 import { selectLmLanternReplyPage, selectLmLanternScoopPage } from '@/api/scoop'
 import BottomSafeArea from '@/components/BottomSafeArea.vue'
 import PageTransition from '@/components/PageTransition.vue'
-import PermissionRequestOverlay from '@/components/PermissionRequestOverlay.vue'
 import ReportUserSheet from '@/components/ReportUserSheet.vue'
 import TopSafeArea from '@/components/TopSafeArea.vue'
 import UserAvatar from '@/components/UserAvatar.vue'
-import DeclineRequestButton from '@/components/DeclineRequestButton.vue'
-import { decline_chat_request, read_declined_chat_requests } from '@/utils/declinedChatStorage'
+import ChatRequestActions from '@/components/ChatRequestActions.vue'
+import { accept_chat_request, decline_chat_request, read_accepted_chat_requests, read_declined_chat_requests } from '@/utils/declinedChatStorage'
 import { storeGlobal } from '@/stores/store'
 import {
   LOCKED_ONE_REPLY,
@@ -182,7 +175,6 @@ import {
   ONE_REPLY_NOTICE,
   OPEN_CHAT,
   YOUR_TURN,
-  YOUR_TURN_NOTICE,
   build_chat_page_url,
   build_chat_send_params,
   build_ringing_url,
@@ -227,11 +219,10 @@ const draft = ref('')
 const is_loading = ref(true)
 const is_sending = ref(false)
 const is_request_declined = ref(false)
+const accepted_request_key = ref('')
 const load_error = ref('')
 const send_error = ref('')
 const is_report_visible = ref(false)
-const is_permission_request_visible = ref(false)
-const permission_request_key = ref('')
 const scroll_top = ref(0)
 const is_page_active = ref(true)
 const is_leaving = ref(false)
@@ -240,7 +231,6 @@ let send_context = { cancel() {} }
 let allow_route_back = false
 let message_revision = 0
 let temporary_message_sequence = 0
-let resume_video_call_after_permission = false
 let should_refresh_chat_on_show = false
 
 const theme_style = {
@@ -269,7 +259,6 @@ const theme_style = {
 }
 
 const one_reply_notice = ONE_REPLY_NOTICE
-const your_turn_notice = YOUR_TURN_NOTICE
 const display_name = computed(() => peer_name.value || 'Chat')
 const latest_message = computed(() => messages.value[messages.value.length - 1])
 const is_locked_layout = computed(() => (
@@ -280,19 +269,12 @@ const is_locked_layout = computed(() => (
     || (Number(latest_message.value?.message_classify) === 1 && latest_message.value?.is_mine)
   )
 ))
-const status_label = computed(() => chat_status_label(is_locked_layout.value ? LOCKED_ONE_REPLY : chat_mode.value))
-const is_your_turn = computed(() => chat_mode.value === YOUR_TURN)
-const has_open_dialogue = computed(() => {
-  if (chat_mode.value === OPEN_CHAT || requested_mode.value === OPEN_CHAT) return true
-  const history = messages.value.filter((message) => !`${message.message_id}`.startsWith('pending-message-'))
-  return history.some((message) => message.is_mine)
-    && history.some((message) => !message.is_mine)
-})
-const show_turn_notice = computed(() => (
-  !is_loading.value && is_your_turn.value && !has_open_dialogue.value && !is_locked_layout.value && !is_request_declined.value
-))
-const composer_visible = computed(() => !is_request_declined.value && !is_locked_layout.value && can_compose_chat(chat_mode.value))
-const video_visible = computed(() => !is_request_declined.value && !is_locked_layout.value && shows_video_call(chat_mode.value))
+const status_label = computed(() => is_request_accepted.value ? 'Accepted' : chat_status_label(is_locked_layout.value ? LOCKED_ONE_REPLY : chat_mode.value))
+const show_turn_notice = computed(() => !is_loading.value && needs_request_decision.value && !is_request_declined.value)
+const composer_visible = computed(() => !is_loading.value && !load_error.value && !is_request_declined.value && !needs_request_decision.value
+  && !is_locked_layout.value && can_compose_chat(chat_mode.value))
+const video_visible = computed(() => !is_loading.value && !is_request_declined.value && !needs_request_decision.value
+  && !is_locked_layout.value && shows_video_call(chat_mode.value))
 const has_thread = computed(() => (
   messages.value.length > 0 || Boolean(lantern_quote.value) || Boolean(reply_text.value)
 ))
@@ -314,7 +296,8 @@ const can_send = computed(() => composer_visible.value && Boolean(draft.value.tr
 
 const pending_request_key = computed(() => {
   const last = latest_message.value
-  if (!is_your_turn.value || has_open_dialogue.value || !last || last.is_mine
+  const has_sent_reply = messages.value.some(message => message.is_mine && !`${message.message_id}`.startsWith('pending-message-'))
+  if (has_sent_reply || !last || last.is_mine
     || Number(last.message_type) !== 1 || Number(last.message_classify) !== 1) return ''
   return chat_request_key({
     user_id: peer_user_id.value,
@@ -322,13 +305,27 @@ const pending_request_key = computed(() => {
     preview: last.preview || last.content
   })
 })
-const can_decline_request = computed(() => (
-  !is_loading.value && !load_error.value && !is_request_declined.value && Boolean(pending_request_key.value)
+const is_request_accepted = computed(() => Boolean(pending_request_key.value)
+  && accepted_request_key.value === pending_request_key.value)
+const needs_request_decision = computed(() => Boolean(pending_request_key.value)
+  && !is_request_accepted.value && !is_request_declined.value)
+const can_decide_request = computed(() => (
+  !is_loading.value && !load_error.value && !is_request_declined.value && needs_request_decision.value
   && thread_user_id.value === `${storeGlobal().userId || ''}`
 ))
 
+const accept_pending_request = () => {
+  if (!is_page_active.value || is_leaving.value || is_sending.value || !can_decide_request.value) return
+  if (!accept_chat_request(storeGlobal().userId, pending_request_key.value)) {
+    send_error.value = 'Unable to save this choice. Please try again.'
+    return
+  }
+  send_error.value = ''
+  accepted_request_key.value = pending_request_key.value
+}
+
 const decline_pending_request = () => {
-  if (!is_page_active.value || is_leaving.value || is_sending.value || !can_decline_request.value) return
+  if (!is_page_active.value || is_leaving.value || is_sending.value || !can_decide_request.value) return
   if (!decline_chat_request(storeGlobal().userId, pending_request_key.value)) {
     send_error.value = 'Unable to save this choice. Please try again.'
     return
@@ -505,9 +502,15 @@ const load_chat = async () => {
     const decorated = decorate_chat_messages(mapped.messages, storeGlobal().userId)
     thread_user_id.value = loading_user_id
     messages.value = decorated
+    if (requested_mode.value === 'pending_request' && !decorated.length) {
+      load_error.value = 'This request is no longer available.'
+      return
+    }
     apply_mode(decorated)
     is_request_declined.value = Boolean(pending_request_key.value)
       && read_declined_chat_requests(storeGlobal().userId).includes(pending_request_key.value)
+    accepted_request_key.value = read_accepted_chat_requests(storeGlobal().userId).includes(pending_request_key.value)
+      ? pending_request_key.value : ''
     if (chat_mode.value === LOCKED_ONE_REPLY || requested_mode.value === 'one_reply') {
       await load_lantern_context(track_request)
     }
@@ -603,38 +606,9 @@ const send_text = async () => {
   }
 }
 
-const request_call_permission = (permission_key) => {
-  permission_request_key.value = permission_key
-  resume_video_call_after_permission = true
-  is_permission_request_visible.value = true
-}
-
-const on_permission_granted = () => {
-  is_permission_request_visible.value = false
-  if (resume_video_call_after_permission) {
-    resume_video_call_after_permission = false
-    open_video_call()
-  }
-}
-
-const on_permission_denied = () => {
-  is_permission_request_visible.value = false
-  resume_video_call_after_permission = false
-}
-
 const open_video_call = () => {
   if (!peer_user_id.value || !video_visible.value) return
-  const account_store = storeGlobal()
-  if (CALL_CONNECTION_ENABLED && !account_store.getAuthRecord('camera')) {
-    request_call_permission('camera')
-    return
-  }
-  if (CALL_CONNECTION_ENABLED && !account_store.getAuthRecord('microphone')) {
-    request_call_permission('microphone')
-    return
-  }
-  resume_video_call_after_permission = false
-  const account = account_store
+  const account = storeGlobal()
   const started = page_transition.value?.navigate_forward({
     url: build_ringing_url({
       callee_id: peer_user_id.value,
@@ -677,9 +651,6 @@ onBackPress(() => {
   if (is_sending.value) return true
   if (is_report_visible.value) {
     is_report_visible.value = false
-    return true
-  }
-  if (is_permission_request_visible.value) {
     return true
   }
   go_back()
@@ -766,7 +737,7 @@ onBeforeUnmount(() => {
   height: 80rpx;
 }
 
-.header-decline { margin-right: 8rpx; }
+.request-decision { padding: 0 28rpx 12rpx; }
 
 .peer-entry {
   display: flex;

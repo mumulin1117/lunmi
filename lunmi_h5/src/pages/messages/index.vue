@@ -87,8 +87,10 @@
                   <text class="conversation-status" :class="`conversation-status--${conversation.chat_status}`">
                     {{ $t(status_label(conversation.chat_status)) }}
                   </text>
-                  <DeclineRequestButton
+                  <ChatRequestActions
                     v-if="conversation.chat_status === 'your_turn'"
+                    compact
+                    @accept="accept_conversation(conversation)"
                     @decline="decline_conversation(conversation)"
                   />
                 </view>
@@ -116,8 +118,8 @@ import MessagesListSkeleton from '@/components/MessagesListSkeleton.vue'
 import PageTransition from '@/components/PageTransition.vue'
 import TopSafeArea from '@/components/TopSafeArea.vue'
 import UserAvatar from '@/components/UserAvatar.vue'
-import DeclineRequestButton from '@/components/DeclineRequestButton.vue'
-import { decline_chat_request, read_declined_chat_requests } from '@/utils/declinedChatStorage'
+import ChatRequestActions from '@/components/ChatRequestActions.vue'
+import { accept_chat_request, decline_chat_request, read_accepted_chat_requests, read_declined_chat_requests } from '@/utils/declinedChatStorage'
 import { storeGlobal } from '@/stores/store'
 import { OPEN_CHAT, build_chat_page_url } from '@/utils/chatPresentation'
 import { chat_request_key, map_message_conversations, map_notice_messages } from '@/utils/messagePresentation'
@@ -212,7 +214,8 @@ const load_page = async () => {
     conversations_user_id.value = `${user_id}`
     conversations.value = map_message_conversations(message_result.data, {
       current_user_id: user_id,
-      declined_request_keys: read_declined_chat_requests(user_id)
+      declined_request_keys: read_declined_chat_requests(user_id),
+      accepted_request_keys: read_accepted_chat_requests(user_id)
     })
     uni.$emit(MAIN_TAB_UNREAD_EVENT, {
       page_path: MESSAGES_PAGE_PATH,
@@ -229,9 +232,27 @@ const load_page = async () => {
   }
 }
 
+const can_decide_conversation = (conversation) => (
+  is_page_active.value && !is_loading.value
+  && conversations_user_id.value === `${storeGlobal().userId}`
+  && conversations.value.some(item => item.user_id === conversation.user_id && item.chat_status === 'your_turn'
+    && chat_request_key(item) === chat_request_key(conversation))
+)
+
+const accept_conversation = (conversation) => {
+  if (!can_decide_conversation(conversation)) return
+  decline_error.value = ''
+  if (!accept_chat_request(storeGlobal().userId, chat_request_key(conversation))) {
+    decline_error.value = 'Unable to save this choice. Please try again.'
+    return
+  }
+  conversations.value = conversations.value.map(item => item === conversation
+    ? { ...item, chat_status: 'open', request_accepted: true } : item)
+  open_chat(conversation)
+}
+
 const decline_conversation = (conversation) => {
-  if (!is_page_active.value || conversation.chat_status !== 'your_turn'
-    || conversations_user_id.value !== `${storeGlobal().userId}`) return
+  if (!can_decide_conversation(conversation)) return
   const user_id = storeGlobal().userId
   const key = chat_request_key(conversation)
   decline_error.value = ''
@@ -267,7 +288,8 @@ const open_chat = (conversation) => {
       user_id: conversation.user_id,
       user_name: conversation.user_name,
       user_avatar_url: conversation.user_avatar_url,
-      chat_mode: conversation.open_chat_flag === 1 ? OPEN_CHAT : '',
+      chat_mode: conversation.chat_status === 'your_turn' || conversation.request_accepted
+        ? 'pending_request' : conversation.open_chat_flag === 1 ? OPEN_CHAT : '',
       source_page: MESSAGES_PAGE_PATH
     })
   })

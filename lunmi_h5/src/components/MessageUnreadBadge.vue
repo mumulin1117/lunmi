@@ -11,7 +11,7 @@ import theme from '@/config/theme.json'
 import { selectMessageList } from '@/api/message'
 import { storeGlobal } from '@/stores/store'
 import { map_message_conversations } from '@/utils/messagePresentation'
-import { read_declined_chat_requests } from '@/utils/declinedChatStorage'
+import { read_accepted_chat_requests, read_declined_chat_requests } from '@/utils/declinedChatStorage'
 
 // Pages with an existing message query supply its count to avoid a second request.
 const props = defineProps({
@@ -54,7 +54,8 @@ const load_unread_count = async () => {
     if (!is_current_request() || !result?.success) return
     fetched_count.value = map_message_conversations(result.data, {
       current_user_id: user_id,
-      declined_request_keys: read_declined_chat_requests(user_id)
+      declined_request_keys: read_declined_chat_requests(user_id),
+      accepted_request_keys: read_accepted_chat_requests(user_id)
     }).filter((item) => item.has_unread).length
   } catch {
     if (is_current_request()) fetched_count.value = null

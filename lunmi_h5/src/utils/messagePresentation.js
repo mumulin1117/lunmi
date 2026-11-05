@@ -211,7 +211,7 @@ export const chat_request_key = ({ user_id = '', updated_at = '', preview = '' }
   return `${normalize_id(user_id)}:${(first >>> 0).toString(16)}:${(second >>> 0).toString(16)}:${source.length}`
 }
 
-export const map_message_conversations = (data, { current_user_id = '', now = Date.now(), declined_request_keys = [] } = {}) => {
+export const map_message_conversations = (data, { current_user_id = '', now = Date.now(), declined_request_keys = [], accepted_request_keys = [] } = {}) => {
   const conversations = new Map()
   const entries = read_message_list_entries(data)
   entries.filter(is_conversation_summary).forEach((item) => {
@@ -267,8 +267,13 @@ export const map_message_conversations = (data, { current_user_id = '', now = Da
     }
   })
   const declined = new Set(declined_request_keys)
+  const accepted = new Set(accepted_request_keys)
   return sort_conversations(conversations.values()).filter(conversation => (
     conversation.chat_status !== 'your_turn' || !declined.has(chat_request_key(conversation))
+  )).map(conversation => (
+    conversation.chat_status === 'your_turn' && accepted.has(chat_request_key(conversation))
+      ? { ...conversation, chat_status: 'open', request_accepted: true }
+      : conversation
   ))
 }
 

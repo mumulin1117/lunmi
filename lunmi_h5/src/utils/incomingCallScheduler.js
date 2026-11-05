@@ -4,7 +4,7 @@ import { MAIN_TABS, normalize_page_route } from '@/config/mainTabs'
 import { selectMessageList } from '@/api/message'
 import { storeGlobal } from '@/stores/store'
 import { map_message_conversations } from '@/utils/messagePresentation'
-import { read_declined_chat_requests } from '@/utils/declinedChatStorage'
+import { read_accepted_chat_requests, read_declined_chat_requests } from '@/utils/declinedChatStorage'
 import { push_route } from '@/utils/routeTransition'
 
 const MINIMUM_DELAY_MS = 3000
@@ -45,7 +45,8 @@ export const schedule_configured_incoming_call = () => {
     if (!result?.success) return
     const conversations = map_message_conversations(result.data, {
       current_user_id: account_store.userId,
-      declined_request_keys: read_declined_chat_requests(account_store.userId)
+      declined_request_keys: read_declined_chat_requests(account_store.userId),
+      accepted_request_keys: read_accepted_chat_requests(account_store.userId)
     })
     const caller = choose_caller(conversations)
     if (!caller) return

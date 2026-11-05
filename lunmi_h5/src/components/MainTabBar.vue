@@ -32,7 +32,7 @@ import { selectMessageList } from '@/api/message'
 import MessageUnreadBadge from '@/components/MessageUnreadBadge.vue'
 import { storeGlobal } from '@/stores/store'
 import { map_message_conversations } from '@/utils/messagePresentation'
-import { read_declined_chat_requests } from '@/utils/declinedChatStorage'
+import { read_accepted_chat_requests, read_declined_chat_requests } from '@/utils/declinedChatStorage'
 import { MAIN_TAB_ITEMS, MAIN_TAB_UNREAD_EVENT } from '@/utils/mainTabNavigation'
 import { replace_route } from '@/utils/routeTransition'
 
@@ -75,7 +75,8 @@ const load_unread_count = async () => {
     if (!is_current() || !result.success) return
     unread_chat_count.value = map_message_conversations(result.data, {
       current_user_id: user_id,
-      declined_request_keys: read_declined_chat_requests(user_id)
+      declined_request_keys: read_declined_chat_requests(user_id),
+      accepted_request_keys: read_accepted_chat_requests(user_id)
     }).filter((item) => item.has_unread).length
   } catch {
     // Keep the displayed count on failure; no local data fallback.

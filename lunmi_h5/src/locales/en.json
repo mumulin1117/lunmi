@@ -1325,5 +1325,20 @@
   "Got it": "Got it",
   "Decline request": "Decline request",
   "You declined this request.": "You declined this request.",
-  "Unable to save this choice. Please try again.": "Unable to save this choice. Please try again."
+  "Unable to save this choice. Please try again.": "Unable to save this choice. Please try again.",
+  "Accept request": "Accept request",
+  "Accepted": "Accepted",
+  "Accept to start this conversation. You can decline without replying.": "Accept to start this conversation. You can decline without replying.",
+  "This request is no longer available.": "This request is no longer available.",
+  "Report or block": "Report or block",
+  "Waiting for them to answer": "Waiting for them to answer",
+  "Preparing video call": "Preparing video call",
+  "Available after the call connects.": "Available after the call connects.",
+  "Microphone control": "Microphone control",
+  "Camera control": "Camera control",
+  "You can end the call at any time.": "You can end the call at any time.",
+  "Use your camera for this video call.": "Use your camera for this video call.",
+  "Use your microphone for this video call.": "Use your microphone for this video call.",
+  "Camera or microphone access is unavailable on this device.": "Camera or microphone access is unavailable on this device.",
+  "Camera and microphone access is needed for a video call. You can change permissions in Settings.": "Camera and microphone access is needed for a video call. You can change permissions in Settings."
 }
